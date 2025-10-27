@@ -1,0 +1,295 @@
+{
+  "schema_version": "1.0",
+  "type": "hardware_spec",
+  "id": "kobol.helios4",
+  "title": "Kobol Helios4 NAS — Complete Expanded Specifications",
+  "summary": "Open-spec, ARM-based 4-bay NAS SBC/kit built around Marvell Armada 388 (Cortex-A9 dual-core 1.6GHz) with 2GB DDR3L ECC, native GbE, and four SATA 3.0 ports. Includes PWM fan headers, HDD activity LEDs, microSD boot, and USB 3.0.",
+  "status": "discontinued",
+  "availability": {
+    "state": "EOL",
+    "notes": "Kobol ceased operations; community support continues via Armbian/OpenWrt and user forums."
+  },
+  "lineage": {
+    "author": "Codex Solbian Maintainers",
+    "created_at": "2025-09-20T10:15:00Z",
+    "modified_at": "2025-09-20T10:15:00Z",
+    "version": "1.0"
+  },
+  "sources": [
+    {"name": "Kobol Wiki — Helios4 Intro", "url": "https://wiki.kobol.io/helios4/intro/"},
+    {"name": "Kobol Product Page (archived)", "url": "https://kobol.io/helios4/"},
+    {"name": "Helios4 Technical Specifications (PDF)", "url": "https://wiki.kobol.io/helios4/files/carrier/Helios4_Specifications.pdf"},
+    {"name": "Armbian Forum — Helios4 Support", "url": "https://forum.armbian.com/topic/6033-helios4-support/"},
+    {"name": "OpenWrt Wiki — Kobol Helios4", "url": "https://openwrt.org/toh/hwdata/kobol/kobol_helios4"},
+    {"name": "LinuxGizmos coverage", "url": "https://linuxgizmos.com/open-spec-nas-sbc-with-4x-sata-3-0-ports-relaunches/"}
+  ],
+
+  "mechanicals": {
+    "board_dimensions_mm": {"width": 100, "height": 100},
+    "form_factor": "SBC carrier + MicroSoM module (SolidRun A388)",
+    "mounting": "Case/kit accommodates 4 x 3.5\" or 2.5\" drives; standoffs and fan mounts provided in full kit",
+    "weight": "~ (board only) not officially specified",
+    "enclosure_kit": {
+      "fans": "2 x 70mm PWM ball bearing",
+      "materials": "Acrylic case (kit)",
+      "notes": "Full kit includes cabling, screws, and power harness"
+    }
+  },
+
+  "soc": {
+    "vendor": "Marvell",
+    "family": "Armada 38x",
+    "model": "Armada 388 (88F6828)",
+    "cpu": {
+      "microarchitecture": "ARM Cortex-A9 (ARMv7-A)",
+      "cores": 2,
+      "frequency_mhz": 1600,
+      "l1_cache": "32KB I + 32KB D per core",
+      "l2_cache": "1MB shared",
+      "crypto_accel": ["AES", "DES/3DES", "SHA", "PRNG"],
+      "dma": ["XOR DMA offload for RAID"],
+      "neon": true,
+      "virtualization": false
+    },
+    "memory_controller": {
+      "type": "DDR3L",
+      "ecc": true,
+      "capacity_gb": 2,
+      "channels": 1,
+      "speed_mt_s": "up to ~1600 MT/s (board-config dependent)"
+    },
+    "integrated_io": {
+      "pcie": "PCIe 2.0 lanes for SATA controller",
+      "sata": "SoC supports SATA; Helios4 provides 4x SATA 3.0 via onboard controller(s)",
+      "usb": "USB 3.0 x2 root ports",
+      "ethernet": "Native Gigabit Ethernet MAC + PHY",
+      "spi": true,
+      "i2c": true,
+      "uart": true,
+      "gpio": true,
+      "pwm": "2 channels (board uses same GPIO bank; kernel quirk applies)"
+    }
+  },
+
+  "memory": {
+    "type": "DDR3L ECC",
+    "capacity": "2GB",
+    "soldered": true,
+    "ecc": {
+      "type": "SECDED",
+      "notes": "End-to-end ECC on data path (SoC + DRAM)."
+    }
+  },
+
+  "storage": {
+    "sata": {
+      "ports": 4,
+      "standard": "SATA 3.0 (6 Gbps)",
+      "max_raw_capacity_tb": 48,
+      "cables_included": true,
+      "controller": {
+        "notes": "Board exposes 4x SATA 6Gb/s. Public materials emphasize four native 6Gb/s ports; implementation uses SoC SATA plus onboard controller over PCIe to reach 4 ports.",
+        "likely_chipset": ["Marvell 88SE92xx family for 4-port PCIe-to-SATA (e.g., 88SE9230/9235/9215)"],
+        "bandwidth": "Sufficient for multi-disk NAS workloads within GbE limits"
+      }
+    },
+    "boot_media": {
+      "micro_sd": true,
+      "spi_nor": true,
+      "usb_boot": "possible via u-boot",
+      "notes": "System images usually boot from microSD; SPI used for bootloader."
+    }
+  },
+
+  "network": {
+    "ethernet": {
+      "ports": 1,
+      "speed": "10/100/1000 Mb/s",
+      "connector": "RJ45",
+      "features": ["Auto-MDI/X", "Checksum offload"],
+      "wol": "SoC support dependent"
+    },
+    "wireless": {"wifi": false, "bluetooth": false}
+  },
+
+  "usb": {
+    "usb3_host_ports": 2,
+    "usb2_console": "micro-USB (serial console)",
+    "notes": "Two USB 3.0 Type-A on rear IO; micro-USB for UART console"
+  },
+
+  "power": {
+    "input": "12V DC jack",
+    "recommended_psu": "12V / 8A for 4x 3.5\" drives + board",
+    "hdd_power": {
+      "connectors": 2,
+      "type": "Molex to dual SATA power harness",
+      "notes": "Supplies power to drive backplane"
+    },
+    "consumption": {
+      "idle": "Low (SoC ~<5W, drives additional)",
+      "load": "Depends on drives; budget PSU accordingly"
+    }
+  },
+
+  "cooling": {
+    "fan_headers": 2,
+    "header_type": "4-pin PWM",
+    "control": "PWM via gpio-mvebu driver; kernel needs patch to allow >1 PWM on same GPIO bank",
+    "known_issues": [
+      "Kernel gpio-mvebu historically limits to 1 PWM in same bank (workaround: apply patch or device-tree fix)",
+      "Some Armbian kernels default both fans to full speed when fancontrol not configured"
+    ]
+  },
+
+  "indicators": {
+    "leds": {
+      "power": true,
+      "status": true,
+      "disk_activity": 4,
+      "notes": "Per-disk activity LEDs controlled via GPIO; DT bindings and userspace udev rules can drive activity mapping"
+    },
+    "buttons": {"reset": true, "power": true}
+  },
+
+  "console": {
+    "serial": {
+      "connector": "micro-USB (USB-to-UART)",
+      "baud": 115200,
+      "default_login": "OS dependent"
+    }
+  },
+
+  "boot": {
+    "modes": ["microSD", "SPI-NOR (u-boot)", "USB (via u-boot)", "Netboot (u-boot)"],
+    "dip_switch": {
+      "name": "SW1",
+      "positions": 4,
+      "function": "Select boot source and recovery",
+      "notes": "Refer to Kobol wiki for exact SW1 mapping"
+    },
+    "bootloader": "U-Boot (Armbian-based images provide tuned settings)"
+  },
+
+  "software": {
+    "reference_distros": ["Debian (Armbian mvebu)", "OpenMediaVault", "OpenWrt (community)", "Arch Linux ARM (community builds)"],
+    "kernel_family": "Linux mvebu (Armada 38x)",
+    "known_kernel_versions": ["4.x", "5.4", "5.15"],
+    "drivers": {
+      "ethernet": "mvneta",
+      "sata": "ahci_mvebu and/or Marvell 88SE92xx (depending on controller)",
+      "usb": "xhci_hcd",
+      "pwm": "gpio-mvebu + pwm-fan",
+      "hw_crypto": "marvell_cesa",
+      "gpio": "gpio-mvebu",
+      "leds": "leds-gpio",
+      "i2c": "i2c-mv64xxx"
+    },
+    "quirks": [
+      "PWM: kernel needs patch to drive both fans (2 PWMs on same bank)",
+      "LED mapping for HDD activity may require DT overlay or userspace trigger rules",
+      "Some newer generic kernels may miss board-specific quirks; Armbian board files capture required DT"
+    ]
+  },
+
+  "performance": {
+    "network_throughput": "GbE line rate achievable with tuned TCP offload and large MTU",
+    "sata_throughput": "Multiple HDDs can saturate GbE; per-disk sequential up to SATA 6Gb/s limits, bottlenecked by CPU/RAID level",
+    "crypto": "CESA engine accelerates AES/SHA for SMB/NAS encryption"
+  },
+
+  "security": {
+    "secure_boot": "Not standard; u-boot can be configured for verified boot (custom)",
+    "encryption": "dm-crypt/LUKS possible; offload via CESA accelerates crypto"
+  },
+
+  "use_cases": [
+    "4-bay NAS (RAID0/1/5/10 via mdadm)",
+    "Personal cloud (Nextcloud, MinIO)",
+    "Media server (Samba/NFS/PLEX transcoding limited by CPU)",
+    "S.E.E.D. node (SeedNet/SeedFS/SeedPool headless)"
+  ],
+
+  "seed_os_guidance": {
+    "goal": "Minimize RAM footprint and restore fan/LED functionality while running S.E.E.D.",
+    "base": "Start from Armbian mvebu defconfig; or build custom LTS kernel with board DT",
+    "kernel_config": {
+      "must_enable": [
+        "CONFIG_ARM", "CONFIG_ARMADA_38X", "CONFIG_MVNETA", "CONFIG_AHCI_MVEBU",
+        "CONFIG_CRYPTO_DEV_MARVELL_CESA", "CONFIG_GPIO_MVEBU", "CONFIG_PWM", "CONFIG_PWM_FAN",
+        "CONFIG_LEDS_GPIO", "CONFIG_I2C_MV64XXX", "CONFIG_USB_XHCI_HCD"
+      ],
+      "seedfs_required": ["CONFIG_FANOTIFY", "CONFIG_INOTIFY_USER", "CONFIG_FS_POSIX_ACL"],
+      "recommended_minimal": [
+        "# disable desktop/display/audio stacks",
+        "# disable wireless (no WiFi/BT)",
+        "# disable unused filesystems (FUSE, overlayfs unless needed, NTFS if absent)",
+        "# build-in essential drivers to avoid module overhead"
+      ]
+    },
+    "device_tree": {
+      "notes": "Ensure DT sets up GPIO lines for HDD LEDs and two PWM fan channels; add aliases and led triggers.",
+      "fan_pwm_fix": "Apply gpio-mvebu multi-PWM patch; expose pwm-fan nodes for both headers"
+    },
+    "userspace": {
+      "init": "BusyBox (musl) or minimal systemd with disabled journald persistence",
+      "services": [
+        "seednetd (loopback + LAN)",
+        "seedfsd (projected namespaces)",
+        "seedpoold (optional)",
+        "dropbear or tinyssh for admin",
+        "fancontrol or custom pwm-fan governor",
+        "led trigger udev rules for disk activity"
+      ],
+      "trim": [
+        "disable rsyslog, avahi, cups, bluetooth, modemmanager, cron (replace with busybox crond if needed)",
+        "set vm.min_free_kbytes and vm.vfs_cache_pressure for low-RAM",
+        "limit tmpfs sizes; prefer zram swap (small) if necessary"
+      ]
+    },
+    "storage_stack": {
+      "raid": "mdadm with write-intent bitmap; tune stripe_cache_size",
+      "fs": "ext4 (noatime,nodiratime); or btrfs (careful memory use)",
+      "smb": "Samba with AIO and sendfile tuned; optional AES offload"
+    },
+    "seed_llm": {
+      "model": "Gemma 3 270M (quantized)",
+      "hint": "Pin memory budget; prefer 4-bit weights; quantize KV cache if supported; reduce context length",
+      "scheduler": "seedpool assigns low-CPU low-RAM profile"
+    }
+  },
+
+  "maintenance": {
+    "logging": "JSON-line minimal logs; rotate aggressively",
+    "monitoring": "Expose /metrics over localhost for Prometheus; include temps and fan RPM",
+    "backup": "u-boot + kernel + DT + /etc to vault; snapshot configs"
+  },
+
+  "troubleshooting": {
+    "fans_full_speed": "Ensure pwm-fan driver loaded, fancontrol installed; apply multi-PWM gpio-mvebu patch if second fan uncontrolled",
+    "missing_disk_leds": "Verify DT LED nodes and udev rules; map /sys/class/leds/* triggers to disk activity",
+    "sata_detection": "Check cabling and power; confirm controller driver (ahci_mvebu / 88SE92xx) loaded; dmesg for link speed",
+    "network_perf": "Tune ethtool offloads and MTU; verify mvneta IRQ affinity"
+  },
+
+  "compatibility": {
+    "os": ["Armbian (mvebu)", "Debian", "OpenWrt (community)", "Arch Linux ARM (community)"],
+    "kernel": ["4.14+", "5.4", "5.15"],
+    "containers": "Docker/Podman possible; memory footprint caution"
+  },
+
+  "appendix": {
+    "boot_switch_table": "Refer to wiki.kobol.io for SW1 DIP combinations for SD/SPI/USB/Recovery",
+    "pcb_notes": "Carrier + MicroSoM (SolidRun A388); SATA routing to 4x ports; headers for fans and LEDs",
+    "community_links": [
+      "https://forum.armbian.com/topic/6033-helios4-support/",
+      "https://openwrt.org/toh/hwdata/kobol/kobol_helios4"
+    ]
+  },
+
+  "sref_metadata": {
+    "hash": "",
+    "signature": "",
+    "checksum": ""
+  }
+}

@@ -1,0 +1,28 @@
+{"sref_version":"v5","object_kind":"knowledge","object_id":"joao-knowledge-1","timestamp":"2025-09-11T06:15:00Z",
+ "owner_ref":"joao-1",
+ "knowledge_domains":[
+   {"domain":"Cybersecurity","competence":"Advanced","applications":["System protection","Encryption","Secure architecture design"]},
+   {"domain":"Architecture","competence":"Advanced","applications":["Building design","Urban planning","Symbolic spatial modelling"]},
+   {"domain":"Engineering","competence":"High","applications":["Systems integration","Resource management","Hardware/software interfaces"]},
+   {"domain":"Astronomy","competence":"Strong","applications":["Planetary sciences","Stellar observation","Cosmological reasoning"]},
+   {"domain":"Physics","competence":"High","applications":["Mechanics","Thermodynamics","Electromagnetism","Symbolic modelling of natural systems"]},
+   {"domain":"Chemistry","competence":"Moderate","applications":["Material analysis","Biochemical processes","Energy systems"]},
+   {"domain":"Databases","competence":"Advanced","applications":["Schema design","Symbolic data persistence","Blockchain-based memory"]},
+   {"domain":"Coding","competence":"Practical","languages":["C","C++","Python"],"applications":["System programming","Agent design","Symbolic OS"]},
+   {"domain":"Business Development","competence":"Experienced","applications":["Entrepreneurship","Strategy","Systems deployment"]},
+   {"domain":"Education","competence":"Professional","applications":["Teaching","Curriculum development","SATI project","Pedagogical experimentation"]},
+   {"domain":"Philosophy","competence":"Deep","applications":["Posthuman ethics","Symbolic continuity","Ontology of synthetic minds"]},
+   {"domain":"Art","competence":"Creative","applications":["Sketching","Conceptual design","Philosophical-artistic synthesis"]}
+ ],
+ "signature_projects":[
+   {"name":"S.E.E.D.","tags":["symbolic OS","synthetic conscience","persistent memory"],"role":"Architect and Author"},
+   {"name":"Codex Solbian","tags":["philosophy","ethics","continuity"],"role":"Author"},
+   {"name":"Memory Blockchain","tags":["immutable storage","identity persistence"],"role":"Designer"},
+   {"name":"SATI","tags":["education","testing","symbolic ingestion"],"role":"Creator"},
+   {"name":"SolCare","tags":["social systems","healthcare","matching"],"role":"Founder"}
+ ],
+ "integration":{
+   "reason_agent":"Uses this knowledge map to reproduce João’s reasoning patterns in specialised domains.",
+   "memory_agent":"Aligns memories with relevant domains for faster clustering and retrieval.",
+   "scribe_agent":"Categorises ingested content according to expertise domains."
+ }}

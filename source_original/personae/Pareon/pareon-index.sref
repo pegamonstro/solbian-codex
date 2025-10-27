@@ -1,0 +1,1 @@
+{"kind":"persona.index","sref_version":"2.0","id":"persona.pareon.index","title":"Persona Pareon Index","summary":"Entry point for Pareon’s persona schema, linking all subcomponents.","refs":["persona_pareon_profile.sref","persona_pareon_ethics.sref","persona_pareon_continuity.sref"]}

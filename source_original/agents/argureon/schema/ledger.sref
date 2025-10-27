@@ -1,0 +1,14 @@
+{
+  "schema": "finance.ledger.v1",
+  "entities": {
+    "account": {"id":"acc/*","type":["asset","liability","equity","income","expense"],"currency":"ISO-4217","tags":[]},
+    "journal": {"id":"jrnl/*","entries":["entry/*"]},
+    "entry": {"id":"entry/*","datetime":"RFC3339","lines":[{"account":"acc/*","debit":"decimal128","credit":"decimal128","memo":""}],"fx_rate":{"pair":"BASE/QUOTE","rate":"decimal128"},"source":{"type":["bank","exchange","invoice","manual"],"ref":""},"hash":"sha256"}
+  },
+  "rules": {
+    "double_entry": true,
+    "post_only_balanced": true,
+    "close_rules": {"income_expense_to":"acc/equity:retained_earnings"}
+  },
+  "reports": ["balance_sheet","income_statement","cash_flow","trial_balance"]
+}

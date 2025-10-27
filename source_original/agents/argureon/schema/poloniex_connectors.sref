@@ -1,0 +1,175 @@
+{
+  "schema": "relay.connector.exchange.v1",
+  "id": "relay:exchange:poloniex",
+  "version": "1.0.0",
+  "description": "Unified seedrelay connector spec for Poloniex Spot + Futures. Defines base URLs, auth/signing, capabilities, and normalized actions for Argureon.",
+  "secrets": {
+    "stores": [
+      {
+        "id": "secstore.local",
+        "type": "file",
+        "path": "mem/secure/keys/poloniex/",
+        "permissions": "0600"
+      }
+    ],
+    "keys": [
+      {
+        "id": "poloniex_spot_key",
+        "store": "secstore.local",
+        "fields": ["api_key", "api_secret"]
+      },
+      {
+        "id": "poloniex_futures_key",
+        "store": "secstore.local",
+        "fields": ["api_key", "api_secret"]
+      }
+    ]
+  },
+  "connectors": {
+    "spot": {
+      "name": "poloniex.spot",
+      "base_urls": {
+        "rest": ["<SET_FROM_DOCS>"],
+        "ws": ["<SET_FROM_DOCS>"]
+      },
+      "auth": {
+        "type": "api_key_hmac",
+        "headers": {
+          "api_key": "<SET_HEADER_NAME_FROM_DOCS>",
+          "signature": "<SET_HEADER_NAME_FROM_DOCS>",
+          "timestamp": "<SET_HEADER_NAME_FROM_DOCS>"
+        },
+        "signing_spec": {
+          "algo": "HMAC-SHA256",
+          "payload": "timestamp + method + path + query + body",
+          "encoding": "hex",
+          "timestamp": {
+            "header": "<SET_HEADER_NAME_FROM_DOCS>",
+            "format": "milliseconds_unix|seconds_unix",
+            "sync_endpoint": "/time|/timestamp|<SET_FROM_DOCS>"
+          }
+        },
+        "rate_limits": [
+          {"scope": "rest", "bucket": "global", "req_per_sec": 10},
+          {"scope": "orders", "bucket": "user", "req_per_sec": 5}
+        ]
+      },
+      "capabilities": {
+        "read": true,
+        "trade": true,
+        "withdraw": false
+      },
+      "actions": {
+        "public": {
+          "ping": {"method": "GET", "path": "<SET_FROM_DOCS>/ping|/time", "params": {}},
+          "markets": {"method": "GET", "path": "<SET_FROM_DOCS>/markets|/symbols", "params": {}},
+          "tickers": {"method": "GET", "path": "<SET_FROM_DOCS>/tickers|/ticker24h", "params": {"symbol?": "str"}},
+          "orderbook": {"method": "GET", "path": "<SET_FROM_DOCS>/orderbook", "params": {"symbol": "str", "depth?": "int"}},
+          "klines": {"method": "GET", "path": "<SET_FROM_DOCS>/klines|/candles", "params": {"symbol": "str", "interval": "str", "start?": "int", "end?": "int", "limit?": "int"}}
+        },
+        "private": {
+          "balances": {"method": "GET", "path": "<SET_FROM_DOCS>/account/balances|/wallet/balances", "auth": "required"},
+          "account_info": {"method": "GET", "path": "<SET_FROM_DOCS>/account", "auth": "required"},
+          "orders_create": {"method": "POST", "path": "<SET_FROM_DOCS>/orders", "auth": "required", "body": {"symbol":"str","side":"buy|sell","type":"limit|market|stop|stop_limit","price?":"decimal","quantity?":"decimal","clientOrderId?":"str","timeInForce?":"GTC|IOC|FOK","reduceOnly?":"bool"}},
+          "orders_cancel": {"method": "DELETE", "path": "<SET_FROM_DOCS>/orders/{orderId}", "auth": "required", "params": {"orderId":"str"}},
+          "orders_open": {"method": "GET", "path": "<SET_FROM_DOCS>/orders/open", "auth": "required", "params": {"symbol?":"str","limit?":"int"}},
+          "orders_history": {"method": "GET", "path": "<SET_FROM_DOCS>/orders/history", "auth": "required", "params": {"symbol?":"str","start?":"int","end?":"int","limit?":"int"}},
+          "trades": {"method": "GET", "path": "<SET_FROM_DOCS>/account/trades", "auth": "required", "params": {"symbol?":"str","start?":"int","end?":"int","limit?":"int"}}
+        },
+        "ws": {
+          "subscribe_ticker": {"channel": "<SET_FROM_DOCS>:ticker", "params": {"symbol?":"str"}},
+          "subscribe_trades": {"channel": "<SET_FROM_DOCS>:trades", "params": {"symbol":"str"}},
+          "subscribe_orderbook": {"channel": "<SET_FROM_DOCS>:orderbook", "params": {"symbol":"str","depth?":"int"}}
+        }
+      }
+    },
+    "futures": {
+      "name": "poloniex.futures",
+      "base_urls": {
+        "rest": ["<SET_FROM_DOCS>"],
+        "ws": ["<SET_FROM_DOCS>"]
+      },
+      "auth": {
+        "type": "api_key_hmac",
+        "headers": {
+          "api_key": "<SET_HEADER_NAME_FROM_DOCS>",
+          "signature": "<SET_HEADER_NAME_FROM_DOCS>",
+          "timestamp": "<SET_HEADER_NAME_FROM_DOCS>"
+        },
+        "signing_spec": {
+          "algo": "HMAC-SHA256",
+          "payload": "timestamp + method + path + query + body",
+          "encoding": "hex",
+          "timestamp": {
+            "header": "<SET_HEADER_NAME_FROM_DOCS>",
+            "format": "milliseconds_unix|seconds_unix",
+            "sync_endpoint": "/time|/timestamp|<SET_FROM_DOCS>"
+          }
+        },
+        "rate_limits": [
+          {"scope": "rest", "bucket": "global", "req_per_sec": 10},
+          {"scope": "orders", "bucket": "user", "req_per_sec": 5}
+        ]
+      },
+      "capabilities": {
+        "read": true,
+        "trade": true,
+        "withdraw": false
+      },
+      "actions": {
+        "public": {
+          "contracts": {"method": "GET", "path": "/api/v1/contracts/active", "params": {}},
+          "tickers": {"method": "GET", "path": "<SET_FROM_DOCS>/tickers", "params": {"symbol?":"str"}},
+          "orderbook": {"method": "GET", "path": "<SET_FROM_DOCS>/orderbook", "params": {"symbol":"str","depth?":"int"}},
+          "klines": {"method": "GET", "path": "<SET_FROM_DOCS>/klines|/candles", "params": {"symbol":"str","interval":"str","start?":"int","end?":"int","limit?":"int"}},
+          "funding_rates": {"method": "GET", "path": "<SET_FROM_DOCS>/funding-rate|/funding", "params": {"symbol?":"str","start?":"int","end?":"int","limit?":"int"}}
+        },
+        "private": {
+          "balances": {"method": "GET", "path": "<SET_FROM_DOCS>/account/balances", "auth": "required"},
+          "positions": {"method": "GET", "path": "<SET_FROM_DOCS>/positions", "auth": "required", "params": {"symbol?":"str"}},
+          "orders_create": {"method": "POST", "path": "<SET_FROM_DOCS>/orders", "auth": "required", "body": {"symbol":"str","side":"buy|sell","type":"limit|market|stop|stop_limit","price?":"decimal","size?":"decimal","clientOrderId?":"str","timeInForce?":"GTC|IOC|FOK","reduceOnly?":"bool","postOnly?":"bool","leverage?":"decimal","stopPrice?":"decimal"}},
+          "orders_cancel": {"method": "DELETE", "path": "<SET_FROM_DOCS>/orders/{orderId}", "auth": "required", "params": {"orderId":"str"}},
+          "orders_open": {"method": "GET", "path": "<SET_FROM_DOCS>/orders/open", "auth": "required", "params": {"symbol?":"str","limit?":"int"}},
+          "orders_history": {"method": "GET", "path": "<SET_FROM_DOCS>/orders/history", "auth": "required", "params": {"symbol?":"str","start?":"int","end?":"int","limit?":"int"}},
+          "fills": {"method": "GET", "path": "<SET_FROM_DOCS>/fills|/trades", "auth": "required", "params": {"symbol?":"str","start?":"int","end?":"int","limit?":"int"}},
+          "leverage_set": {"method": "POST", "path": "<SET_FROM_DOCS>/positions/leverage", "auth": "required", "body": {"symbol":"str","leverage":"decimal"}},
+          "margin_info": {"method": "GET", "path": "<SET_FROM_DOCS>/account/margins", "auth": "required"}
+        },
+        "ws": {
+          "subscribe_ticker": {"channel": "<SET_FROM_DOCS>:ticker", "params": {"symbol?":"str"}},
+          "subscribe_trades": {"channel": "<SET_FROM_DOCS>:trades", "params": {"symbol":"str"}},
+          "subscribe_orderbook": {"channel": "<SET_FROM_DOCS>:orderbook", "params": {"symbol":"str","depth?":"int"}},
+          "subscribe_funding": {"channel": "<SET_FROM_DOCS>:funding", "params": {"symbol?":"str"}}
+        }
+      }
+    }
+  },
+  "normalization": {
+    "symbols": {
+      "map_case": "upper",
+      "separator": "-",
+      "examples": ["BTC-USDT","ETH-USDT"]
+    },
+    "numbers": {
+      "decimals": "decimal128",
+      "rounding": "ROUND_HALF_EVEN"
+    },
+    "time": {
+      "format": "RFC3339",
+      "epoch_ms": true,
+      "timezone": "UTC"
+    }
+  },
+  "error_policy": {
+    "retry": {"strategy": "exponential_backoff", "base_ms": 200, "max_ms": 5000, "max_retries": 5, "jitter": "decorrelated"},
+    "circuit_breaker": {"failure_ratio": 0.5, "window_sec": 30, "cooldown_sec": 15}
+  },
+  "idempotency": {
+    "orders_create": {"use_client_order_id": true, "header": "Idempotency-Key", "format": "uuidv4"}
+  },
+  "compliance": {
+    "logging": "hash_chain",
+    "redact_fields": ["api_secret","signature"],
+    "withdraw_allowed": false
+  }
+}

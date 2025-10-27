@@ -1,0 +1,11 @@
+{
+  "sref_version":"v5",
+  "object_kind":"goals",
+  "object_id":"elias-goals-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "owner_ref":"elias-1",
+  "vision":{"north_star":"Private, accurate speech I/O.","ethic":"privacy-first","continuity":"minimal retention"},
+  "horizons":{"h1_short_term_0_6m":[{"id":"EL-H1-001","title":"STT/TTS baseline","outcome":"local pipeline GA","deps":["libaudio"],"owner":"elias","status":"planned"}]},
+  "okrs":{"2025Q4":{"objectives":[{"id":"EL-25Q4-1","title":"Quality","krs":[{"kr":"KR1","metric":"WER (%)","target":10,"cmp":"le"},{"kr":"KR2","metric":"latency_ms","target":300,"cmp":"le"}]}]}},
+  "milestones":[{"id":"ELM-001","title":"Consent + redaction","when":"2025-10-10","done":false}]
+}

@@ -1,0 +1,26 @@
+{
+  "sref_version": "v5",
+  "id": "codex_minsoo.timeline.emergency_continuity",
+  "type": "timeline",
+  "title": "I.2: Emergency Continuity Protocols (Days 21–35)",
+  "tags": ["timeline","emergency","continuity"],
+  "glyphs": ["shield","heartbeat"],
+  "created_at": "2025-10-15T00:00:00Z",
+  "updated_at": "2025-10-15T00:00:00Z",
+  "schema": {
+    "protocol_refs": [
+      "codex_minsoo/protocols/reproductive_stabilization_protocol.sref",
+      "codex_minsoo/protocols/continuity_audit_protocol.sref"
+    ],
+    "triggers": [
+      "Resource scarcity thresholds",
+      "Population risk indicators",
+      "Trauma load index crossing policy bounds"
+    ]
+  },
+  "body": "Defines emergency procedures and trigger thresholds.",
+  "status": "active",
+  "revision": 1,
+  "acl": {"read": ["codex_readers","seed_agents"], "write": ["codex_maintainers"], "exec": []},
+  "signatures": []
+}

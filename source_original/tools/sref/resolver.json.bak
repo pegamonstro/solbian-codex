@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "mounts": [
+    { "prefix": "sym://codex/", "path": "." },
+    { "prefix": "sym://seed/",  "path": "codex_solbian/seed/" }
+  ]
+}

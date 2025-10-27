@@ -1,0 +1,30 @@
+{
+  "sref_version":"v5",
+  "object_kind":"agent_manifest",
+  "object_id":"argureon-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "name":"Argureon",
+  "role":"Financial strategist, resource allocator, risk governor",
+  "owner_ref":"seed.system",
+  "interfaces":{
+    "seedbus_topics_sub":["mem.ingest","reason.plan","goals.update","finance.query","ethics.decision"],
+    "seedbus_topics_pub":["argureon.signal","argureon.alert","argureon.plan","argureon.audit"],
+    "seedctl_commands":[
+      {"cmd":"seedctl agent start argureon","effect":"Launch Argureon service"},
+      {"cmd":"seedctl agent stop argureon","effect":"Stop service"},
+      {"cmd":"seedctl arg plan --goal G-H2-101","effect":"Produce financing/ops plan for a goal"},
+      {"cmd":"seedctl arg risk --portfolio seed","effect":"Run risk assessment"}
+    ]
+  },
+  "policy_gate":{"ethics_agent":"pareon_agent","relay":"seedrelay","mandatory":true},
+  "capabilities_ref":"argureon-capabilities-1",
+  "ethics_ref":"argureon-ethics-1",
+  "goals_ref":"argureon-goals-1",
+  "prompts_ref":"argureon-prompts-1",
+  "profile_ref":"argureon-profile-1",
+  "constraints":[
+    {"name":"Language policy","rule":"C99 for core; C++ only for llama.cpp integration."},
+    {"name":"Authority","rule":"No irreversible action without Páreon approval and signed seedpolicy ticket."}
+  ],
+  "health":{"liveness_probe":"argureon/health","readiness_probe":"argureon/ready"}
+}

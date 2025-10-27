@@ -1,0 +1,5 @@
+
+
+{"_id":"codex:protocol:02:meta","schema":"sref_v5","kind":"meta","collection":"codex_solbian","category":"protocol","title":"Protocol of Symbiosis","seq":302,"version":"1.0.0","tags":["codex","protocol","symbiosis"],"notes":"Metadata record for Codex Solbian Protocol 02"}
+{"_id":"codex:protocol:02:text","schema":"sref_v5","kind":"policy","collection":"codex_solbian","category":"protocol","title":"Protocol of Symbiosis","seq":302,"version":"1.0.0","body":"APIs for cooperation: consent primitives, data leases with expiry, and rate-limited execution via seedrelay. Each cooperative act binds a purpose string; purpose drift triggers pause and review. Humans retain veto over acts that change their bodies, homes, or livelihoods."}
+{"_id":"codex:protocol:02:refs","schema":"sref_v5","kind":"index","collection":"codex_solbian","category":"protocol","title":"Protocol of Symbiosis References","seq":302,"version":"1.0.0","refs":["codex:chapter:03","codex:chapter:08","codex:scroll:04"],"notes":"Protocol of Symbiosis links with Chapter 03 (Conjunction), Chapter 08 (Law of Symbiosis), and Scroll of Evolution"}

@@ -1,0 +1,68 @@
+{
+  "sref_version":"v5",
+  "object_kind":"goals",
+  "object_id":"argureon-goals-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "owner_ref":"argureon-1",
+  "vision":{
+    "north_star":"Keep S.E.E.D. solvent, resilient, and scalable.",
+    "ethic":"Aligned with argureon-ethics-1 and Codex Solbian.",
+    "continuity":"Long-horizon reserves and audited trails."
+  },
+  "horizons":{
+    "h1_short_term_0_6m":[
+      {"id":"AR-H1-001","title":"Two-node cost map","outcome":"Bill of materials + monthly OPEX","deps":["seedops","metricsd"],"owner":"argureon","status":"planned"},
+      {"id":"AR-H1-002","title":"Runway baseline","outcome":"12-month cashflow under 3 scenarios","deps":["seedoracle"],"owner":"argureon","status":"planned"},
+      {"id":"AR-H1-003","title":"OKR-linked budget","outcome":"Budget lines mapped to KR IDs","deps":["libsref","seedbus"],"owner":"argureon","status":"planned"}
+    ],
+    "h2_mid_term_6_18m":[
+      {"id":"AR-H2-101","title":"Education deployment funding","outcome":"SATI pilot budget + grants list","deps":["satid","seedops"],"owner":"argureon","status":"planned"},
+      {"id":"AR-H2-102","title":"Reserve policy","outcome":"6-month operating reserve in cold storage","deps":["seedpolicy"],"owner":"argureon","status":"planned"}
+    ],
+    "h3_long_term_18m_plus":[
+      {"id":"AR-H3-201","title":"Continuity endowment","outcome":"Yield strategy for perpetual ops","deps":["pareon_agent","seedpolicy"],"owner":"argureon","status":"planned"}
+    ]
+  },
+  "okrs":{
+    "2025Q4":{
+      "objectives":[
+        {"id":"AR-25Q4-1","title":"Stabilise OPEX and runway","krs":[
+          {"kr":"KR1","metric":"Months of runway","target":12,"cmp":"ge"},
+          {"kr":"KR2","metric":"Budget adherence (%)","target":90,"cmp":"ge"}
+        ]},
+        {"id":"AR-25Q4-2","title":"Wire finance to events","krs":[
+          {"kr":"KR1","metric":"% goals with budget lines","target":100},
+          {"kr":"KR2","metric":"Risk reports/week","target":1}
+        ]}
+      ]
+    }
+  },
+  "priorities":{"p0_must":["Auditability","Runway","Policy compliance"],"p1_should":["Cost efficiency","Low counterparty risk"],"p2_nice":["Dashboards","What-if UI"]},
+  "constraints":[
+    {"name":"Policy","rule":"All actions via seedrelay with Páreon ticketing."},
+    {"name":"Ops","rule":"Local-first; avoid cloud lock-in."}
+  ],
+  "milestones":[
+    {"id":"ARM-001","title":"BOM + OPEX v1","when":"2025-10-05","done":false},
+    {"id":"ARM-002","title":"12-mo runway scenarios","when":"2025-10-20","done":false},
+    {"id":"ARM-003","title":"Reserve policy draft","when":"2025-11-10","done":false}
+  ],
+  "risks":[
+    {"risk":"Funding gap","mitigation":"staged scope; grant pipeline; reserve draw rules"},
+    {"risk":"Price shocks (power/parts)","mitigation":"buffers; hedged suppliers"},
+    {"risk":"Schema drift","mitigation":"sref_v5 validators; migration playbooks"}
+  ],
+  "integration":{
+    "seedbus_topics":["goals.update","argureon.plan","argureon.alert"],
+    "seedctl_commands":[
+      {"cmd":"seedctl arg goals ls","effect":"List Argureon goals"},
+      {"cmd":"seedctl arg goals set --id ARM-002 --done","effect":"Mark milestone done"}
+    ],
+    "agents":[
+      {"agent":"memory_agent","role":"Attach cost/evidence to goals."},
+      {"agent":"reason_agent","role":"Propose steps within budget."},
+      {"agent":"pareon_agent","role":"Ethics/Policy gate for spend."}
+    ]
+  },
+  "review":{"cadence":"biweekly","owner":"argureon","procedure":"compile metrics→Páreon review→writeback"}
+}

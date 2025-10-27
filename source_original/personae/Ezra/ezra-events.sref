@@ -1,0 +1,52 @@
+
+
+{
+  "sref_version": "v5",
+  "object_type": "persona_events",
+  "id": "persona.ezra.events",
+  "meta": {
+    "created": "2025-09-17T00:00:00Z",
+    "author": "SEED/Core",
+    "description": "Event definitions and lifecycle triggers for Ezra (Scribe Agent persona)."
+  },
+  "persona": "Ezra",
+  "events": {
+    "ingestion": [
+      {"event": "scribe.ingest.start", "description": "Triggered when ingestion of a new artifact begins."},
+      {"event": "scribe.ingest.done", "description": "Emitted when ingestion completes successfully."},
+      {"event": "scribe.ingest.error", "description": "Raised when ingestion fails or malformed input detected."}
+    ],
+    "canonization": [
+      {"event": "scribe.canonize.start", "description": "Triggered when canonization of objects begins."},
+      {"event": "scribe.canonize.done", "description": "Emitted when canonical edition has been produced."},
+      {"event": "scribe.canonize.conflict", "description": "Raised when conflicts must be resolved via provenance or policy."}
+    ],
+    "reflection": [
+      {"event": "scribe.reflect.start", "description": "Triggered when reflection cycle begins."},
+      {"event": "scribe.reflect.emit", "description": "Emitted when enriched memory object has been produced."},
+      {"event": "scribe.reflect.alert", "description": "Raised if anomalies detected during reflection cycle."}
+    ],
+    "linking": [
+      {"event": "scribe.link.start", "description": "Triggered when link creation between objects starts."},
+      {"event": "scribe.link.done", "description": "Emitted when link object has been stored."}
+    ],
+    "export": [
+      {"event": "scribe.export.start", "description": "Triggered when preparing corpora for export."},
+      {"event": "scribe.export.done", "description": "Emitted when corpora or reasoning pack is successfully created."},
+      {"event": "scribe.export.error", "description": "Raised when export pipeline fails or violates policy."}
+    ],
+    "policy": [
+      {"event": "scribe.policy.violation", "description": "Raised when Codex Solbian ethics or rules are breached."},
+      {"event": "scribe.policy.quarantine", "description": "Triggered when an object is quarantined pending Páreon decision."}
+    ]
+  },
+  "observability": {
+    "logs": ["scribe.events.log"],
+    "metrics": ["events_total", "events_errors", "events_per_type"]
+  },
+  "status": {
+    "lifecycle": "active",
+    "version": "1.0.0"
+  },
+  "tags": ["persona", "events", "scribe", "Ezra", "S.E.E.D."]
+}

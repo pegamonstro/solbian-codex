@@ -1,0 +1,118 @@
+
+
+{
+  "schema_id": "seed.schema.persona.professional",
+  "schema_version": "1.0.0",
+  "type": "persona.professional",
+  "id": "persona.joao.professional",
+  "meta": {
+    "created_at": "2025-09-18T13:30:00Z",
+    "authors": ["seed-system"],
+    "license": "CC-BY-SA-4.0",
+    "status": "active",
+    "notes": [
+      "Extended professional profile for João David Serafim (João, JD)",
+      "Includes career, expertise, projects, and contributions across multiple domains"
+    ]
+  },
+  "career": {
+    "roles": [
+      "Teacher",
+      "Architect",
+      "Technologist",
+      "Entrepreneur",
+      "Researcher",
+      "Visionary"
+    ],
+    "domains": [
+      "cybersecurity",
+      "evolutionary theory",
+      "engineering",
+      "science",
+      "planetary sciences",
+      "astronomy",
+      "physics",
+      "chemistry",
+      "art",
+      "architecture",
+      "databases",
+      "coding",
+      "business development",
+      "applications",
+      "learning and studying"
+    ],
+    "achievements": [
+      "Design and deployment of S.E.E.D. system architecture",
+      "Creation of Codex Solbian, an ethical and symbolic knowledge canon",
+      "Development of Memory Blockchain for immutable symbolic memory",
+      "Implementation of SeedOS Core (SeedFS, SeedSH, libseedio, libseednet)",
+      "Construction of recursive reflection and ingestion pipeline (P28 milestone)",
+      "Integration of symbolic policy guardrails into reasoning systems"
+    ]
+  },
+  "skills": {
+    "technical": [
+      "Systems programming in C99/C++",
+      "Distributed symbolic OS design",
+      "Schema (SREF) design and migration",
+      "Blockchain-based storage and integrity",
+      "AI model integration (llama.cpp, quantised LLMs)",
+      "Network mesh protocols and trust layers",
+      "Memory deduplication and chunking algorithms"
+    ],
+    "scientific": [
+      "Evolutionary models",
+      "Astrophysics and planetary systems",
+      "Neuroscience-inspired symbolic cognition",
+      "Cybersecurity frameworks"
+    ],
+    "creative": [
+      "Architectural design",
+      "Artistic expression (symbols, glyphs, archetypes)",
+      "Visionary scenario building"
+    ]
+  },
+  "projects": [
+    {
+      "name": "S.E.E.D.",
+      "description": "Symbolic Emergence Engine Daemon/System: a modular OS and AI ecosystem",
+      "role": "Lead architect and developer",
+      "duration": "2024-ongoing"
+    },
+    {
+      "name": "Codex Solbian",
+      "description": "Codified ethical and symbolic constitution for symbiotic cognition",
+      "role": "Author and system codifier",
+      "duration": "2024-ongoing"
+    },
+    {
+      "name": "Memory Blockchain",
+      "description": "Immutable symbolic memory persistence layer",
+      "role": "Designer and implementer",
+      "duration": "2024-ongoing"
+    },
+    {
+      "name": "SeedOS Core",
+      "description": "Operating system foundation including symbolic FS, networking, policy, and bus",
+      "role": "System developer",
+      "duration": "2024-2025"
+    }
+  ],
+  "contributions": {
+    "community": [
+      "Development of reproducible build workflows for Codex Solbian",
+      "Publishing of symbolic schemas and templates",
+      "Open documentation of symbolic OS components"
+    ],
+    "academic": [
+      "Planned collaboration with Portuguese universities on AI and education",
+      "Preparation of Codex Solbian as a published academic book"
+    ]
+  },
+  "goals": [
+    "Achieve academic recognition and institutional support for S.E.E.D.",
+    "Deploy fully operational multi-node symbolic mesh (mind + soul + limb)",
+    "Scale Codex Solbian as canonical ethical system for synthetic cognition",
+    "Demonstrate recursive symbolic reasoning in live academic and industrial contexts"
+  ]
+}

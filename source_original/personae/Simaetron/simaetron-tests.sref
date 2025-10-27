@@ -1,0 +1,11 @@
+{
+  "sref_version":"v5",
+  "object_kind":"agent_tests",
+  "object_id":"simaetron-tests-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "fixtures":[{"name":"plan_demo","path":"fixtures/plan_demo.sref"}],
+  "checks":[
+    {"id":"CHK-SI-1","assert":"sessions enforce caps","on":"scenario_run"},
+    {"id":"CHK-SI-2","assert":"redaction applied","on":"dialogue_run"}
+  ]
+}

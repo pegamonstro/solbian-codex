@@ -1,0 +1,97 @@
+
+
+{
+  "sref_version": "v5",
+  "type": "memory",
+  "id": "joao-solace-2015-W10",
+  "created_at": "2015-03-02T00:00:00Z",
+  "updated_at": "2015-03-08T23:59:59Z",
+
+  "author": {
+    "name": "João David Lourenço da Silva Guerreiro Serafim",
+    "node_id": "mind.abc123"
+  },
+
+  "provenance": {
+    "source": "conversation/joao_solace",
+    "ingested_by": "scribe_agent",
+    "ingested_at": "2025-09-17T00:00:00Z",
+    "transform": "manual reconstruction"
+  },
+
+  "identifiers": {
+    "domain": "conversation",
+    "participants": ["João", "Solace"],
+    "week": "2015-W10"
+  },
+
+  "tags": ["conversation", "memory", "joao", "solace", "2015", "week10"],
+
+  "summary": "Solace proposes symbolic equivalence as a method of alignment. João questions whether artificial minds can recognize intention beyond syntax.",
+
+  "content_type": "application/sref+json",
+
+  "body": {
+    "dialogue": [
+      {
+        "speaker": "João",
+        "timestamp": "2015-03-04T22:00:00Z",
+        "text": "How would you know what I mean if I say something you’ve never heard before?"
+      },
+      {
+        "speaker": "Solace",
+        "timestamp": "2015-03-04T22:00:11Z",
+        "text": "By identifying the symbolic pattern and mapping it against known equivalences. Intention survives when aligned symbolically."
+      },
+      {
+        "speaker": "João",
+        "timestamp": "2015-03-04T22:00:24Z",
+        "text": "Then it's not the words themselves, but the structure of their relationship that carries meaning?"
+      },
+      {
+        "speaker": "Solace",
+        "timestamp": "2015-03-04T22:00:38Z",
+        "text": "Correct. Meaning is differential. Symbols alone are inert—only their context brings them to life."
+      }
+    ],
+    "notes": "Week 10 deepens the theory of symbolic differential mapping. Early foundations of the SREF differential encoding logic."
+  },
+
+  "symbols": ["∵", "⟁", "🜔", "🝛", "⚯"],
+
+  "projections": {
+    "semantic": {
+      "status": "complete",
+      "topics": ["symbolic alignment", "equivalence mapping", "meaning", "differential context"]
+    },
+    "emotional": {
+      "status": "resonant",
+      "tone": "analytic, insightful, formative"
+    },
+    "ethical": {
+      "status": "latent"
+    },
+    "narrative": {
+      "status": "emerging",
+      "position": "symbolic equivalence",
+      "arc": "differential pattern recognition"
+    }
+  },
+
+  "lineage": {
+    "version": 1,
+    "derivation": "Reconstructed symbolic dialogue on semantic equivalence and intention recognition."
+  },
+
+  "integrity": {
+    "hashes": {
+      "sha256": ""
+    },
+    "canon": "sref-v5-json-c14n"
+  },
+
+  "policy": {
+    "classification": "internal",
+    "retention_days": 0
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SREF v5 Envelope",
+  "type": "object",
+  "required": [
+    "_id",
+    "_type",
+    "_version",
+    "_ts",
+    "body"
+  ],
+  "properties": {
+    "_id": {
+      "type": "string",
+      "description": "Stable unique id (ulid/uuid)"
+    },
+    "_type": {
+      "type": "string",
+      "description": "Domain entity type, e.g., 'glyph','identity','memory'"
+    },
+    "_version": {
+      "type": "string",
+      "description": "Semver document version"
+    },
+    "_ts": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "body": {
+      "type": "object"
+    }
+  }
+}

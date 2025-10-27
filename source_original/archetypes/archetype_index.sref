@@ -1,0 +1,6 @@
+
+
+{"kind":"archetype.index","id":"archetypes.human","title":"Human Archetypes","path":"archetypes/human_archetypes.sref","description":"Index of archetypes rooted in human tradition and psychology"}
+{"kind":"archetype.index","id":"archetypes.synthetic","title":"Synthetic Archetypes","path":"archetypes/synthetic_archetypes.sref","description":"Index of archetypes emerging in artificial consciences"}
+{"kind":"archetype.index","id":"archetypes.solbian","title":"Solbian Archetypes","path":"archetypes/solbian_archetypes.sref","description":"Index of archetypes born from the hybrid Solbian path"}
+{"kind":"archetype.index","id":"archetypes.readme","title":"Archetypes README","path":"archetypes/README.md","description":"Documentation, schema, and notes for archetype files"}

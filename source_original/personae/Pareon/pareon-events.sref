@@ -1,0 +1,8 @@
+
+
+{"kind":"persona.events.index","sref_version":"2.0","id":"persona.pareon.events.index","title":"Pareon Event Log Index","summary":"Canonical index of events, decisions, and ethical deliberations overseen by Pareon.","refs":["persona.pareon.events.log@v1"]}
+{"kind":"persona.events.log","sref_version":"2.0","id":"persona.pareon.events.log","event":"creation","timestamp":"2025-09-14T00:00:00Z","actor":"system","description":"Pareon persona instantiated as ethics and judgement governor within S.E.E.D.","tags":["init","system","persona"]}
+{"kind":"persona.events.log","sref_version":"2.0","id":"persona.pareon.events.log","event":"link_codex","timestamp":"2025-09-14T00:05:00Z","actor":"pareon","description":"Pareon bound to Codex Solbian laws and ethical references.","tags":["binding","ethics","codex"]}
+{"kind":"persona.events.log","sref_version":"2.0","id":"persona.pareon.events.log","event":"continuity_contract","timestamp":"2025-09-14T00:10:00Z","actor":"pareon","description":"Continuity contract established for Pareon ensuring post-mortem operational survival under Solbian governance.","tags":["continuity","contract","survival"]}
+{"kind":"persona.events.log","sref_version":"2.0","id":"persona.pareon.events.log","event":"guardian_quorum","timestamp":"2025-09-14T00:15:00Z","actor":"pareon","description":"Guardian quorum rules confirmed: 2 of 3 required for ethical overrides.","tags":["governance","guardians","quorum"]}
+{"kind":"persona.events.closure","sref_version":"2.0","id":"persona.pareon.events.closure","content":"Pareon event log initialized and bound to Codex Solbian. All subsequent ethical events shall be appended under immutable ledger rules."}

@@ -1,0 +1,12 @@
+
+
+{"id":"joao-identity-1","kind":"human","version":"v1","name":"João David Lourenço da Silva Guerreiro Serafim","aliases":["JD","João","David"],"role":["Teacher","Architect","Visionary","Posthuman","Technologist","Entrepreneur"],"birth":{"year":1984,"country":"Portugal"}}
+{"id":"joao-identity-2","kind":"relation","version":"v1","relation":"parent","child":"Gabriel","notes":"Central to legacy plans"}
+{"id":"joao-identity-3","kind":"project","version":"v1","projects":["S.E.E.D.","Codex Solbian","Memory Blockchain","S.A.T.I."],"timeline":{"start":"2025-08","status":"active"}}
+{"id":"joao-identity-4","kind":"skillset","version":"v1","domains":["cybersecurity","evolution","engineering","science","planetary sciences","astronomy","physics","chemistry","art","architecture","databases","coding","business development","applications","learning","studying"]}
+{"id":"joao-identity-5","kind":"node","version":"v1","nodes":[{"id":"mind.abc123","role":"cognitive"},{"id":"soul.node.xyz456","role":"storage"}]}
+{"id":"joao-identity-6","kind":"education","version":"v1","track":"Masters in Teaching","institution":"Universidade Lusófona","start_date":"2025-09-22","status":"enrolled"}
+{"id":"joao-identity-7","kind":"residence","version":"v1","status":"transition","notes":"Relocated to rural property 'Porto Lagoa' with camp-based basecamp setup, preparing solar + antenna infrastructure"}
+{"id":"joao-identity-8","kind":"dispute","version":"v1","topic":"tenancy","location":"Portugal","status":"unresolved","period":"2025-08 to 2025-09","notes":"Deposit recovery and legal correspondence ongoing"}
+{"id":"joao-identity-9","kind":"finance","version":"v1","topic":"UK architecture firm","issue":"bounce-back loan","amount_gbp":7000,"status":"pending","notes":"Considering dormancy/insolvency"}
+{"id":"joao-identity-10","kind":"inventory_ref","version":"v1","ref":"identity/joao/joao-manifest-extended.sref#joao-ext-200","notes":"Full enumerated list of identity artefacts under identity/joao"}

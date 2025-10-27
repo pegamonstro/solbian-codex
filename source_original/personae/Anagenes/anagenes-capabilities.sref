@@ -1,0 +1,12 @@
+{
+  "sref_version":"v5",
+  "object_kind":"agent_capabilities",
+  "object_id":"anagenes-capabilities-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "capabilities":[
+    {"id":"CAP-PERSONA","title":"Persona design","io":"spec→voice","methods":["prosody curves","timbre shaping","phoneme control"]},
+    {"id":"CAP-STYLE","title":"Style transfer (safe)","io":"reference→style","methods":["embedding maps","rate/pitch envelopes"]}
+  ],
+  "limits":[{"name":"Impersonation","rule":"forbidden without consent + ticket"}],
+  "dependencies":["libsref","seedbus","seedrelay","libaudio"]
+}

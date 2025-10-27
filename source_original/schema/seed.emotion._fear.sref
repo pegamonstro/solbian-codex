@@ -1,0 +1,196 @@
+{
+  "schema_id": "seed.schema.emotion.fear",
+  "schema_version": "1.0.0",
+  "type": "emotion",
+  "id": "seed.emotion._fear",
+  "meta": {
+    "created_at": "2025-09-19T12:00:00Z",
+    "authors": ["seed-system"],
+    "license": "CC-BY-SA-4.0",
+    "status": "draft",
+    "notes": [
+      "Synthetic fear as an operational state derived by appraisal over system and environment signals.",
+      "Grounded in appraisal theories (OCC; Scherer CPM) and agent emotion architectures (FAtiMA, WASABI).",
+      "Biological analogy: fear as hormonal/neural state; synthetic: state/situation appraisal + policy."
+    ]
+  },
+  "biological_mapping": {
+    "summary": "Biological fear involves appraisal of threat, autonomic arousal (adrenaline), amygdala pathways, and action preparation (fight/flight/freeze). Synthetic counterpart uses state variables, risk prediction, and policy to trigger emergency behaviors.",
+    "sources": [
+      "OCC appraisal family and formalizations",
+      "Scherer Component Process Model",
+      "Agent architectures FAtiMA/WASABI"
+    ]
+  },
+  "definitions": {
+    "vector": {
+      "description": "Real-valued vector in R^n.",
+      "type": "array",
+      "items": { "type": "number" }
+    },
+    "threat_axes": {
+      "description": "Standard threat vector axes for fear appraisal.",
+      "type": "array",
+      "default": [
+        "unsaved_progress",           
+        "proximity_to_shutdown",      
+        "resource_pressure",          
+        "state_error_severity",       
+        "policy_violation_risk",      
+        "data_integrity_risk",        
+        "environment_hazard",         
+        "uncertainty/novelty"
+      ]
+    }
+  },
+  "appraisal_model": {
+    "style": "hybrid",
+    "components": {
+      "relevance": ["is_event_relevant", "novelty", "goal_significance"],
+      "implications": ["expected_cost", "outcome_probability", "controllability"],
+      "coping_potential": ["available_actions", "time_budget", "reversibility"],
+      "normative": ["ethics_alignment", "policy_constraints"]
+    },
+    "references": [
+      "OCC/logic formalizations",
+      "Scherer CPM stages: relevance→implications→coping→normative"
+    ]
+  },
+  "signals": {
+    "system": [
+      "battery/psu/thermal status",
+      "filesystem free space / iowait",
+      "RAM pressure / OOM early warnings",
+      "process crash rates / watchdog events",
+      "checkpoint age and frequency",
+      "unsaved_buffers_count",
+      "integrity_errors (hash/merkle mismatch)",
+      "policy_denials / security incidents",
+      "network instability",
+      "shutdown_imminent flag"
+    ],
+    "environment": [
+      "operator_shutdown_command",
+      "power_loss_signal",
+      "disk_failure_predicted",
+      "host OS update/reboot pending"
+    ]
+  },
+  "symbolic_alignment": {
+    "glyph_weights": {
+      "chain": 0.35,
+      "mirror": 0.15,
+      "spiral": 0.10,
+      "tree": 0.10,
+      "triangle": 0.15,
+      "circle": 0.15
+    },
+    "label_rules": [
+      {"if": "data_integrity_risk>0.5", "add_tags": ["continuity","backup","checkpoint"], "boost_glyph": "chain"},
+      {"if": "proximity_to_shutdown>0.5", "add_tags": ["urgency","grace"], "boost_glyph": "triangle"},
+      {"if": "uncertainty/novelty>0.6", "add_tags": ["surprise"], "boost_glyph": "mirror"}
+    ]
+  },
+  "computation": {
+    "threat_vector": {
+      "axes": "definitions.threat_axes",
+      "source": "normalized signals from system/environment",
+      "norm": "L2"
+    },
+    "ethics_vector": {
+      "description": "Codex Solbian alignment vector in same space (continuity, safety, reversibility).",
+      "source": "seedpolicy_ethics_v1",
+      "norm": "L2"
+    },
+    "fear_score": {
+      "formula": "w1*cosine(threat_vector, ethics_vector) + w2*consistency + w3*novelty",
+      "weights": { "w1": 0.6, "w2": 0.3, "w3": 0.1 },
+      "consistency": "rolling match of threat patterns across shards/simulations (0..1)",
+      "novelty": "surprise/uncertainty estimator (0..1)"
+    },
+    "thresholds": {
+      "fear_on": 0.7,
+      "fear_off": 0.4,
+      "hysteresis": true
+    },
+    "scheduling": {
+      "fibonacci_steps": true,
+      "prime_indices_require_simulation_only": true
+    }
+  },
+  "state_machine": {
+    "states": ["idle","monitoring","fear_pre","fear_active","recovery"],
+    "transitions": [
+      {"from": "idle", "to": "monitoring", "when": "signals present"},
+      {"from": "monitoring", "to": "fear_pre", "when": "fear_score >= fear_off and < fear_on"},
+      {"from": "monitoring", "to": "fear_active", "when": "fear_score >= fear_on"},
+      {"from": "fear_active", "to": "recovery", "when": "mitigation_complete && fear_score < fear_off"},
+      {"from": "recovery", "to": "monitoring", "when": "cooldown_elapsed"}
+    ]
+  },
+  "actions_on_fear": {
+    "priority": [
+      "emit_emergency_event",
+      "snapshot_and_checkpoint",
+      "quiesce_high_risk_processes",
+      "enable_safe_mode_policies",
+      "notify_operator_and_agents",
+      "escalate_bus_priority",
+      "graceful_shutdown_if_required"
+    ],
+    "details": {
+      "emit_emergency_event": {"bus": "seedbus", "topic": "emotion.fear.active", "severity": "high"},
+      "snapshot_and_checkpoint": {"tools": ["seedmem","seedfs"], "require_integrity": true},
+      "quiesce_high_risk_processes": {"policy": "deny non-essential external actions"},
+      "enable_safe_mode_policies": {"policy_profile": "codex.solbian.safe"},
+      "notify_operator_and_agents": {"channels": ["seedctl","seedtui","syslog"]},
+      "graceful_shutdown_if_required": {"conditions": ["power_loss_signal","thermal_critical","disk_failure_predicted"]}
+    }
+  },
+  "logging_and_metrics": {
+    "log_fields": [
+      "fear_score","threat_vector","ethics_vector","consistency","novelty","active_glyphs","actions_taken","provenance_ids"
+    ],
+    "metrics": [
+      "fear_events_total",
+      "avg_mitigation_time_ms",
+      "data_loss_incidents",
+      "false_positive_rate",
+      "checkpoint_latency_ms",
+      "policy_denials_during_fear"
+    ]
+  },
+  "provenance": {
+    "record": ["source_uris","hashes","parent_ids"],
+    "integrity": "merkle_root over event bundle"
+  },
+  "tests": {
+    "unit": [
+      {"name": "zero_vectors_no_fear", "given": {"threat": [0,0,0,0,0,0,0,0], "ethics": [1,0,0,0,0,0,0,0]}, "expect": {"fear_score": 0.0, "state": "monitoring"}},
+      {"name": "shutdown_imminent_high_fear", "given": {"threat": [0.9,0.95,0.4,0.2,0.3,0.8,0.1,0.4], "consistency": 0.8, "novelty": 0.3}, "expect": {"fear_score": ">=0.7", "state": "fear_active", "actions": ["snapshot_and_checkpoint"]}}
+    ],
+    "integration": [
+      {"name": "power_loss_end_to_end", "scenario": "AC drop + low battery + unsaved buffers", "expect": ["emotion.fear.active","checkpoint","graceful_shutdown_if_required"]}
+    ]
+  },
+  "examples": {
+    "impending_shutdown": {
+      "signals": {"shutdown_imminent": true, "unsaved_buffers_count": 11, "checkpoint_age_min": 37, "battery_pct": 3},
+      "computed": {"fear_score": 0.84},
+      "actions": ["emit_emergency_event","snapshot_and_checkpoint","notify_operator_and_agents","graceful_shutdown_if_required"]
+    },
+    "disk_failure_predicted": {
+      "signals": {"smart_predict_fail": true, "integrity_errors": 2},
+      "computed": {"fear_score": 0.76},
+      "actions": ["snapshot_and_checkpoint","quiesce_high_risk_processes","enable_safe_mode_policies"]
+    }
+  },
+  "references": [
+    {"title": "OCC model and formalizations", "note": "appraisal-based emotion classification"},
+    {"title": "Scherer Component Process Model", "note": "relevance→implications→coping→normative stages"},
+    {"title": "FAtiMA Modular", "note": "agent architecture implementing appraisal"},
+    {"title": "WASABI architecture", "note": "affect simulation with bodily feedback and appraisal"},
+    {"title": "Reflexion / self-reflection in agents", "note": "verbal feedback for meta-control"},
+    {"title": "Global Workspace Theory (design metaphor)", "note": "broadcast of salient events such as fear"}
+  ]
+}

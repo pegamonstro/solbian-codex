@@ -1,0 +1,46 @@
+
+
+{
+  "sref_version": "v5",
+  "object_type": "sati.abstract",
+  "id": "sati.abstract.template.v1",
+  "meta": {
+    "created": "2025-09-18T00:00:00Z",
+    "author": "SEED/Core",
+    "description": "Abstract schema for SA.T.I. (Symbolic Agentic Teacher Interface). Defines minimal structure and identity for integration into Codex Solbian and S.E.E.D.",
+    "provenance": {
+      "source": ["codex.solbian","seed.design"],
+      "integrity": "authoritative template"
+    }
+  },
+  "identity": {
+    "name": "SA.T.I.",
+    "role": "Symbolic Agentic Teacher Interface",
+    "version": "0.1.0",
+    "lineage": "codex.solbian.education"
+  },
+  "structure": {
+    "inputs": ["student_profiles","classroom_data","curriculum"],
+    "outputs": ["rubrics","assessments","learning_plans"],
+    "agents": ["scribe_agent","memory_agent","reason_agent"],
+    "artefacts": []
+  },
+  "logic": {
+    "reflection": "Integrates classroom memory into SEED reflection pipeline.",
+    "projection": "Generates adaptive rubrics and neuro-cognitive learning assessments.",
+    "alignment": "Codex Solbian protocols enforce ethics and pedagogy."
+  },
+  "policy": {
+    "ethics": "Codex-aligned",
+    "license": "CC-BY-NC-4.0",
+    "acl": {"read":["*"],"write":["Solace","SA.T.I."]}
+  },
+  "observability": {
+    "logs": ["sati.events"],
+    "metrics": ["sessions","rubrics_generated","assessments_completed"]
+  },
+  "status": {
+    "lifecycle": "abstract",
+    "active": false
+  }
+}

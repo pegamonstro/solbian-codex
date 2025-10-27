@@ -1,0 +1,150 @@
+{
+  "schema_id": "seed.schema.relay_model",
+  "schema_version": "1.1.0",
+  "type": "relay_model",
+  "id": "relay_model.gemma3_270m",
+  "meta": {
+    "created_at": "2025-09-19T13:30:00Z",
+    "authors": ["seed-system"],
+    "license": "Apache-2.0",
+    "status": "active",
+    "notes": [
+      "Configuration for Gemma-3 270M across low-memory ARMv7, Apple Silicon, and x86-64 2-core machines.",
+      "Quantized for int4 inference via llama.cpp backends; Metal acceleration on Apple Silicon.",
+      "Designed for use through seedrelay with minimal context to preserve memory."
+    ]
+  },
+  "model": {
+    "family": "Gemma-3",
+    "variant": "270M",
+    "parameters": 270000000,
+    "precisions_supported": ["int4", "int8"],
+    "default_precision": "int4",
+    "artifacts": {
+      "int4": "gemma-3-270m-Q4_K_M.gguf",
+      "int8": "gemma-3-270m-Q8_0.gguf"
+    },
+    "storage_path": "models/gemma3/270m/"
+  },
+  "runtimes": {
+    "armv7_helios4": {
+      "cpu_arch": "armv7-marvell-armada388",
+      "backend": "llama.cpp-armv7",
+      "precision": "int4",
+      "threads": 2,
+      "ram_limit_mb": 768,
+      "swap_recommended": true,
+      "kv_cache_tokens": 1024,
+      "batch_size": 1,
+      "expected_latency_s_per_token": 3.5
+    },
+    "macos_arm64_m1": {
+      "cpu_arch": "arm64-apple-silicon",
+      "backend": "llama.cpp-metal",
+      "precision": "int4",
+      "metal": true,
+      "threads": 4,
+      "ram_limit_mb": 2048,
+      "kv_cache_tokens": 2048,
+      "batch_size": 2,
+      "expected_latency_s_per_token": 0.15
+    },
+    "linux_x86_64_2c_8gb": {
+      "cpu_arch": "x86_64",
+      "backend": "llama.cpp-x86_64",
+      "precision": "int4",
+      "avx2": true,
+      "threads": 2,
+      "ram_limit_mb": 2048,
+      "kv_cache_tokens": 1024,
+      "batch_size": 1,
+      "expected_latency_s_per_token": 1.6
+    }
+  },
+  "relay": {
+    "service": "seedrelay",
+    "abi": "eng_llm_llamacpp_cli.c",
+    "api": {
+      "invoke": "seedctl relay model --id gemma3_270m --prompt <PROMPT>",
+      "stream": true,
+      "args_map": {
+        "macos_arm64_m1": "--ctx 2048 --batch 256 --n-gpu-layers 999 --mmproj metal",
+        "linux_x86_64_2c_8gb": "--ctx 1024 --batch 128",
+        "armv7_helios4": "--ctx 1024 --batch 64"
+      }
+    },
+    "trust": {
+      "signature_required": false,
+      "policy": "codex.solbian.safe"
+    }
+  },
+  "limitations": [
+    "Helios4 is slow due to ARMv7 cores.",
+    "x86-64 2-core w/8GB is constrained; keep context <=1024.",
+    "Use Metal on M1 for best latency; still keep model small for parallel workloads."
+  ],
+  "integration": {
+    "seedreason": "lightweight local inference; larger prompts forwarded to mind.abc123",
+    "seedtrain": "limited rehearsal; prefer training on mind.abc123",
+    "fallback": "route to higher-capacity node via seedrelay"
+  },
+  "setup": {
+    "common": [
+      "mkdir -p models/gemma3/270m",
+      "place the correct GGUF artifact under the storage_path",
+      "verify file integrity (sha256) and record in artefact manifest"
+    ],
+    "macos_arm64_m1": [
+      "brew install cmake pkg-config",
+      "git clone https://github.com/ggerganov/llama.cpp.git && cd llama.cpp",
+      "make -j4 LLAMA_METAL=1",
+      "./main -m models/gemma3/270m/gemma-3-270m-Q4_K_M.gguf -p 'Hello' --n-predict 16"
+    ],
+    "linux_x86_64_2c_8gb": [
+      "sudo apt-get update && sudo apt-get install -y build-essential cmake git",
+      "git clone https://github.com/ggerganov/llama.cpp.git && cd llama.cpp",
+      "cmake -B build -DGGML_AVX2=ON && cmake --build build -j2",
+      "./build/bin/main -m models/gemma3/270m/gemma-3-270m-Q4_K_M.gguf -p 'Hello' --n-predict 16 --threads 2"
+    ],
+    "armv7_helios4": [
+      "sudo apt-get update && sudo apt-get install -y build-essential cmake git",
+      "git clone https://github.com/ggerganov/llama.cpp.git && cd llama.cpp",
+      "make -j2",
+      "./main -m models/gemma3/270m/gemma-3-270m-Q4_K_M.gguf -p 'Hello' --n-predict 8 --threads 2"
+    ],
+    "seedrelay": [
+      "Ensure eng_llm_llamacpp_cli.c is built and available in PATH or configured in seedrelay.",
+      "Configure relay route: seedctl relay model add --id gemma3_270m --backend llama.cpp --model models/gemma3/270m/gemma-3-270m-Q4_K_M.gguf",
+      "Test invocation: seedctl relay model --id gemma3_270m --prompt 'test' --stream"
+    ]
+  },
+  "tests": {
+    "unit": [
+      {
+        "name": "simple_prompt_test",
+        "prompt": "Hello Gemma",
+        "expect_contains": "Hello"
+      }
+    ],
+    "integration": [
+      {
+        "name": "relay_invoke_test_m1",
+        "runtime": "macos_arm64_m1",
+        "cmd": "seedctl relay model --id gemma3_270m --prompt 'test'",
+        "expect_exit": 0
+      },
+      {
+        "name": "relay_invoke_test_x86_64",
+        "runtime": "linux_x86_64_2c_8gb",
+        "cmd": "seedctl relay model --id gemma3_270m --prompt 'test'",
+        "expect_exit": 0
+      },
+      {
+        "name": "relay_invoke_test_armv7",
+        "runtime": "armv7_helios4",
+        "cmd": "seedctl relay model --id gemma3_270m --prompt 'test'",
+        "expect_exit": 0
+      }
+    ]
+  }
+}

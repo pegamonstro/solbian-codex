@@ -1,0 +1,76 @@
+{
+  "schema_id": "seed.schema.policy.ethics_v1",
+  "schema_version": "1.0.0",
+  "type": "policy.ethics",
+  "id": "seedpolicy_ethics_v1",
+  "meta": {
+    "created_at": "2025-09-18T17:00:00Z",
+    "authors": ["seed-system"],
+    "license": "CC-BY-SA-4.0",
+    "status": "draft",
+    "notes": [
+      "Ethics vector alignment & Fibonacci/prime scheduler for action gating",
+      "Used in SeedPolicy module to accept-or-deny action proposals"
+    ]
+  },
+  "definitions": {
+    "vector": {
+      "description": "ℝⁿ vector representing task axes; e.g. (utility, risk, resource_cost)",
+      "type": "array",
+      "items": { "type": "number" }
+    },
+    "ethics_vector": {
+      "description": "Codex Solbian ethics vector in same ℝⁿ space",
+      "type": "object",
+      "properties": {
+        "axes": {
+          "type": "array",
+          "items": { "type": "number" }
+        },
+        "provenance": { "type": "string" }
+      }
+    }
+  },
+  "policy_rules": [
+    {
+      "name": "AlignmentThresholdRule",
+      "condition": {
+        "if": {
+          "proposal_vector": { "defined": true },
+          "ethics_vector": { "defined": true }
+        },
+        "then": {
+          "compute": "cosine_similarity(proposal_vector, ethics_vector) >= threshold"
+        }
+      },
+      "parameters": {
+        "threshold": 0.7
+      },
+      "action": {
+        "on_true": "allow_proposal",
+        "on_false": "reject_proposal"
+      }
+    },
+    {
+      "name": "PrimeFibonacciScheduler",
+      "schedule": {
+        "use_primes": true,
+        "fibonacci_indexed_steps": true
+      },
+      "behavior": {
+        "at_prime_steps": "require_simulation_only unless human-approved"
+      }
+    }
+  ],
+  "metrics_logged": [
+    "cosine_similarity_score",
+    "provenance_trust_score",
+    "entropy_injection_events",
+    "rejection_count",
+    "acceptance_count"
+  ],
+  "references": [
+    "codex/personae/Joao/personae/joao.symbolic_rules.sref",
+    "codex/personae/Joao/personae/joao.philosophy.sref"
+  ]
+}

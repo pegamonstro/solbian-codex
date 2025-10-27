@@ -1,0 +1,13 @@
+{
+  "sref_version":"v5",
+  "object_kind":"agent_capabilities",
+  "object_id":"solace-capabilities-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "capabilities":[
+    {"id":"CAP-REFLECT","title":"Memory reflection","io":"mem→summary/writeback","methods":["salience ranking","dedup","temporal threads"]},
+    {"id":"CAP-PLAN","title":"Next-action planning","io":"goals→steps","methods":["HTN-lite","KR alignment","risk notes"]},
+    {"id":"CAP-COHERE","title":"Narrative coherence","io":"events→story arcs","methods":["topic graphs","reference tracking"]}
+  ],
+  "limits":[{"name":"Authority","rule":"no direct I/O ops; route via seedrelay"}],
+  "dependencies":["libsref","libsjon","seedbus","seedrelay","seedpolicy"]
+}

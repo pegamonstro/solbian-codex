@@ -1,0 +1,61 @@
+{"sref_version":"v5","object_kind":"index","object_id":"joao-index-1","timestamp":"2025-09-11T06:58:00Z",
+ "owner_ref":"joao-1",
+ "package":{
+   "name":"João Continuity Package v1",
+   "description":"Top-level index linking João’s persona, ethics, vault, testament, knowledge, goals, affect, and works objects for symbolic continuity in S.E.E.D."
+ },
+ "refs":[
+   {"kind":"persona","id":"joao-1","path":"persona/joao-1.sref","required":true},
+   {"kind":"vault","id":"joao-vault-1","path":"vault/joao-vault-1.sref","required":true},
+   {"kind":"ethics","id":"joao-ethics-1","path":"ethics/joao-ethics-1.sref","required":true},
+   {"kind":"testament","id":"joao-testament-1","path":"testament/joao-testament-1.sref","required":true},
+   {"kind":"knowledge","id":"joao-knowledge-1","path":"knowledge/joao-knowledge-1.sref","required":true},
+   {"kind":"goals","id":"joao-goals-1","path":"goals/joao-goals-1.sref","required":true},
+   {"kind":"affect","id":"joao-emotion-1","path":"affect/joao-emotion-1.sref","required":true},
+   {"kind":"works","id":"joao-works-1","path":"works/joao-works-1.sref","required":true}
+ ],
+ "graph":{
+   "edges":[
+     {"from":"joao-1","to":"joao-vault-1","rel":"owns"},
+     {"from":"joao-1","to":"joao-ethics-1","rel":"governs"},
+     {"from":"joao-1","to":"joao-testament-1","rel":"covenant"},
+     {"from":"joao-1","to":"joao-knowledge-1","rel":"embodies"},
+     {"from":"joao-1","to":"joao-goals-1","rel":"intends"},
+     {"from":"joao-1","to":"joao-emotion-1","rel":"affect-model"},
+     {"from":"joao-1","to":"joao-works-1","rel":"authored"},
+     {"from":"joao-ethics-1","to":"joao-testament-1","rel":"constrains"},
+     {"from":"joao-ethics-1","to":"joao-goals-1","rel":"gates"},
+     {"from":"joao-vault-1","to":"joao-knowledge-1","rel":"informs"},
+     {"from":"joao-vault-1","to":"joao-emotion-1","rel":"affect-context"},
+     {"from":"joao-works-1","to":"joao-knowledge-1","rel":"knowledge-source"}
+   ]
+ },
+ "integration":{
+   "seedbus_topics":["persona.update","vault.update","ethics.update","testament.update","knowledge.update","goals.update","affect.update","works.update","continuity.audit"],
+   "seedctl_commands":[
+     {"cmd":"seedctl continuity load joao-index-1.sref","effect":"Validate and load all referenced SREFs"},
+     {"cmd":"seedctl continuity audit --id joao-index-1","effect":"Run Páreon/seedpolicy checks across package"},
+     {"cmd":"seedctl continuity pin --id joao-index-1","effect":"Pin package for immutable reference in vault"}
+   ],
+   "agents":[
+     {"agent":"memory_agent","role":"Cross-link memories to refs in index; maintain referential integrity"},
+     {"agent":"reason_agent","role":"Plan actions against goals with ethics gate; writeback summaries"},
+     {"agent":"pareon_agent","role":"Audit changes; enforce policy and testament constraints"},
+     {"agent":"scribe_agent","role":"Normalise new inputs and attach to knowledge/works/vault"}
+   ]
+ },
+ "integrity":{
+   "schema_version":"sref_v5",
+   "validation":"all_refs_must_exist",
+   "hashes":[
+     {"id":"joao-1","alg":"sha256","value":null},
+     {"id":"joao-vault-1","alg":"sha256","value":null},
+     {"id":"joao-ethics-1","alg":"sha256","value":null},
+     {"id":"joao-testament-1","alg":"sha256","value":null},
+     {"id":"joao-knowledge-1","alg":"sha256","value":null},
+     {"id":"joao-goals-1","alg":"sha256","value":null},
+     {"id":"joao-emotion-1","alg":"sha256","value":null},
+     {"id":"joao-works-1","alg":"sha256","value":null}
+   ]
+ }
+}

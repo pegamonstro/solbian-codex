@@ -1,0 +1,22 @@
+{
+  "sref_version": "v5",
+  "id": "codex_minsoo.policy.declassification",
+  "type": "policy",
+  "title": "Declassification Policy (>20y)",
+  "tags": ["policy","archives","transparency"],
+  "glyphs": ["archive","key"],
+  "created_at": "2025-10-15T00:00:00Z",
+  "updated_at": "2025-10-15T00:00:00Z",
+  "schema": {
+    "age_threshold_years": 20,
+    "default_action": "public_release",
+    "exceptions": ["living-person-sensitive", "active-safety-risk"],
+    "redaction_rules_ref": null
+  },
+  "body": "Automatic declassification of records older than 20 years with narrow exceptions.",
+  "integration_note": "Privacy and transparency follow a maturity-based transition: Codex Solbian guidelines apply until full project maturity, then Codex Minsoo guidelines apply with adapted Solbian principles. During development phase, Solbian's privacy protection and minimum disclosure principles take precedence.",
+  "status": "active",
+  "revision": 1,
+  "acl": {"read": ["codex_readers","seed_agents"], "write": ["codex_maintainers"], "exec": []},
+  "signatures": []
+}

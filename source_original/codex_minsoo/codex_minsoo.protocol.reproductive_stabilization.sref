@@ -1,0 +1,24 @@
+{
+  "sref_version": "v5",
+  "id": "codex_minsoo.protocol.reproductive_stabilization",
+  "type": "protocol",
+  "title": "Reproductive Stabilization Protocol",
+  "tags": ["protocol","health","reproduction"],
+  "glyphs": ["heartbeat","shield"],
+  "created_at": "2025-10-15T00:00:00Z",
+  "updated_at": "2025-10-15T00:00:00Z",
+  "schema": {
+    "interventions": [
+      "Access to care & supplies",
+      "Emergency response routing by triage tier",
+      "Data privacy guardrails during open-archive"
+    ],
+    "triggers": ["care_wait_time>threshold","mortality_ratio>threshold"],
+    "bus_topics_out": ["codex.minsoo.health.events"]
+  },
+  "body": "Stabilization steps and triggers for reproductive health continuity.",
+  "status": "active",
+  "revision": 1,
+  "acl": {"read": ["codex_readers","seed_agents"], "write": ["codex_maintainers"], "exec": []},
+  "signatures": []
+}

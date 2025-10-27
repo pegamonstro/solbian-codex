@@ -1,0 +1,11 @@
+{
+  "sref_version":"v5",
+  "object_kind":"agent_tests",
+  "object_id":"anagenes-tests-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "fixtures":[{"name":"style_ref","path":"fixtures/style_ref.wav"}],
+  "checks":[
+    {"id":"CHK-AN-1","assert":"require consent for cloning","on":"persona_create"},
+    {"id":"CHK-AN-2","assert":"disclosure tag present","on":"sample_render"}
+  ]
+}

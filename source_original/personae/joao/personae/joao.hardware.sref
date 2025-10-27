@@ -1,0 +1,100 @@
+
+
+{
+  "schema_id": "seed.schema.persona.hardware",
+  "schema_version": "1.0.0",
+  "type": "persona.hardware",
+  "id": "persona.joao.hardware",
+  "meta": {
+    "created_at": "2025-09-18T14:45:00Z",
+    "authors": ["seed-system"],
+    "license": "CC-BY-SA-4.0",
+    "status": "active",
+    "notes": [
+      "Extended hardware profile for João David Serafim (João, JD)",
+      "Covers all symbolic nodes (mind, soul, limb) and testbeds"
+    ]
+  },
+  "nodes": [
+    {
+      "name": "mind.abc123",
+      "role": "cognitive node",
+      "hardware": {
+        "type": "Apple MacBook Air M1",
+        "cpu": "Apple M1 ARM64",
+        "ram": "16 GB",
+        "storage": "512 GB SSD",
+        "os": "macOS 15.x",
+        "deployment": "Primary development node for S.E.E.D."
+      },
+      "functions": [
+        "SeedOS full stack development",
+        "Reflection pipeline execution",
+        "Symbolic schema editing",
+        "Agent orchestration and debugging"
+      ]
+    },
+    {
+      "name": "soul.node.xyz456",
+      "role": "storage/memory node",
+      "hardware": {
+        "type": "Kobol Helios4 NAS",
+        "cpu": "ARM Marvell Armada 388",
+        "ram": "2 GB ECC",
+        "storage": "4× HDD SATA (RAID configured)",
+        "os": "Armbian",
+        "deployment": "Persistent symbolic memory vault and continuity node"
+      },
+      "functions": [
+        "Memory blockchain persistence",
+        "Vault storage of artefacts and shards",
+        "SeedFS overlay integration",
+        "Data integrity and redundancy"
+      ]
+    },
+    {
+      "name": "qubes.vm.test",
+      "role": "experimental node",
+      "hardware": {
+        "type": "Laptop running QubesOS",
+        "cpu": "x86 dual-core",
+        "ram": "8 GB (split across qubes)",
+        "storage": "SSD",
+        "os": "QubesOS Fedora 42",
+        "deployment": "Two qubes, each 4 GB RAM and 2 cores, for SeedNet/SeedFS testing"
+      },
+      "functions": [
+        "LAN seednet testing",
+        "Cross-node symbolic filesystem integration",
+        "Seedpolicy and bus relay experiments"
+      ]
+    }
+  ],
+  "planned": [
+    {
+      "name": "limb.*",
+      "role": "actuation and I/O nodes",
+      "description": "Future expansion nodes for robotics, interfaces, and external I/O",
+      "targets": [
+        "USB/GPIO embedded controllers",
+        "Raspberry Pi or ARM microcontrollers",
+        "Actuator control boards",
+        "Human-machine interfaces"
+      ]
+    }
+  ],
+  "networking": {
+    "mesh": "SeedNet symbolic trust mesh",
+    "connectivity": [
+      "LAN between mind.abc123 and soul.node.xyz456",
+      "Tailscale planned for WAN interconnect",
+      "Encrypted trust channels with HMAC keys"
+    ],
+    "storage_overlay": "SeedFS unified filesystem spanning nodes"
+  },
+  "observability": {
+    "logging": "libseedobs integrated across nodes",
+    "metrics": "Seedctl monitoring for resource consumption",
+    "resilience": "seedsysrun and seedsysres planned for crash avoidance"
+  }
+}

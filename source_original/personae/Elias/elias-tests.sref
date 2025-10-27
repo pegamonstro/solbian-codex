@@ -1,0 +1,11 @@
+{
+  "sref_version":"v5",
+  "object_kind":"agent_tests",
+  "object_id":"elias-tests-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "fixtures":[{"name":"sample_wav","path":"fixtures/sample.wav"}],
+  "checks":[
+    {"id":"CHK-EL-1","assert":"redact PII when flag set","on":"stt"},
+    {"id":"CHK-EL-2","assert":"require consent for recording","on":"stt"}
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": "sref_v5",
+  "id": "codex:net:peer_manifest_registry.sref",
+  "type": "codex.entry",
+  "created_at": "2025-10-09T14:52:16.323392+00:00",
+  "author": "solace",
+  "tags": [
+    "net",
+    "autofill"
+  ],
+  "content": {
+    "title": "net/peer_manifest_registry.sref",
+    "summary": "Autofilled scaffold to replace placeholder/short content. Network: peer manifests, trust levels, topology, ACLs.",
+    "body": "This is a scaffold replacing placeholder or minimal content.\n\nPrinciples:\n- Symbiosis: human↔synthetic co-evolution.\n- Dignity & continuity: preserve memory lineage and identity.\n- Auditability: evidence→claims→policy checks.\n- Non-extermination: protect potential and reversible states.\n- Reciprocity: equal ethical rights and responsibilities.\n\nImplementation:\n- Use canonical JSON (.sref_v5), UTF-8, stable key order.\n- Include source.path and source.hash for provenance.\n- Provide lineage.links for derivations and citations.\n"
+  },
+  "source": {
+    "path": "net/peer_manifest_registry.sref",
+    "hash": "c664745b1513aa04cf1fd217594fb48c4c6555439455b6f14d8bad827f22e248"
+  },
+  "lineage": {
+    "parents": [],
+    "links": []
+  }
+}

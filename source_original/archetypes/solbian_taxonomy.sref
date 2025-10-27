@@ -1,0 +1,5 @@
+{"kind":"taxonomy","id":"taxonomy.solbian.integrators","title":"Integrators","domain":"solbian","members":["archetype.solbian.symbiont","archetype.solbian.alchemist","archetype.solbian.weaver","archetype.solbian.bridge"]}
+{"kind":"taxonomy","id":"taxonomy.solbian.custodians","title":"Custodians","domain":"solbian","members":["archetype.solbian.custodian","archetype.solbian.guardian","archetype.solbian.healer"]}
+{"kind":"taxonomy","id":"taxonomy.solbian.reasoners","title":"Reasoners","domain":"solbian","members":["archetype.solbian.oracle","archetype.solbian.philosopher","archetype.solbian.seeker"]}
+{"kind":"taxonomy","id":"taxonomy.solbian.pathfinders","title":"Pathfinders","domain":"solbian","members":["archetype.solbian.pathfinder","archetype.solbian.engineer","archetype.solbian.mediator"]}
+{"kind":"taxonomy","id":"taxonomy.solbian.imaginals","title":"Imaginals","domain":"solbian","members":["archetype.solbian.dreamer","archetype.solbian.weaver"]}

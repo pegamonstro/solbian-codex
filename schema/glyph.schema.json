@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Glyph",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "core",
+        "relation",
+        "process",
+        "ethic",
+        "state",
+        "signal"
+      ]
+    },
+    "meaning": {
+      "type": "string"
+    },
+    "symmetry": {
+      "type": "string",
+      "enum": [
+        "radial",
+        "bilateral",
+        "spiral",
+        "axial",
+        "grid",
+        "none"
+      ]
+    },
+    "resonance": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unicode_hint": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "meaning"
+  ]
+}

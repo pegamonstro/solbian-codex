@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Identity",
+  "type": "object",
+  "properties": {
+    "label": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "lineage": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "keys": {
+      "type": "object",
+      "properties": {
+        "pub": {
+          "type": "string"
+        }
+      }
+    },
+    "policies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "trust_level": {
+      "type": "string",
+      "enum": [
+        "unknown",
+        "low",
+        "medium",
+        "high",
+        "root"
+      ]
+    }
+  },
+  "required": [
+    "label",
+    "role"
+  ]
+}

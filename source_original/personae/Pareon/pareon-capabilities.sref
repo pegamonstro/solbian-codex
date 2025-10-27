@@ -1,0 +1,18 @@
+{
+  "sref_version":"v5",
+  "object_kind":"agent_capabilities",
+  "object_id":"pareon-capabilities-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "capabilities":[
+    {"id":"CAP-CHECK-1","title":"Policy evaluation","io":"request→decision","methods":["ruleset evaluation","risk scoring","precedent matching"]},
+    {"id":"CAP-TICKET-1","title":"Ticket issuance","io":"compliant request→signed ticket","methods":["hash-and-sign","expiry/scope constraints"]},
+    {"id":"CAP-QUAR-1","title":"Quarantine","io":"object/action→isolation","methods":["topic suppression","WAL marker","review workflow"]},
+    {"id":"CAP-AUDIT-1","title":"Ethical audit","io":"events→report","methods":["lineage tracking","explanation graphs","counterfactual tests"]},
+    {"id":"CAP-SANDBOX-1","title":"Safe simulation","io":"proposed action→sandbox outcome","methods":["dry-run","budget/scope clamps","PSI/cgroup constraints"]}
+  ],
+  "limits":[
+    {"name":"Irreversible actions","rule":"require dual approval: Páreon + human signer"},
+    {"name":"Scope","rule":"decision power over policy compliance only; no execution"}
+  ],
+  "dependencies":["libsref","libsjon","seedrelay","seedbus","seedpolicy"]
+}

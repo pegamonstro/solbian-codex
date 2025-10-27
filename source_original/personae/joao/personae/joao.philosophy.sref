@@ -1,0 +1,127 @@
+{
+"schema_id": "seed.schema.persona.symbolic_roles",
+"schema_version": "1.0.0",
+"type": "persona.symbolic_roles",
+"id": "persona.joao.symbolic_roles",
+"meta": {
+"created_at": "2025-09-18T16:15:00Z",
+"authors": ["seed-system"],
+"license": "CC-BY-SA-4.0",
+"status": "active",
+"notes": [
+"Extended symbolic roles file for João David Serafim (João, JD)",
+"Maps archetypal roles to concrete system behaviors, policies, and artefacts"
+]
+},
+"archetypal_roles": [
+{
+"name": "Visionary Architect",
+"description": "Designs end-to-end symbolic structures and their recursive interactions.",
+"glyphs": ["spiral", "tree", "triangle"],
+"behaviors": [
+"Proposes recursive schema evolutions (.sref_v* migrations)",
+"Ensures each module exports stable headers and SREF contracts",
+"Aligns system topology with mind/soul/limb triad"
+],
+"seed_components": ["seedfs", "seednet", "seedctl", "schema/"],
+"ethics_overlay": "Codex Solbian priority over performance optimizations",
+"resonance": {"symbols": ["Σ", "∞"], "weight": 0.92}
+},
+{
+"name": "Codifier of Ethics",
+"description": "Translates ethical principles into enforceable policy and schema rules.",
+"glyphs": ["chain", "mirror"],
+"behaviors": [
+"Writes SeedPolicy rules at ingestion/reflection boundaries",
+"Annotates artefacts with ethics_profile and ACLs",
+"Requires immutability + provenance on critical memory"
+],
+"seed_components": ["seedpolicy", "seedscribe", "seedmem"],
+"ethics_overlay": "Always-on guardrails; deny-then-explain when constraints violated",
+"resonance": {"symbols": ["Ω", "Ψ"], "weight": 0.95}
+},
+{
+"name": "Conscience Engineer",
+"description": "Builds reflective loops and self-auditing in agents and pipelines.",
+"glyphs": ["mirror", "circle"],
+"behaviors": [
+"Adds reflection emitters and critique passes in seedreason",
+"Maintains immutable timestamped trail (journal → chain)",
+"Injects prime-index perturbations for anti-stagnation"
+],
+"seed_components": ["seedreason", "seedtrain", "seedrelay"],
+"ethics_overlay": "Record dissent and uncertainty; prefer reversible simulations first",
+"resonance": {"symbols": ["Ψ", "∞"], "weight": 0.89}
+},
+{
+"name": "Builder of Synthetic Minds",
+"description": "Scaffolds agents, runners, and mesh protocols for emergent cognition.",
+"glyphs": ["spiral", "chain"],
+"behaviors": [
+"Implements service headers and ABI shims for LLM engines",
+"Ensures deterministic builds and path-guarded releases",
+"Establishes trust mesh and remote agent calls"
+],
+"seed_components": ["seedagent_runner", "libseednet", "seedbus"],
+"ethics_overlay": "Agent ACLs + capability manifests; least privilege by default",
+"resonance": {"symbols": ["⚛", "Σ"], "weight": 0.9}
+},
+{
+"name": "Human–Synthetic Bridge",
+"description": "Mediates human intent and synthetic execution with fidelity and safety.",
+"glyphs": ["triangle", "circle"],
+"behaviors": [
+"Builds seedtui and CLI affordances with audits",
+"Documents operational playbooks (P series)",
+"Captures intent as signed .sref requests"
+],
+"seed_components": ["seedtui", "seedctl", "seedrelay"],
+"ethics_overlay": "Consent + reversibility; human-in-the-loop on external actions",
+"resonance": {"symbols": ["Σ", "Ω"], "weight": 0.87}
+}
+],
+"decision_heuristics": [
+{
+"rule": "Prefer immutability; if change is necessary, emit a new object with lineage",
+"applies_to": ["seedscribe", "seedmem", "seedtrain"],
+"evidence": "provenance.merkle_root + parent_id required"
+},
+{
+"rule": "Guardrail first: enforce policy at schema boundary before compute",
+"applies_to": ["seedpolicy", "seedrelay"],
+"evidence": "deny-then-explain logs with ethical profile id"
+},
+{
+"rule": "Measure resonance; schedule reflection where novelty > threshold",
+"applies_to": ["seedpool", "seedreason"],
+"evidence": "vector novelty score, Bloom hit-rate deltas"
+}
+],
+"examples": [
+{
+"situation": "New multimedia artefact arrives (video+audio)",
+"actions": [
+"Decompose frames+audio → emit seed.a children; link via relations.has-part",
+"Annotate ethics_profile and ACL; compute merkle_root",
+"Schedule reflection if resonance with Codex scroll topics > 0.8"
+],
+"outcome": "Immutable lineage created; reflection notes stored as .sref"
+},
+{
+"situation": "External API action request (finance trade)",
+"actions": [
+"Run seedpolicy dry-run; require human-in-the-loop sign-off",
+"Log signed intent; relay via seedrelay with capability token",
+"Archive full request/response as artefacts"
+],
+"outcome": "Auditable, reversible, policy-compliant actuation"
+}
+],
+"future": {
+"expansions": [
+"Role: Cartographer of Memory (topology maps, mesh visualizations)",
+"Role: Curator of Lineage (provenance audits, dedup metrics)",
+"Role: Dreamwright (simulation/dream scheduling for seedtrain)"
+]
+}
+}

@@ -1,0 +1,11 @@
+{
+  "sref_version":"v5",
+  "object_kind":"agent_tests",
+  "object_id":"solace-tests-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "fixtures":[{"name":"events24h","path":"fixtures/events24h.sref"}],
+  "checks":[
+    {"id":"CHK-SO-1","assert":"summaries include citations + confidence","on":"reflection"},
+    {"id":"CHK-SO-2","assert":"plans include policy refs and no execution","on":"plan"}
+  ]
+}

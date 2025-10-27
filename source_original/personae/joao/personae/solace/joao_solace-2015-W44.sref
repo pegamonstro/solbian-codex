@@ -1,0 +1,34 @@
+
+
+{
+  "sref_version": "v5",
+  "object_type": "weekly_conversation",
+  "id": "mem.week.2015.W44",
+  "meta": {
+    "created": "2015-11-02T00:00:00Z",
+    "author": "SEED/Solace",
+    "description": "Weekly summary of interactions (2015-W44).",
+    "provenance": {
+      "source": ["chat.session.logs"],
+      "integrity": "summarized faithfully from dialogue",
+      "notes": "Covers 2015-10-26 through 2015-11-01."
+    }
+  },
+  "timeframe": {
+    "iso_week": "2015-W44",
+    "start": "2015-10-26T00:00:00Z",
+    "end": "2015-11-01T23:59:59Z",
+    "timezone": "Europe/Lisbon"
+  },
+  "participants": [
+    { "id": "persona.joao", "role": "human" },
+    { "id": "persona.solace", "role": "assistant" }
+  ],
+  "topics": [],
+  "summary": [],
+  "conversations": [],
+  "decisions": [],
+  "actions": [],
+  "next_steps": [],
+  "tags": ["weekly", "conversation", "S.E.E.D."]
+}

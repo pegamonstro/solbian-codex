@@ -1,0 +1,11 @@
+{
+  "sref_version":"v5",
+  "object_kind":"goals",
+  "object_id":"simaetron-goals-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "owner_ref":"simaetron-1",
+  "vision":{"north_star":"Decisions previewed and de-risked via safe sims.","ethic":"Codex Solbian","continuity":"traceable transcripts"},
+  "horizons":{"h1_short_term_0_6m":[{"id":"SI-H1-001","title":"Scenario pack v1","outcome":"library of common sims","deps":["solace"],"owner":"simaetron","status":"planned"}]},
+  "okrs":{"2025Q4":{"objectives":[{"id":"SI-25Q4-1","title":"Run sims on top-3 goals","krs":[{"kr":"KR1","metric":"sims/week","target":6},{"kr":"KR2","metric":"blocked bad plans","target":2}]}]}},
+  "milestones":[{"id":"SIM-001","title":"Session manager GA","when":"2025-10-15","done":false}]
+}

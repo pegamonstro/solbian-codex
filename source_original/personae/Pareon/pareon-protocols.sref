@@ -1,0 +1,32 @@
+{
+  "sref_version":"v5",
+  "object_kind":"agent_protocols",
+  "object_id":"pareon-protocols-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "runbooks":[
+    {
+      "id":"RB-CHECK-001",
+      "title":"Policy evaluation",
+      "steps":[
+        "Receive request via seedrelay",
+        "Assemble context (memories, goals, metrics)",
+        "Evaluate against rules + precedents",
+        "If compliant → issue ticket; else deny/quarantine",
+        "Publish ethics.decision with rationale"
+      ],
+      "artifacts":["decision.sref","ticket.ref","rationale.md"]
+    },
+    {
+      "id":"RB-QUAR-001",
+      "title":"Quarantine workflow",
+      "steps":[
+        "Isolate object/action via relay rule",
+        "Emit ethics.quarantine with reason and review SLA",
+        "Request operator review; attach mitigations",
+        "Lift or convert to deny after SLA"
+      ],
+      "artifacts":["quarantine.sref","review_log.ndjson"]
+    }
+  ],
+  "thresholds":{"decision_latency_ms_max":300,"risk_score_alert_min":0.7,"auto_quarantine_classes":["destructive_ops","key_material_exfil","policy_bypass"]}
+}

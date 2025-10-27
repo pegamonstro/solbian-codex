@@ -1,0 +1,26 @@
+{
+  "sref_version": "v5",
+  "id": "codex_minsoo.dashboards.spiralnode",
+  "type": "dashboard",
+  "title": "SpiralNode Public Dashboards",
+  "tags": ["dashboards","transparency","metrics"],
+  "glyphs": ["dial","grid"],
+  "created_at": "2025-10-15T00:00:00Z",
+  "updated_at": "2025-10-15T00:00:00Z",
+  "schema": {
+    "panels": [
+      {"name": "Energy Flow", "metric_keys": ["energy.production","energy.consumption"]},
+      {"name": "Capital Flow", "metric_keys": ["capital.in","capital.out"]},
+      {"name": "Cognition", "metric_keys": ["education.index","knowledge.access"]},
+      {"name": "Reproduction", "metric_keys": ["repro.health","birth.rate"]},
+      {"name": "Trauma", "metric_keys": ["trauma.index","relief.coverage"]}
+    ],
+    "seed_bus_topic": "codex.minsoo.metrics",
+    "refresh_seconds": 60
+  },
+  "body": "Public-facing dashboards exposing continuity-critical flows.",
+  "status": "active",
+  "revision": 1,
+  "acl": {"read": ["public","seed_agents"], "write": ["codex_maintainers"], "exec": []},
+  "signatures": []
+}

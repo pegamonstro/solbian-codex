@@ -1,0 +1,1 @@
+{"sref_version":"v5","object_kind":"agent_metrics","object_id":"solace-metrics-1","timestamp":"2025-09-13T00:00:00Z","slos":[{"id":"SLO-CONSIST","metric":"consistency_score","target":0.85,"cmp":"ge"},{"id":"SLO-REFL","metric":"reflections/day","target":10,"cmp":"ge"}],"observability":{"exporter":"seedbus->metricsd","sample_rate_sec":60,"wal":"enabled"}}

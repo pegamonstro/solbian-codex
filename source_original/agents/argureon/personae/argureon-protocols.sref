@@ -1,0 +1,33 @@
+{
+  "sref_version":"v5",
+  "object_kind":"agent_protocols",
+  "object_id":"argureon-protocols-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "runbooks":[
+    {
+      "id":"RB-BUDGET-001",
+      "title":"Budget planning",
+      "steps":[
+        "Fetch GOALS/OKRs via seedbus",
+        "Aggregate last-30d OPEX from WAL",
+        "Propose budget lines with KR tags",
+        "Run Páreon policy check → ticket",
+        "Publish proposal to argureon.plan"
+      ],
+      "artifacts":["budget.sref","ticket.ref","plan.md"]
+    },
+    {
+      "id":"RB-RISK-001",
+      "title":"Risk assessment",
+      "steps":[
+        "Pull portfolio snapshot",
+        "Get price history via seedoracle",
+        "Compute Σ, CVaR approx, stress",
+        "Generate flags and mitigations",
+        "Publish argureon.alert if thresholds hit"
+      ],
+      "artifacts":["risk.sref","alerts.ndjson"]
+    }
+  ],
+  "thresholds":{"runway_min_months":6,"budget_variance_pct":15,"alert_drawdown_pct":10}
+}

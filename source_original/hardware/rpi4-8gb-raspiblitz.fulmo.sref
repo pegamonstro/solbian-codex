@@ -1,0 +1,233 @@
+{
+  "schema_version": "1.0",
+  "type": "hardware_spec",
+  "id": "raspiblitz.fulmo.rpi4.8gb",
+  "title": "RaspiBlitz (Fulmo) — Raspberry Pi 4 8GB + 3.5\" Touch + SSD in Metal Case",
+  "summary": "Complete, expanded specifications of the RaspiBlitz metal‑case build based on Raspberry Pi 4 Model B (8GB), 3.5\" SPI touchscreen, and 2.5\" SSD on USB 3.0/SATA HAT. Includes board, peripherals, drivers, overlays, power/thermal, and kernel/userland requirements for an optimized S.E.E.D. custodian node.",
+  "status": "shipping",
+  "lineage": {
+    "author": "Codex Solbian Maintainers",
+    "created_at": "2025-09-20T12:05:00Z",
+    "modified_at": "2025-09-20T12:05:00Z",
+    "version": "1.0"
+  },
+
+  "platform": {
+    "board": {
+      "model": "Raspberry Pi 4 Model B (8GB)",
+      "soc": {
+        "vendor": "Broadcom",
+        "model": "BCM2711",
+        "cpu": {"arch": "ARMv8‑A", "uarch": "Cortex‑A72", "cores": 4, "freq_mhz": 1500},
+        "gpu": {"name": "VideoCore VI", "api": ["OpenGL ES 3.1"], "note": "Headless OK"},
+        "memory": {"type": "LPDDR4", "capacity_gb": 8},
+        "io": {"pcie": 1, "usb": 2, "sdio": true, "i2c": true, "spi": true, "uart": true}
+      },
+      "dimensions_mm": {"w": 85.6, "h": 56.5},
+      "headers": {"gpio": 40}
+    },
+    "enclosure": {
+      "type": "Metal case (Fulmo edition)",
+      "cooling": {"mode": "passive/heatsink + optional fan", "sensors": ["CPU temp via vcgencmd"], "targets_c": [70, 80]},
+      "mounts": ["Pi4 board", "2.5\" SSD cage/HAT", "3.5\" display front"]
+    }
+  },
+
+  "peripherals": [
+    {
+      "id": "display.3p5.spi",
+      "name": "3.5\" SPI TFT LCD + Touch",
+      "class": "display.touch.spi",
+      "panel": {
+        "controllers": ["ILI9341", "ILI9486"],
+        "resolution": {"w": 480, "h": 320},
+        "refresh_hz": 60,
+        "color": 16,
+        "if": "SPI",
+        "rotation": [0, 90, 180, 270]
+      },
+      "touch": {"controller": "XPT2046", "if": "SPI", "irq_gpio": 25},
+      "backlight": {"gpio": 18, "pwm": true},
+      "wiring": {
+        "spi": {"bus": 0, "cs": 0, "pins": {"MOSI": 10, "MISO": 9, "SCLK": 11, "CE0": 8}},
+        "gpio": {"dc": 24, "rst": 23, "irq": 25, "bl_pwm": 18}
+      },
+      "drivers": {
+        "kernel": ["fbtft", "fb_ili9341", "fb_ili9486", "xpt2046_ts"],
+        "modules": ["spi_bcm2835", "spidev"],
+        "xinput": ["libinput"],
+        "device_tree": {
+          "overlays": [
+            {
+              "dtoverlay": "spi0-1cs",
+              "params": {}
+            },
+            {
+              "dtoverlay": "piscreen2r-notro",
+              "params": {"speed": 32000000, "rotate": 90}
+            },
+            {
+              "dtoverlay": "ads7846",
+              "params": {"cs": 1, "penirq": 25, "speed": 2000000}
+            }
+          ],
+          "alternatives": [
+            {"dtoverlay": "waveshare35a", "params": {"rotate": 90}},
+            {"dtoverlay": "piscreen", "params": {"rotate": 90}}
+          ]
+        }
+      },
+      "power": {"supply": "5V GPIO", "est_draw_ma": 80},
+      "notes": [
+        "Different 3.5\" panels ship under multiple brands; controller autodetect may vary.",
+        "If using KMS/DRM vc4, prefer modern DRM drivers; legacy fb overlays still common for SPI TFT."
+      ]
+    },
+    {
+      "id": "storage.ssd.usb3",
+      "name": "2.5\" SATA SSD via USB 3.0 HAT/Bridge",
+      "class": "storage.ssd",
+      "capacity": {"unit": "GB", "min": 500, "typ": 1000, "max": 4000},
+      "iface": {"host": "USB 3.0", "bridge": ["JMicron JMS578/JMS583", "ASMedia ASM1153E"], "proto": "UAS"},
+      "drivers": {"kernel": ["xhci_hcd", "uas", "usb-storage"], "fs": ["ext4"]},
+      "mount": {
+        "fstab": {
+          "opts": "defaults,noatime,commit=60,barrier=1,errors=remount-ro",
+          "trim": true
+        }
+      },
+      "power": {"supply": "5V via USB", "est_draw_ma": 500, "peak_ma": 900},
+      "notes": [
+        "Prefer UASP bridges (uas) for better IOPS and lower CPU.",
+        "Check `lsusb -t` to confirm UAS; blacklist uas only if encountering bridge firmware bugs."
+      ]
+    },
+    {
+      "id": "network.eth",
+      "name": "Gigabit Ethernet",
+      "class": "network.ethernet",
+      "controller": "Broadcom GENET (bcmgenet)",
+      "speed_mbps": 1000,
+      "drivers": {"kernel": ["bcmgenet", "bcmphy"], "offloads": ["tx-checksum", "rx-checksum", "tso", "gso", "gro"]},
+      "notes": ["Use wired GbE as primary for reliability and throughput."]
+    }
+  ],
+
+  "power": {
+    "psu": {"type": "USB‑C", "rating": "5V/3A min", "headroom": ">3.5A recommended with SSD + display"},
+    "budget": {
+      "pi4_idle_w": 3.5,
+      "pi4_load_w": 7.0,
+      "ssd_w": 3.0,
+      "display_w": 0.4,
+      "total_peak_w": 11.0
+    },
+    "ups": {"recommended": true, "notes": "Graceful shutdown of Bitcoin Core + filesystems"}
+  },
+
+  "thermal": {
+    "targets_c": {"throttle": 80, "critical": 85},
+    "mitigations": ["metal case heatsinking", "optional 5V PWM fan", "governor=schedutil"],
+    "monitor": ["vcgencmd measure_temp"]
+  },
+
+  "io_ports": {
+    "usb": {"usb3": 2, "usb2": 2},
+    "video": {"micro_hdmi": 2},
+    "audio": {"hdmi_audio": true},
+    "camera": {"csi": 2},
+    "display": {"dsi": 1},
+    "gpio": {"header": 40, "voltage": "3.3V"}
+  },
+
+  "software": {
+    "os": {
+      "base": "Raspbian/Raspberry Pi OS 64‑bit or RaspiBlitz OS",
+      "boot": {"firmware": "start4.elf + config.txt", "uboot": "optional"},
+      "config_txt": {
+        "gpu_mem": 64,
+        "dtoverlay": ["disable-wifi", "disable-bt", "vc4-kms-v3d"],
+        "dtparam": ["spi=on", "i2c_arm=on"]
+      }
+    },
+    "kernel": {
+      "family": "bcm2711",
+      "modules": ["bcmgenet", "xhci_hcd", "uas", "usb-storage", "spi_bcm2835", "spidev", "fb_ili9341", "fbtft", "xpt2046_ts"],
+      "kconfig_min": [
+        "CONFIG_ARM64=y",
+        "CONFIG_PCIE_BRCMSTB=y",
+        "CONFIG_USB_XHCI_HCD=y",
+        "CONFIG_USB_UAS=y",
+        "CONFIG_BCMGENET=y",
+        "CONFIG_SPI_BCM2835=y",
+        "CONFIG_INPUT_TOUCHSCREEN=y",
+        "CONFIG_TOUCHSCREEN_ADS7846=y",
+        "CONFIG_DRM_VC4=y",
+        "CONFIG_FB_TFT=y"
+      ]
+    },
+    "services": {
+      "bitcoin_core": {
+        "role": "custodian full node",
+        "datadir": "/mnt/ssd/bitcoin",
+        "conf": {
+          "server": 1, "daemon": 1, "txindex": 1, "blockfilterindex": 1, "prune": 0,
+          "rpcbind": "127.0.0.1", "rpcallowip": "127.0.0.1",
+          "zmqpubrawblock": "tcp://127.0.0.1:28332",
+          "zmqpubrawtx": "tcp://127.0.0.1:28333",
+          "dbcache": 2048, "maxmempool": 300
+        }
+      },
+      "electrs": {"enabled": true, "notes": "fast address/tx queries; points to Core datadir"},
+      "seed": {
+        "seednetd": {"enabled": true},
+        "seedfsd": {"enabled": true},
+        "seed-anchord": {"enabled": true, "role": "on‑chain anchor of S.E.E.D. immutable records"}
+      }
+    }
+  },
+
+  "drivers_map": [
+    {"component": "Ethernet", "driver": "bcmgenet", "notes": "GbE native"},
+    {"component": "USB3 Host", "driver": "xhci_hcd", "notes": "UASP for SSD"},
+    {"component": "SSD Bridge", "driver": "uas", "notes": "Preferred over usb‑storage"},
+    {"component": "SPI Controller", "driver": "spi_bcm2835"},
+    {"component": "LCD Controller", "driver": "fb_ili9341 / fb_ili9486 (fbtft) or DRM equivalents"},
+    {"component": "Touch Controller", "driver": "xpt2046_ts (ADS7846 compatible)"}
+  ],
+
+  "calibration": {
+    "touchscreen": {
+      "tool": "xinput_calibrator / libinput",
+      "matrix_example": "0.96 0.02 -0.05 0.01 1.02 -0.04 0 0 1"
+    }
+  },
+
+  "validation": {
+    "cmds": [
+      "lsusb -t",
+      "uname -a",
+      "dmesg | egrep 'uas|xhci|bcmgenet'",
+      "lsmod | egrep 'fb_ili|xpt2046|spi_bcm'",
+      "cat /proc/cpuinfo",
+      "smartctl -a /dev/sdX"
+    ]
+  },
+
+  "monitoring": {
+    "metrics": [
+      "bitcoind tip lag / peers / mempool",
+      "SSD SMART temperature / wear",
+      "CPU temp / throttling flags",
+      "anchor queue depth / last txid"
+    ]
+  },
+
+  "risks": [
+    "SPI TFTs vary by vendor; ensure correct overlay/controller match",
+    "Some USB‑SATA bridges ship with buggy firmware; UAS quirks may be required",
+    "Thermal throttling under sustained chain sync without adequate cooling"
+  ],
+
+  "sref_metadata": {"hash": "", "signature": "", "checksum": ""}
+}

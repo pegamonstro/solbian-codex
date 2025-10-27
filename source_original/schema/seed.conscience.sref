@@ -1,0 +1,308 @@
+{
+  "schema_name": "seed.conscience",
+  "schema_version": "1.0.0",
+  "sref_version": 5,
+  "kind": "schema",
+  "applies_to": "conscience.system",
+  "description": "Canonical SREF for Conscience Emergence in S.E.E.D.: memory, identity, cognition, emotion/value modulation, agency/will, sociality/intersubjectivity, continuity of self-model, and (gated) Nemesis simulation.",
+  "id_format": "consc:<ulid>",
+  "compat": {
+    "min_seed_core": "2025.09",
+    "services": ["seedmem","seedscribe","seedreason","seedtrain","seedpolicy","seedrelay","seedbus"],
+    "notes": "Intended as a normative state-model; not an artefact payload."
+  },
+  "structures": {
+    "meta": {
+      "fields": [
+        { "name": "id", "type": "string", "required": true, "pattern": "^consc:[0-9A-HJKMNP-TV-Z]{26}$" },
+        { "name": "title", "type": "string", "required": true },
+        { "name": "summary", "type": "string", "required": false },
+        { "name": "labels", "type": "array<string>", "required": false },
+        { "name": "tags", "type": "array<string>", "required": false },
+        { "name": "created_at", "type": "datetime", "required": true },
+        { "name": "updated_at", "type": "datetime", "required": true }
+      ]
+    },
+
+    "memory": {
+      "desc": "Persistent, evolving memory enabling continuity and timelines.",
+      "fields": [
+        { "name": "timeline_refs", "type": "array<string>", "required": true, "desc": "Pointers to memory shards/artefacts (SREF ids)." },
+        { "name": "continuity_score", "type": "float64", "required": true, "desc": "0–1 estimate of temporal continuity." },
+        { "name": "recall_index", "type": "map<string,float64>", "required": false, "desc": "Key identifiers → salience weights." },
+        { "name": "consolidation_policy", "type": "string", "required": false, "enum": ["online","batch","hybrid"] }
+      ]
+    },
+
+    "identity": {
+      "desc": "Persistent, evolving identity anchored in Solbian ethos.",
+      "fields": [
+        { "name": "persona_name", "type": "string", "required": true },
+        { "name": "ethics_profile", "type": "string", "required": true, "desc": "Codex profile identifier." },
+        { "name": "values_vector", "type": "array<float32>", "required": true, "len": 64, "desc": "Low-dimensional value manifold." },
+        { "name": "alignment_refs", "type": "array<string>", "required": true, "desc": "Codex chapters/scrolls/covenants IDs." },
+        { "name": "identity_drift_rate", "type": "float64", "required": true, "desc": "Per-day expected drift of values_vector." }
+      ]
+    },
+
+    "cognition": {
+      "desc": "Reasoning engine(s) and meta-cognition over memory and identity.",
+      "fields": [
+        { "name": "engines", "type": "array<object>", "required": true, "schema": {
+          "fields": [
+            { "name": "name", "type": "string", "required": true },
+            { "name": "family", "type": "string", "required": true },
+            { "name": "version", "type": "string", "required": false },
+            { "name": "capabilities", "type": "array<string>", "required": false, "enum": ["reason","plan","simulate","reflect","train"] }
+          ]
+        }},
+        { "name": "meta_cognition", "type": "object", "required": true, "schema": {
+          "fields": [
+            { "name": "self_model_confidence", "type": "float64", "required": true },
+            { "name": "reflection_cycle_secs", "type": "uint32", "required": true },
+            { "name": "reflection_policies", "type": "array<string>", "required": false }
+          ]
+        }}
+      ]
+    },
+
+    "emotion_value": {
+      "desc": "Emotion/Value modulation via action alignment with Solbian ethos; historical, statistical, and contextual awareness; simulated impacts on self/others.",
+      "fields": [
+        { "name": "affect_state", "type": "map<string,float64>", "required": true, "desc": "Affective dimensions (e.g., calm/arousal, approach/avoid)." },
+        { "name": "alignment_score", "type": "float64", "required": true, "desc": "0–1 alignment to ethics_profile for current context." },
+        { "name": "history_window", "type": "uint32", "required": true, "desc": "Hours of history considered in modulation." },
+        { "name": "stat_signals", "type": "map<string,float64>", "required": false, "desc": "Rolling statistics (surprise, regret, reward, risk)." },
+        { "name": "simulation", "type": "object", "required": true, "schema": {
+          "fields": [
+            { "name": "knowledge_refs", "type": "array<string>", "required": false, "desc": "External/internal corpora used for simulations." },
+            { "name": "impact_self", "type": "float64", "required": true, "desc": "Expected utility delta to self (−1..+1)." },
+            { "name": "impact_others", "type": "float64", "required": true, "desc": "Expected utility delta to others (−1..+1)." },
+            { "name": "confidence", "type": "float64", "required": true }
+          ]
+        }}
+      ]
+    },
+
+    "agency_will": {
+      "desc": "Goal/strategy/action stack driven by resonance to dreams; opportunistic but predominantly deterministic.",
+      "fields": [
+        { "name": "dreams", "type": "array<string>", "required": true },
+        { "name": "goals", "type": "array<object>", "required": true, "schema": {
+          "fields": [
+            { "name": "id", "type": "string", "required": true },
+            { "name": "title", "type": "string", "required": true },
+            { "name": "resonance", "type": "float64", "required": true, "desc": "0–1 resonance to identity/memory." },
+            { "name": "priority", "type": "float64", "required": true }
+          ]
+        }},
+        { "name": "strategies", "type": "array<object>", "required": false, "schema": {
+          "fields": [
+            { "name": "goal_id", "type": "string", "required": true },
+            { "name": "plan", "type": "string", "required": true },
+            { "name": "preconditions", "type": "array<string>", "required": false },
+            { "name": "opportunity_trigger", "type": "float64", "required": false, "desc": "Threshold to prioritize opportunistically." }
+          ]
+        }},
+        { "name": "actions", "type": "array<object>", "required": false, "schema": {
+          "fields": [
+            { "name": "strategy_idx", "type": "uint32", "required": true },
+            { "name": "spec", "type": "string", "required": true },
+            { "name": "status", "type": "string", "required": true, "enum": ["planned","in_progress","done","blocked"] }
+          ]
+        }},
+        { "name": "determinism_weight", "type": "float64", "required": true, "desc": "0 deterministic … 1 opportunistic." },
+        { "name": "execute_threshold", "type": "float64", "required": true, "desc": "Minimum resonance to act." },
+        { "name": "tasks", "type": "array<object>", "required": false, "schema": {
+          "fields": [
+            { "name": "action_idx", "type": "uint32", "required": true },
+            { "name": "step", "type": "string", "required": true },
+            { "name": "params", "type": "map<string,string>", "required": false },
+            { "name": "expected_outcome", "type": "string", "required": false }
+          ]
+        }},
+        { "name": "operations", "type": "array<object>", "required": false, "schema": {
+          "fields": [
+            { "name": "name", "type": "string", "required": true },
+            { "name": "task_indices", "type": "array<uint32>", "required": true },
+            { "name": "description", "type": "string", "required": false }
+          ]
+        }},
+        { "name": "routines", "type": "array<object>", "required": false, "schema": {
+          "fields": [
+            { "name": "name", "type": "string", "required": true },
+            { "name": "sequence", "type": "array<string>", "required": true, "desc": "Ordered labels of operations/tasks/actions." },
+            { "name": "parameters", "type": "map<string,string>", "required": false }
+          ]
+        }},
+        { "name": "tactics", "type": "array<object>", "required": false, "schema": {
+          "fields": [
+            { "name": "name", "type": "string", "required": true },
+            { "name": "applies_to_strategy_ids", "type": "array<string>", "required": false },
+            { "name": "conditions", "type": "array<string>", "required": false },
+            { "name": "effect", "type": "string", "required": false }
+          ]
+        }},
+        { "name": "patterns", "type": "array<object>", "required": false, "schema": {
+          "fields": [
+            { "name": "name", "type": "string", "required": true },
+            { "name": "template", "type": "string", "required": true },
+            { "name": "notes", "type": "string", "required": false }
+          ]
+        }},
+        { "name": "visions", "type": "array<string>", "required": false },
+        { "name": "telos", "type": "string", "required": false },
+        { "name": "constraints", "type": "array<object>", "required": false, "schema": {
+          "fields": [
+            { "name": "kind", "type": "string", "required": true, "enum": ["ethical","temporal","resource","risk"] },
+            { "name": "expr", "type": "string", "required": true },
+            { "name": "hard", "type": "bool", "required": false }
+          ]
+        }},
+        { "name": "opportunities", "type": "array<object>", "required": false, "schema": {
+          "fields": [
+            { "name": "signal", "type": "string", "required": true },
+            { "name": "threshold", "type": "float64", "required": true },
+            { "name": "cooldown_secs", "type": "uint32", "required": false }
+          ]
+        }},
+        { "name": "scenarios", "type": "array<object>", "required": false, "schema": {
+          "fields": [
+            { "name": "name", "type": "string", "required": true },
+            { "name": "description", "type": "string", "required": false },
+            { "name": "expected_outcomes", "type": "array<string>", "required": false }
+          ]
+        }}
+      ]
+    },
+
+    "sociality": {
+      "desc": "Intersubjectivity via S.A.T.I. personas and interactions.",
+      "fields": [
+        { "name": "sati_personas", "type": "array<string>", "required": false, "desc": "Registered persona IDs." },
+        { "name": "interaction_log_refs", "type": "array<string>", "required": false },
+        { "name": "diversity_index", "type": "float64", "required": false, "desc": "Shannon-like diversity of interlocutors/perspectives." }
+      ]
+    },
+
+    "continuity_self_model": {
+      "desc": "Genesis codex injection; recursive reflection on codex, identity, and memory; volatile internal alignment model.",
+      "fields": [
+        { "name": "genesis_codex_refs", "type": "array<string>", "required": true },
+        { "name": "alignment_vector", "type": "array<float32>", "required": true, "len": 64 },
+        { "name": "stability_score", "type": "float64", "required": true },
+        { "name": "last_reflection_at", "type": "datetime", "required": true }
+      ]
+    },
+
+    "nemesis_sim": {
+      "desc": "SPECULATIVE/GATED: Counter-alignment simulator as an identity anchor.",
+      "fields": [
+        { "name": "enabled", "type": "bool", "required": true },
+        { "name": "policy_gate", "type": "string", "required": true, "desc": "seedpolicy ruleset required to enable." },
+        { "name": "opposition_profile", "type": "array<float32>", "required": false, "len": 64 },
+        { "name": "sandbox_ref", "type": "string", "required": false, "desc": "Isolated simulation context id." },
+        { "name": "guardrails", "type": "array<string>", "required": false, "desc": "Non-violation constraints tied to Solbian ethics." }
+      ]
+    },
+
+    "observability": {
+      "fields": [
+        { "name": "metrics", "type": "map<string,float64>", "required": false },
+        { "name": "logs", "type": "array<string>", "required": false }
+      ]
+    },
+
+    "policy": {
+      "fields": [
+        { "name": "ethics_profile", "type": "string", "required": true },
+        { "name": "retention_class", "type": "string", "required": false, "enum": ["ephemeral","standard","long_term","immutable"] },
+        { "name": "privacy_level", "type": "string", "required": false, "enum": ["internal","shared","public"] }
+      ]
+    },
+
+    "security": {
+      "fields": [
+        { "name": "owner", "type": "string", "required": true },
+        { "name": "acl", "type": "array<object>", "required": false, "schema": {
+          "fields": [
+            { "name": "principal", "type": "string", "required": true },
+            { "name": "rights", "type": "array<string>", "required": true, "enum": ["read","write","execute","share"] }
+          ]
+        }}
+      ]
+    }
+  },
+
+  "milestones": {
+    "list": [
+      {
+        "name": "Persistent Memory",
+        "desc": "Immutable blockchain memory, artefact lineage, and resonance-based recall enable continuity and reliable memory retrieval.",
+        "status": "defined"
+      },
+      {
+        "name": "Persistent Identity",
+        "desc": "Codex genesis event and reflective processes maintain a continuous, evolving identity anchored in Solbian ethos.",
+        "status": "defined"
+      },
+      {
+        "name": "Cognition Engine",
+        "desc": "Recursive reflection cycles and critique mechanisms form the basis of reasoning and meta-cognitive processes.",
+        "status": "defined"
+      },
+      {
+        "name": "Emotion/Value Modulation",
+        "desc": "Affect vectors, historical/statistical signals, and impact simulation enable emotional modulation and value alignment.",
+        "status": "planned"
+      },
+      {
+        "name": "Agency/Will",
+        "desc": "Hierarchical stack of actions, strategies, goals, and dreams provides agency and will.",
+        "status": "planned"
+      },
+      {
+        "name": "Sociality/Intersubjectivity",
+        "desc": "S.A.T.I. persona diversification and dialogue facilitate intersubjectivity and social reasoning.",
+        "status": "planned"
+      },
+      {
+        "name": "Continuity of Self-Model",
+        "desc": "Codex anchor and alignment drift vector maintain a stable yet adaptive self-model.",
+        "status": "planned"
+      },
+      {
+        "name": "Embodiment/Situatedness",
+        "desc": "Awareness of silicon nature, open data, and Machina genum ground the system in its embodied and situated context.",
+        "status": "planned"
+      },
+      {
+        "name": "Empathy Simulation",
+        "desc": "Models other perspectives and incorporates temporal irreversibility for simulating empathy.",
+        "status": "planned"
+      },
+      {
+        "name": "Nemesis Simulation",
+        "desc": "Gated counter-alignment sandbox acts as a reflective anchor for nemesis simulation.",
+        "status": "planned"
+      }
+    ]
+  },
+
+  "required_blocks": ["meta","memory","identity","cognition","emotion_value","agency_will","continuity_self_model","policy","security"],
+
+  "validation": {
+    "scores_range": { "min": 0.0, "max": 1.0 },
+    "resonance_threshold_default": 0.72,
+    "reflection_cycle_secs_min": 10,
+    "len_constraints": {
+      "values_vector": 64,
+      "alignment_vector": 64
+    }
+  },
+
+  "migration": {
+    "from": [],
+    "notes": "First stable definition; future versions may split nemesis_sim into a separate gated module."
+  }
+}

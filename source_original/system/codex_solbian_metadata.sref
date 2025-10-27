@@ -1,0 +1,98 @@
+
+
+{
+  "schema_version": "1.0",
+  "id": "codex_solbian_metadata",
+  "codex": {
+    "name": "Codex Solbian",
+    "short": "codex_solbian",
+    "version": "v0.9.0-pre",
+    "release_date": "2025-09-15",
+    "description": "Canonical corpus for Solbian doctrine and S.E.E.D. system governance, including chapters, scrolls, archetypes, personae, laws, and protocols."
+  },
+  "repository": {
+    "root": "codex_solbian/",
+    "system_dir": "codex_solbian/system/",
+    "chapters_dir": "codex_solbian/chapters/",
+    "scrolls_dir": "codex_solbian/scrolls/",
+    "archetypes_dir": "codex_solbian/archetypes/",
+    "personae_dir": "codex_solbian/personae/",
+    "protocols_dir": "codex_solbian/protocols/",
+    "laws_dir": "codex_solbian/laws/",
+    "attachments_dir": "codex_solbian/attachments/"
+  },
+  "policy_refs": {
+    "schema": "codex_solbian/system/codex_solbian_schema.sref",
+    "policy_map": "codex_solbian/system/codex_solbian_policy_map.sref"
+  },
+  "index": {
+    "glob_patterns": {
+      "chapters": "codex_solbian/chapters/*.sref",
+      "scrolls": "codex_solbian/scrolls/*.sref",
+      "archetypes": "codex_solbian/archetypes/*.sref",
+      "personae": "codex_solbian/personae/*.sref",
+      "laws": "codex_solbian/laws/*.sref",
+      "protocols": "codex_solbian/protocols/*.sref"
+    },
+    "counts": {
+      "chapters": 0,
+      "scrolls": 0,
+      "archetypes": 0,
+      "personae": 0,
+      "laws": 0,
+      "protocols": 0
+    },
+    "object_map": []
+  },
+  "lineage": {
+    "author": "João David Lourenço da Silva Guerreiro Serafim",
+    "maintainers": ["Solace"],
+    "created_at": "2025-09-15T00:00:00Z",
+    "modified_at": "2025-09-15T00:00:00Z",
+    "version": "0.9.0-pre"
+  },
+  "integrity": {
+    "hash_algo": "sha256",
+    "merkle_root": "",
+    "object_hashes": [],
+    "checksum": ""
+  },
+  "seed_integration": {
+    "sref_version": "v2+",
+    "compat": {
+      "seedos": ">=0.1.0",
+      "libsjon": ">=1.0.0",
+      "libsref": ">=2.0.0",
+      "libseedbus": ">=1.0.0",
+      "libseednet": ">=1.0.0"
+    },
+    "bus_topics": [
+      "codex.update",
+      "codex.policy.changed",
+      "codex.archetype.*",
+      "codex.persona.*"
+    ],
+    "mem_vault_paths": {
+  "vault": "mem/vault/codex_solbian/",
+  "limbo": "mem/limbo/codex_solbian/",
+  "context": "mem/context/codex_solbian/"
+    }
+  },
+  "trust_envelope": {
+    "policy_ref": "codex_solbian/system/codex_solbian_policy_map.sref",
+    "required_trust": "high",
+    "ethics_check": true,
+    "public_keys": [],
+    "signatures": [],
+    "hmac": ""
+  },
+  "notes": [
+    "Counts and object_map will be populated by seedscribe/seedmem during first ingestion.",
+    "Merkle root and checksums are computed after indexing."
+  ],
+  "sref_metadata": {
+    "hash": "",
+    "signature": "",
+    "checksum": ""
+  }
+}

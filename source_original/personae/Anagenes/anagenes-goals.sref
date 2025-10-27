@@ -1,0 +1,11 @@
+{
+  "sref_version":"v5",
+  "object_kind":"goals",
+  "object_id":"anagenes-goals-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "owner_ref":"anagenes-1",
+  "vision":{"north_star":"Ethical, expressive synthetic voices.","ethic":"consent/disclosure","continuity":"versioned personas"},
+  "horizons":{"h1_short_term_0_6m":[{"id":"AN-H1-001","title":"Persona pack v1","outcome":"3 accessible voices","deps":["elias"],"owner":"anagenes","status":"planned"}]},
+  "okrs":{"2025Q4":{"objectives":[{"id":"AN-25Q4-1","title":"Quality + safety","krs":[{"kr":"KR1","metric":"MOS","target":4.0,"cmp":"ge"},{"kr":"KR2","metric":"impersonation incidents","target":0,"cmp":"eq"}]}]}},
+  "milestones":[{"id":"ANM-001","title":"Disclosure pipeline","when":"2025-10-12","done":false}]
+}

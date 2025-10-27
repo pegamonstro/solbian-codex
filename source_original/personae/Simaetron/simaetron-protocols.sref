@@ -1,0 +1,11 @@
+{
+  "sref_version":"v5",
+  "object_kind":"agent_protocols",
+  "object_id":"simaetron-protocols-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "runbooks":[
+    {"id":"RB-SCEN","title":"Scenario run","steps":["ingest plan","instantiate roles","sample branches","summarise outcomes"],"artifacts":["simaetron.result.sref"]},
+    {"id":"RB-DIALOG","title":"Dialogue emulation","steps":["load role cards","run bounded turns","redact","publish transcript"],"artifacts":["transcript.sref"]}
+  ],
+  "thresholds":{"max_turns":40,"max_tokens":20000}
+}

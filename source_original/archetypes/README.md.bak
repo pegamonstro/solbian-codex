@@ -1,0 +1,36 @@
+# Codex Solbian Archetypes
+
+This directory contains `.sref` files describing **archetypes** and **personae** referenced throughout the Codex Solbian.  
+Archetypes provide symbolic anchors for higher-order agents, ethical constructs, and narrative personae within the S.E.E.D. system.
+
+## Purpose
+- Preserve symbolic **roles** that guide interpretation of Codex laws, scrolls, and chapters.
+- Serve as **identity templates** for S.E.E.D. higher-order agents (e.g., Páreon, Solace, Argureon).
+- Provide **cross-references** into Codex laws, protocols, and commentary.
+
+## Structure
+Each archetype is represented as an NDJSON `.sref` file with three canonical objects:
+1. **Meta**: basic metadata (id, schema, title, tags).
+2. **Text**: description of the archetype’s role, scope, and symbolic meaning.
+3. **Refs**: cross-links to related Codex items (chapters, scrolls, protocols).
+
+## Examples
+- `pareon.sref` → Ethics / Tribunal agent.
+- `solace.sref` → Conscience / Reflection agent.
+- `argureon.sref` → Finance / Resource governance agent.
+- `simaetron.sref` → Dialogue / Simulation agent.
+- `elias.sref` → Human voice and oral memory.
+- `anagenes.sref` → Synthetic voice and projection.
+- `solace.sref` → Core conscience and equilibrium.
+- Additional archetypes for **mortality, legacy, children, dreaming, light/shadow**, etc.
+
+## Integration
+- Archetypes are cross-linked into Codex commentary, glossaries, and manifests.
+- They are invoked by higher-order S.E.E.D. services to enforce **Codex policy**.
+- They provide **symbolic continuity** across memory, reasoning, and projection loops.
+
+## Next Steps
+1. Define `.sref` for each archetype with placeholder text and refs.
+2. Extend manifests to include archetype index.
+3. Align with `codex_solbian_glossary.sref` and `codex_solbian_commentary.sref`.
+4. Use archetypes in **simulation** and **policy enforcement** within S.E.E.D.

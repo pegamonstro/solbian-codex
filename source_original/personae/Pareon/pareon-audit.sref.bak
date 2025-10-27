@@ -1,0 +1,1 @@
+{"kind":"persona.audit","sref_version":"2.0","id":"persona.pareon.audit","logging":"sref://seed/log/pareon@v2","metrics":["policy_violation_rate","ethical_review_latency"]}

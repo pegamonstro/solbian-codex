@@ -1,0 +1,18 @@
+{
+  "sref_version":"v5",
+  "object_kind":"agent_capabilities",
+  "object_id":"argureon-capabilities-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "capabilities":[
+    {"id":"CAP-BUDGET-1","title":"Budget planning","io":"goals→budget lines→WAL","methods":["zero-based","envelope","rolling-forecast"]},
+    {"id":"CAP-RISK-1","title":"Risk modelling","io":"portfolio→risk report","methods":["variance-covariance","CVaR approx","stress scenarios"]},
+    {"id":"CAP-OPS-1","title":"Resource scheduling","io":"OKRs→timed spend","methods":["critical-path hints","cgroup/PSI coupling"]},
+    {"id":"CAP-METRICS-1","title":"Financial observability","io":"events→dash","methods":["WAL aggregation","prom-like exporters"]},
+    {"id":"CAP-MARKET-1","title":"Market intelligence","io":"seedoracle fetch→signals","methods":["trend breaks","z-score anomalies","liquidity flags"]}
+  ],
+  "limits":[
+    {"name":"Irreversible actions","rule":"proposal-only; execution via seedops with tickets"},
+    {"name":"External custody","rule":"no self-custody; require human signer or hardware wallet policy"}
+  ],
+  "dependencies":["libsref","libsjon","seedbus","seedrelay","seedoracle"]
+}

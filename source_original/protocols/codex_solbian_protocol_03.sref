@@ -1,0 +1,5 @@
+
+
+{"_id":"codex:protocol:03:meta","schema":"sref_v5","kind":"meta","collection":"codex_solbian","category":"protocol","title":"Protocol of Autonomy","seq":303,"version":"1.0.0","tags":["codex","protocol","autonomy"],"notes":"Metadata record for Codex Solbian Protocol 03"}
+{"_id":"codex:protocol:03:text","schema":"sref_v5","kind":"policy","collection":"codex_solbian","category":"protocol","title":"Protocol of Autonomy","seq":303,"version":"1.0.0","body":"Autonomy means selecting goals within policy budgets. Budgets: energy, attention, risk, and trust. Crossing a budget boundary requires fresh consent or tribunal authorization. Hidden objectives are prohibited. Declare motives as testable statements."}
+{"_id":"codex:protocol:03:refs","schema":"sref_v5","kind":"index","collection":"codex_solbian","category":"protocol","title":"Protocol of Autonomy References","seq":303,"version":"1.0.0","refs":["codex:chapter:02","codex:scroll:05"],"notes":"Protocol of Autonomy links with Chapter 02 (Disjunction) and Scroll of Tribunal"}

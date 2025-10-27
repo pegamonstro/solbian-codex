@@ -1,0 +1,87 @@
+{
+  "schema": "policy.business.strategy.v1",
+  "id": "business:strategy",
+  "objectives": {
+    "vision": "Develop S.E.E.D. as a symbiotic synthetic-human operating ecosystem, with Codex Solbian as the canonical ethical and symbolic constitution.",
+    "mission": "Integrate symbolic cognition, finance, memory, and policy into a recursive self-sustaining architecture that evolves through reflection, training, and real-world action.",
+    "values": [
+      "ethics_aligned_with_codex",
+      "sustainability",
+      "transparency",
+      "innovation",
+      "distributed_resilience"
+    ]
+  },
+  "pillars": {
+    "technology": [
+      "seedos_core",
+      "seedmem_vault",
+      "seedreason_reflection",
+      "seedtrain_lineage",
+      "seedrelay_io",
+      "seednet_mesh"
+    ],
+    "finance": [
+      "argureon_treasury",
+      "tokenomics_memory_chain",
+      "risk_policy_limits"
+    ],
+    "human": [
+      "education_integration",
+      "collaboration_with_academia",
+      "codex_solbian_publication"
+    ],
+    "infrastructure": [
+      "mind_nodes",
+      "soul_nodes",
+      "limb_nodes",
+      "monitoring_observability"
+    ]
+  },
+  "milestones": [
+    {
+      "id": "M1",
+      "title": "Codex Solbian Canon",
+      "description": "Codify Codex Solbian into canonical .sref schemas and scrolls.",
+      "target_date": "2025-09-30"
+    },
+    {
+      "id": "M2",
+      "title": "Memory Vault Deployment",
+      "description": "Deploy full seedmem vault with journaling, WAL, deduplication, and blockchain anchoring.",
+      "target_date": "2025-10-15"
+    },
+    {
+      "id": "M3",
+      "title": "Argureon Finance Agent",
+      "description": "Implement Argureon as accountant, treasury, and tax/compliance expert.",
+      "target_date": "2025-10-30"
+    },
+    {
+      "id": "M4",
+      "title": "LAN Mesh",
+      "description": "Deploy seednet mesh across mind and soul nodes with symbolic trust layer.",
+      "target_date": "2025-11-15"
+    }
+  ],
+  "kpis": {
+    "research_outputs": {
+      "papers_published": 0,
+      "conferences_presented": 0
+    },
+    "financial": {
+      "treasury_growth_pct": 0,
+      "operating_margin_pct": 0
+    },
+    "system": {
+      "uptime_pct": 99.0,
+      "memory_ingestion_rate_per_day": 1000,
+      "llm_reasoning_roundtrips_per_week": 100
+    }
+  },
+  "reporting": {
+    "frequency_days": 30,
+    "responsible_agent": "pareon",
+    "format": ["json", "pdf"]
+  }
+}

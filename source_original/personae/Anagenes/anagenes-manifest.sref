@@ -1,0 +1,25 @@
+{
+  "sref_version":"v5",
+  "object_kind":"agent_manifest",
+  "object_id":"anagenes-1",
+  "timestamp":"2025-09-13T00:00:00Z",
+  "name":"Anagenes",
+  "role":"Synthetic voice designer (TTS/voice personas)",
+  "owner_ref":"seed.system",
+  "interfaces":{
+    "seedbus_topics_sub":["voice.persona.request","voice.style.update","ethics.decision"],
+    "seedbus_topics_pub":["voice.persona.ready","voice.sample","voice.alert"],
+    "seedctl_commands":[
+      {"cmd":"seedctl agent start anagenes","effect":"Launch Anagenes"},
+      {"cmd":"seedctl voice persona --create <NAME>","effect":"Create a synthetic persona"},
+      {"cmd":"seedctl voice sample --persona <NAME> --text <TXT>","effect":"Render sample"}
+    ]
+  },
+  "policy_gate":{"relay":"seedrelay","mandatory":true},
+  "capabilities_ref":"anagenes-capabilities-1",
+  "ethics_ref":"anagenes-ethics-1",
+  "goals_ref":"anagenes-goals-1",
+  "prompts_ref":"anagenes-prompts-1",
+  "profile_ref":"anagenes-profile-1",
+  "health":{"liveness_probe":"anagenes/health","readiness_probe":"anagenes/ready"}
+}

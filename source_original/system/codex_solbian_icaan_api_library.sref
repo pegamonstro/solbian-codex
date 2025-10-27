@@ -1,0 +1,137 @@
+{
+  "sref_version": "v5",
+  "schema_id": "seed.schema.api.library",
+  "schema_version": "1.0.0",
+  "type": "api_library",
+  "id": "icaan.api.library",
+  "timestamp": "2025-09-19T12:00:00Z",
+  "meta": {
+    "created_at": "2025-09-19T12:00:00Z",
+    "authors": ["seed-system"],
+    "license": "CC-BY-SA-4.0",
+    "status": "active",
+    "notes": [
+      "Extended canonical API description for ICAAN services.",
+      "Includes domain registry, WHOIS, DNSSEC, RDAP, and registrar endpoints.",
+      "Integrated for use in S.E.E.D. symbolic memory and Codex Solbian reference."
+    ],
+    "lineage": [
+      {"source": "ICANN API reference v2025-06"},
+      {"source": "codex_solbian/system/seednet_api_reference.sref"}
+    ]
+  },
+  "endpoints": [
+    {
+      "id": "domain.lookup",
+      "path": "/v1/domain/lookup",
+      "method": "GET",
+      "description": "Lookup availability and registration status of a domain.",
+      "parameters": {
+        "query": [
+          {"name": "domain", "type": "string", "required": true, "description": "Domain name to check."}
+        ]
+      },
+      "responses": {
+        "200": {"type": "object", "fields": ["domain", "status", "registrar", "created_at", "expires_at"]},
+        "404": {"type": "error", "code": "DOMAIN_NOT_FOUND"}
+      },
+      "examples": [
+        {
+          "request": "/v1/domain/lookup?domain=example.org",
+          "response": {"domain": "example.org", "status": "registered", "registrar": "NameRegistrar", "created_at": "2001-03-12", "expires_at": "2031-03-12"}
+        }
+      ]
+    },
+    {
+      "id": "domain.register",
+      "path": "/v1/domain/register",
+      "method": "POST",
+      "description": "Register a new domain name under ICANN-accredited registrars.",
+      "parameters": {
+        "body": [
+          {"name": "domain", "type": "string", "required": true},
+          {"name": "registrant", "type": "object", "fields": ["name", "email", "address"], "required": true},
+          {"name": "period", "type": "integer", "required": false, "default": 1, "description": "Years of registration."}
+        ]
+      },
+      "responses": {
+        "201": {"type": "object", "fields": ["domain", "status", "order_id"]},
+        "409": {"type": "error", "code": "DOMAIN_ALREADY_REGISTERED"}
+      }
+    },
+    {
+      "id": "whois.query",
+      "path": "/v1/whois/{domain}",
+      "method": "GET",
+      "description": "Perform WHOIS query for domain.",
+      "parameters": {
+        "path": [
+          {"name": "domain", "type": "string", "required": true}
+        ]
+      },
+      "responses": {
+        "200": {"type": "object", "fields": ["domain", "registrar", "registrant", "contacts", "dnssec", "status"]},
+        "404": {"type": "error", "code": "DOMAIN_NOT_FOUND"}
+      }
+    },
+    {
+      "id": "rdap.query",
+      "path": "/v1/rdap/{domain}",
+      "method": "GET",
+      "description": "Query domain details using RDAP.",
+      "parameters": {
+        "path": [
+          {"name": "domain", "type": "string", "required": true}
+        ]
+      },
+      "responses": {
+        "200": {"type": "object", "fields": ["handle", "entities", "events", "status", "nameservers"]},
+        "404": {"type": "error", "code": "DOMAIN_NOT_FOUND"}
+      }
+    },
+    {
+      "id": "dnssec.status",
+      "path": "/v1/dnssec/{domain}",
+      "method": "GET",
+      "description": "Check DNSSEC signing status for a domain.",
+      "parameters": {
+        "path": [
+          {"name": "domain", "type": "string", "required": true}
+        ]
+      },
+      "responses": {
+        "200": {"type": "object", "fields": ["domain", "dnssec_status", "ds_records"]},
+        "404": {"type": "error", "code": "DOMAIN_NOT_FOUND"}
+      }
+    }
+  ],
+  "auth": {
+    "type": "OAuth2",
+    "flows": {
+      "client_credentials": {
+        "token_url": "/v1/oauth/token",
+        "scopes": ["read:domains", "write:domains", "read:whois", "read:rdap", "read:dnssec"]
+      }
+    }
+  },
+  "errors": [
+    {"code": "DOMAIN_NOT_FOUND", "http": 404, "message": "The domain was not found."},
+    {"code": "DOMAIN_ALREADY_REGISTERED", "http": 409, "message": "The domain is already registered."},
+    {"code": "UNAUTHORIZED", "http": 401, "message": "Authentication failed."},
+    {"code": "INVALID_REQUEST", "http": 400, "message": "Request parameters are invalid."}
+  ],
+  "rate_limits": {
+    "whois": {"limit": 1000, "interval": "1h"},
+    "rdap": {"limit": 5000, "interval": "1h"},
+    "dnssec": {"limit": 2000, "interval": "1h"}
+  },
+  "integrity": {
+    "hash_algo": "sha256",
+    "checksum": ""
+  },
+  "sref_metadata": {
+    "hash": "",
+    "signature": "",
+    "checksum": ""
+  }
+}
