@@ -1421,3 +1421,119 @@ is the *proof*. Both must agree.
 
 **Quality gate**: `make check` passes. Commit 98e3caf
 (Wave 6 verification) + 7b09294 (CHANGELOG update).
+
+## 2026-07-17 — Wave 7 deep-research verification + 7 design notes
+
+**Decision**: Run a seventh verification wave across
+the 4 deep-research files outside Wave 6's scope
+(sxl-operators.md, cognitive-cycles.md,
+neuro-primitives.md, memory-reasoning.md = 180
+entries). For each entry, add a `Confirmation flag`
+field to unify the format with the 3 already-verified
+files (nslp-algorithms, theorems-and-bounds,
+canonical-references), verify the citation against
+the primary source, and apply corrections. Then
+synthesise the cross-file findings into 7 engineering-
+manual design notes (chapters 13-19).
+
+**Rationale**: The deep-research corpus was split
+across two authoring conventions. The 3 Wave-6 files
+used `**Confirmation flag**` (✅/🟢/🟡/🔴); the 4
+Wave-7 files used `**Ready-for-promotion**` (✅/⚠️)
+without a flag field. Verification needed the flag
+field to apply the Wave 6 pattern uniformly.
+
+**Results (Wave 7 verification)**:
+- sxl-operators.md (52 entries): 42 ✅, 10 🟢, 0 🔴, 0 🟡
+- cognitive-cycles.md (38 entries): 32 ✅, 6 🟢, 0 🔴, 0 🟡
+- neuro-primitives.md (39 entries): 39 ✅, 0 🟢, 0 🔴, 0 🟡
+- memory-reasoning.md (51 entries): 26 ✅, 24 🟢, 1 🔴, 0 🟡
+
+Total: 180 entries verified, 139 ✅, 40 🟢, 1 🔴, 0 🟡.
+After Wave 7, **all 7 deep-research files use the
+same format**; the corpus totals 382 entries.
+
+**Citation corrections applied**: 10 across the 4
+files. The most significant is §1.5 Compressive
+Memory in memory-reasoning.md: the original
+"Sullivan & Harding 2019, arXiv:1910.09808"
+attribution is a clean fabrication. arXiv 1910.09808
+is actually Gigoni et al. 2019, "A SCADA System for
+Wind Turbine Maintenance Management." The real
+compressive-memory paper is Jazayeri & Fiete 2014,
+arXiv 1401.4410. The agent applied the correction
+but retained the flag at 🔴 pending human review
+of the corrected attribution. This is the **third
+fabrication caught across Waves 6+7** (after S2S
+and E2E-differentiable-proving in Wave 6).
+
+**Design notes added** (engineering-manual/sapling/
+13-19, 1,602 lines total):
+- **13: Detecting LLM-hallucinated citations** —
+  the three fabrications as worked examples; a
+  verification contract for future authoring passes
+  (fetch the URL, copy the exact author list, never
+  invent metadata)
+- **14: Stale status banners and Promotion Summary
+  tables** — every deep-research file has a stale
+  banner after Wave 7; convention for keeping them
+  current
+- **15: Author-list precision** — 4 patterns (missing
+  authors, wrong author names, abbreviated lists,
+  bundle attributions) and the convention for each
+- **16: SXL → NSL rename harmonisation** —
+  cross-cutting; proposes a docs/adr/ entry to
+  record the rename decision
+- **17: Bundle citations and the 🟢 flag** — 10 of
+  52 SXL entries bundle 2-3 sources; resolution A
+  (split) or B (document the convention)
+- **18: Cross-file placeholder dependencies** — 19
+  of 51 memory-reasoning entries depend on
+  sxl/cogcycles; Wave 8 cross-file consistency pass
+  proposed
+- **19: Complexity bounds coverage** — only 13 of 52
+  SXL entries have bounds; convention + 39 entries
+  to update
+
+**Alternatives considered**:
+- *Defer the format unification* — keep the 4 files
+  on the old "Ready-for-promotion" convention. Rejected:
+  the corpus-wide flag system is more useful than
+  per-file conventions; the cost of unification is
+  bounded (4 parallel agents).
+- *Skip the design notes* — the verification work
+  alone was enough for Wave 7. Rejected: the design
+  notes synthesise the 35 cross-file findings into
+  7 actionable conventions, which is the durable
+  output of the wave.
+- *Write 35 individual design notes* — one per
+  finding. Rejected: 35 small notes is noise; the
+  user benefits from a small number of focused
+  notes that capture the themes.
+
+**Failure mode caught (Wave 6 lesson applied)**: The
+Wave 6 experience was that an agent can write a
+verification log but silently fail to apply the
+parent-file edits. The Wave 7 prompt included
+explicit instructions to grep the parent file for
+the *expected* post-state after each edit. All 4
+agents successfully applied the edits; the post-wave
+grep showed 180 Confirmation flag lines for 180
+entries, with totals summing correctly. The lesson
+held: the prompt-level instruction to verify the
+parent state after editing is the difference between
+"the agent claimed it did the work" and "the work
+is actually done."
+
+**Files modified**:
+- 4 deep-research parent files (5,555 lines of new
+  verification logs + 10 citation corrections)
+- 4 verification log files (claude-verifier-2026-
+  07-17-wave7-{cogcycles,memreason,neuro,sxl}.md)
+- 7 new engineering-manual design notes
+  (chapters 13-19, 1,602 lines)
+- Top-level CHANGELOG.md (Wave 7 entry added at top
+  of Unreleased section)
+
+**Quality gate**: `make check` passes. Commit
+c1002b3 (Wave 7 verification + design notes).

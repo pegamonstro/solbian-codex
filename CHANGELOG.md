@@ -6,6 +6,75 @@
 ## [Unreleased]
 
 ### Added
+- Wave 7 — deep-research verification +
+  7 design notes (2026-07-17):
+  - **Verification of 4 unscoped deep-research
+    files**: ran 4 parallel verification agents
+    (one per file) on
+    `sxl-operators.md` (52 entries),
+    `cognitive-cycles.md` (38),
+    `neuro-primitives.md` (39), and
+    `memory-reasoning.md` (51). Each agent
+    added a `Confirmation flag` field to
+    every entry (unifying the format with the
+    3 Wave-6 files), verified each citation
+    against its primary source, and applied
+    corrections. Results:
+    - sxl-operators.md: 42 ✅, 10 🟢, 0 🔴, 0 🟡
+    - cognitive-cycles.md: 32 ✅, 6 🟢, 0 🔴, 0 🟡
+    - neuro-primitives.md: 39 ✅, 0 🟢, 0 🔴, 0 🟡
+    - memory-reasoning.md: 26 ✅, 24 🟢, 1 🔴, 0 🟡
+  - **10 citation corrections** applied across
+    the 4 files. Notable: §1.5 Compressive
+    Memory in memory-reasoning.md was a clean
+    fabrication (the cited arXiv 1910.09808 is
+    actually a wind-turbine SCADA paper, not
+    a compressive-memory paper). Corrected to
+    Jazayeri & Fiete 2014, arXiv:1401.4410, but
+    retained at 🔴 `speculative` pending human
+    review of the corrected attribution.
+    This is the **third fabrication caught
+    across Waves 6+7** (after S2S and
+    E2E-differentiable-proving in Wave 6).
+  - **7 new engineering-manual design notes**
+    (chapters 13-19) synthesising the
+    cross-file findings:
+    - 13: Detecting LLM-hallucinated
+      citations (the three fabrications as
+      worked examples; a verification
+      contract for future authoring passes)
+    - 14: Stale status banners and Promotion
+      Summary tables (every deep-research
+      file has a stale banner after Wave 7)
+    - 15: Author-list precision (4 patterns:
+      missing authors, wrong author names,
+      abbreviated lists, bundle attributions)
+    - 16: SXL → NSL rename harmonisation
+      (cross-cutting; proposes a docs/adr/
+      entry to record the rename)
+    - 17: Bundle citations and the 🟢 flag
+      (10 of 52 SXL entries bundle 2-3
+      sources; resolution A: split;
+      resolution B: document the convention)
+    - 18: Cross-file placeholder
+      dependencies (19 of 51 memory-reasoning
+      entries depend on sxl/cogcycles; Wave
+      8 cross-file consistency pass
+      proposed)
+    - 19: Complexity bounds coverage (only
+      13 of 52 SXL entries have bounds;
+      convention + 39 entries to update)
+  - **Four new verification logs** in
+    `verification/claude-verifier-2026-07-17-wave7-*.md`
+    (5,555 lines total: cogcycles 1305,
+    memreason 1279, neuro 1367, sxl 1604).
+    The logs record the per-entry decisions
+    and the cross-file findings.
+  - After Wave 7, **all 7 deep-research files
+    use the same format** (Confirmation flag
+    field, Ready-for-promotion, canonical
+    reference URL). 382 entries total across
+    the corpus.
 - Wave 6 — deep-research verification (2026-07-17):
   adds the `sapling/NSLP/deep-research/`
   knowledge base (8 deep-research files:
