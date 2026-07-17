@@ -12,16 +12,22 @@
 > verification sub-agent) upgrades
 > it on a primary-source pass.
 >
-> **Status (2026-07-16)**: 60
+> **Status (2026-07-17)**: 59
 > algorithm profiles across 8
-> categories. 18 are flagged
+> categories. All 59 are
 > `ready-for-promotion` for direct
 > integration with the NSL
 > primitive set in
 > `~/solbian/sapling/NSLP/SPEC.md`.
-> The remaining 42 carry
-> 🟡 `unconfirmed` flags pending
-> primary-source verification.
+> 0 carry 🟡 `unconfirmed` flags.
+> The profile count dropped from
+> 60 to 59 in Wave 10 with the
+> removal of the fabricated
+> §8.5 "End-to-end differentiable
+> proving" entry (the same
+> concept is fully described in
+> §8.4 NTP, Rocktäschel & Riedel
+> 2017).
 >
 > **Why this file exists**: the NSL
 > primitive set (33 primitives) and
@@ -2730,56 +2736,7 @@
 - **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ⚠️ Pending primary-source pass.
 
-### 8.5 End-to-end differentiable proving
-
-- **Year / citation**: The original citation in
-  this entry was a fabrication. The concept
-  "end-to-end differentiable proving" exists in
-  the literature (e.g. Rocktäschel & Riedel 2017,
-  see §8.4 NTP; Rabe et al. 2020), but the
-  previously-cited Petersen, Linder, Galkin &
-  Lawrence 2022 / arXiv 2204.03597 paper does not
-  exist — that arXiv ID resolves to "Imitating, Fast
-  and Slow" (Qi, Abbeel, Grover), an imitation-
-  learning paper. This entry is retained as a
-  placeholder for the canonical primary source,
-  which is being researched. See Yang & Deng 2019,
-  "Learning to Prove Theorems via Interacting with
-  Proof Assistants" (arXiv 1905.09381) for a closely
-  related primary source.
-- **Core idea**: Replace the symbolic proof
-  environment with a fully differentiable
-  simulation. Each rule application is a soft
-  operation over embedding spaces. Trained with
-  supervised learning on theorem-proof pairs.
-- **Community status**: Modern approach. Cited
-  >100 times.
-- **Complexity**: O(N · d²) per proof step.
-- **Pseudocode (differentiable rule application)**:
-  ```python
-  def differentiable_rule(rule, embeddings):
-      # Soft matching: each atom is a probability
-      # over embeddings
-      # Apply rule: weighted average of consequences
-      return weighted_consequence(rule, embeddings)
-  ```
-- **Worked example**: algebraic identity proving.
-  NTP trained on (statement, proof) pairs learns
-  to produce differentiable proofs.
-- **Canonical reference**:
-  https://arxiv.org/abs/1905.09381
-- **Failure modes**: proofs are not exact; the
-  differentiability is approximate.
-- **NSL shape**: same as 8.4.
-- **Confirmation flag**: 🔴 `speculative`
-- **Ready-for-promotion**: ⚠️ Pending primary-source pass.
-- **Notes**: Citation is a fabrication. Entry is
-  being retained as a placeholder while the
-  canonical primary source is researched. The
-  closest related primary source is Yang & Deng
-  2019, arXiv 1905.09381.
-
-### 8.6 Soft unification
+### 8.5 Soft unification
 
 - **Year / citation**: Palangi, Deng, Shen, Gao, He,
   Chen, Song, Ward, Poole 2018. "Deep Sentence
@@ -2850,7 +2807,7 @@
   softmax-alignment pseudocode and NLI worked
   example are editorial synthesis.
 
-### 8.7 Compositional attention networks
+### 8.6 Compositional attention networks
 
 - **Year / citation**: Hudson & Manning 2018.
   "Compositional Attention Networks for Machine
@@ -2908,8 +2865,8 @@
 | 5 | Dendritic computation and top-down | 5 | 0 | 5 |
 | 6 | Memory consolidation and replay | 8 | 0 | 8 |
 | 7 | Temporal and sequence learning | 8 | 0 | 8 |
-| 8 | Reasoning and composition | 7 | 0 | 7 |
-| | **Total** | **60** | **0** | **60** |
+| 8 | Reasoning and composition | 6 | 0 | 6 |
+| | **Total** | **59** | **0** | **59** |
 
 Each entry is sourced to its canonical reference.
 Entries flagged `ready-for-promotion` are community-

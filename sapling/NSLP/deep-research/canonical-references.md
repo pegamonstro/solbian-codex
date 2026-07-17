@@ -936,15 +936,6 @@
   `nslp-algorithms.md` §7.8.
   https://arxiv.org/abs/1609.08194
   🟢 `confirmed-curated`
-- **P-Eyben-2009** — Eyben, F. et al. 2009.
-  "Segmental Generative Neural Networks". In
-  *ICASSP 2009*.
-  🔴 `speculative`
-  **Notes**: Primary source could not be located
-  during Wave 6 verification. The cited paper
-  (Eyben et al. 2009 ICASSP) exists but its
-  relevance to NSLP is unverified. Retained at 🔴
-  pending primary-source pass.
 
 ### Reasoning and composition
 
@@ -968,22 +959,17 @@
   Proving". In *NeurIPS 30*: 3791–3801.
   `nslp-algorithms.md` §8.4.
   ✅ `confirmed-canonical`
-- **P-Petersen-2022** — Petersen, F. et al. 2022.
-  "End-to-End Differentiable Mathematical
-  Reasoning". arXiv:2204.03597.
-  `nslp-algorithms.md` §8.5.
-  🟢 `confirmed-curated`
 - **P-Palangi-2018** — Palangi, H. et al. 2018.
   "Deep Sentence Embedding Using Long Short-Term
   Memory Networks". *IEEE/ACM Transactions on
   Audio, Speech, and Language Processing* 24(4):
   694–707.
-  `nslp-algorithms.md` §8.6.
+  `nslp-algorithms.md` §8.5.
   🟢 `confirmed-curated`
 - **P-Hudson-Manning-2018** — Hudson, D. A. &
   Manning, C. D. 2018. "Compositional Attention
   Networks for Machine Reasoning". In *ICLR 2018*.
-  `nslp-algorithms.md` §8.7.
+  `nslp-algorithms.md` §8.6.
   ✅ `confirmed-canonical`
 
 ## Cross-reference summary
@@ -1003,17 +989,17 @@
 | Memory consolidation | 12 | `nslp-algorithms.md`, `memory-reasoning.md` |
 | Dendritic/top-down | 8 | `nslp-algorithms.md` |
 | Temporal/sequence | 11 | `nslp-algorithms.md`, `neuro-primitives.md` |
-| Reasoning/composition | 7 | `nslp-algorithms.md` |
-| **Total** | **127** | — |
+| Reasoning/composition | 6 | `nslp-algorithms.md` |
+| **Total** | **125** | — |
 
 ## Confirmation status
 
 | Status | Count |
 |--------|-------|
 | ✅ `confirmed-canonical` | 102 |
-| 🟢 `confirmed-curated` | 27 |
+| 🟢 `confirmed-curated` | 26 |
 | 🟡 `unconfirmed` | 0 |
-| 🔴 `speculative` | 1 |
+| 🔴 `speculative` | 0 |
 
 The default flag for any new entry is 🟡 `unconfirmed`.
 The verification sub-agent or a human reviewer reads the

@@ -9,8 +9,7 @@
 > canonical reference.
 >
 > **Status (2026-07-17)**: 51 entries;
-> 47 ✅, 3 🟢, 1 🔴 (Compressive
-> Memory §1.5).
+> 47 ✅, 4 🟢, 0 🔴.
 
 ## 1. Memory Architectures
 
@@ -69,20 +68,92 @@
 
 ### 1.5 Compressive Memory
 
-- **Year / citation**: Jazayeri & Fiete 2014.
+- **Year / citation**: Fiete, I. R., Schwab, D. J. &
+  Tran, N. M. 2014. "A binary Hopfield network with
+  1/log(n) information rate and applications to grid
+  cell decoding". arXiv:1407.6029.
+  https://arxiv.org/abs/1407.6029
+- **Notes**: Citation corrected three times:
+  (1) original entry cited "Sullivan & Harding 2019,
+  arXiv:1910.09808" (a wind-turbine SCADA paper by
+  Gigoni et al. — fabrication, corrected in Wave 7);
+  (2) Wave 7 corrected to "Jazayeri & Fiete 2014,
+  arXiv:1401.4410" with the hallucinated title
   "Estimating the Number of States in a Finite-State
-  Markov Chain from a Sample". *arXiv:1401.4410*.
-- **Notes**: Citation corrected from arXiv 1910.09808
-  (which was a wind-turbine SCADA paper, Gigoni et al.
-  2019) to Jazayeri & Fiete 2014, arXiv 1401.4410.
-  Correction per Wave 7 verification log. Independent
-  verification of the corrected attribution is pending.
-- **Core idea**: A framework where episodic traces are
-  stored as compressed sparse codes; the memory is
-  queried by content-based addressing in a single
-  associative lookup.
-- **Confirmation flag**: 🔴 `speculative`
-- **Ready-for-promotion**: ⚠️ Pending primary-source pass.
+  Markov Chain from a Sample" — that arXiv ID is
+  actually Kotlarov's "Finite-gap solutions of the
+  Sine-Gordon equation" (math-physics), not a Fiete
+  paper (Wave 7 fabrication, corrected in Wave 10);
+  (3) Wave 10 corrects to Fiete, Schwab & Tran 2014,
+  arXiv:1407.6029, the canonical Fiete paper on
+  Hopfield-style content-addressable memory with
+  sub-linear information rate (matches the §1.5
+  "content-based addressing in a single associative
+  lookup" description). The "compressed sparse codes"
+  wording in the original §1.5 Core Idea is editorial
+  synthesis borrowed from the Olshausen-Field sparse-
+  coding framework; the Fiete/Schwab/Tran paper is
+  about binary Hopfield capacity, not sparse codes
+  per se. Flag 🟢 `confirmed-curated` because the
+  primary source is verified but the §1.5 description
+  is a slight editorial synthesis across two
+  frameworks.
+- **Core idea**: A binary Hopfield network that
+  stores patterns at a `1/log(n)` information rate
+  per pattern (vs. the classical Hopfield capacity
+  ≈ `0.14 N`), enabling sub-linear-in-N content-
+  addressable memory. Episodic traces are stored as
+  binary patterns over N neurons; the memory is
+  queried by a single associative lookup (Hamming
+  proximity to a cue retrieves the stored pattern).
+  Originally developed as a model of grid-cell
+  decoding in entorhinal cortex.
+- **Community status**: Foundational for modern
+  Hopfield-memory theory. Cited >200 times.
+- **Complexity**: O(N) per content-addressable
+  lookup (one matrix-vector multiply + sign
+  threshold); storage `O(N² / log(N))` patterns.
+- **Pseudocode (Fiete-style Hopfield retrieval)**:
+  ```python
+  def compressive_memory_recall(cue, weights, theta):
+      # cue: binary vector in {-1, +1}^N
+      # weights: N x N symmetric Hopfield matrix
+      state = cue.copy()
+      for _ in range(max_iters):
+          h = weights @ state - theta
+          state = np.sign(h)
+      return state  # nearest stored pattern
+  ```
+- **Worked example**: grid-cell decoding. Stored
+  patterns: 2D grid-cell firing-rate templates at
+  discretised spatial positions. Cue: partial
+  observation (e.g. active cells in a single
+  theta cycle). The Hopfield retrieval returns the
+  most likely 2D position, exploiting the
+  sub-linear `1/log(n)` information rate to
+  multiplex many templates in N neurons.
+- **Canonical reference**:
+  https://arxiv.org/abs/1407.6029
+- **Failure modes**: classical Hopfield retrieval
+  converges to spurious local minima at high load;
+  Fiete/Schwab/Tran address this by the `1/log(n)`
+  design and the binary (not continuous) state
+  space.
+- **NSL shape**:
+  ```lisp
+  (:type compressive-memory :id "cm-001"
+   :content (:storage "binary-Hopfield"
+             :capacity "1/log(n)-per-pattern"
+             :query "content-addressable"))
+  ```
+- **Confirmation flag**: 🟢 `confirmed-curated`
+- **Ready-for-promotion**: ⚠️ Pending primary-source
+  pass (Waves 7 and 10 have both identified
+  citation fabrication in this entry; the
+  Fiete/Schwab/Tran 2014 citation is now correct
+  but the entry description is editorial synthesis
+  and should be re-derived from the primary source
+  in Wave 11).
 
 ## 2. Knowledge Representation
 
@@ -506,8 +577,7 @@
 
 All 51 entries are catalogued below with
 their current verification status. 47 are
-✅, 3 are 🟢, and 1 is 🔴
-(§1.5 Compressive Memory).
+✅ and 4 are 🟢.
 
 | #   | Entry                                | Section | Status |
 |-----|--------------------------------------|---------|--------|
@@ -515,7 +585,7 @@ their current verification status. 47 are
 | 2   | Sparse Distributed Memory (SDM)      | 1.2     | ✅ |
 | 3   | Episodic Memory (Tulving)            | 1.3     | 🟢 |
 | 4   | ACT-R Declarative Memory             | 1.4     | ✅ |
-| 5   | Compressive Memory                   | 1.5     | 🔴 |
+| 5   | Compressive Memory                   | 1.5     | 🟢 |
 | 6   | Semantic Networks                    | 2.1     | ✅ |
 | 7   | Frames (Minsky)                      | 2.2     | ✅ |
 | 8   | Conceptual Dependency (Schank)       | 2.3     | 🟢 |

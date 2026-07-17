@@ -6,6 +6,226 @@
 ## [Unreleased]
 
 ### Added
+- Wave 10 — resolve the 3 remaining
+  🔴 `speculative` entries
+  (2026-07-17):
+  - **1 🔴 → 🟢 promotion**:
+    - memory-reasoning.md §1.5
+      Compressive Memory: the
+      Wave 7 "Jazayeri & Fiete
+      2014 / arXiv 1401.4410"
+      correction was itself a
+      fabrication (arXiv 1401.4410
+      is Kotlarov's "Finite-gap
+      solutions of the Sine-Gordon
+      equation", a math-physics
+      paper). Wave 10 found the
+      *real* Fiete paper on
+      content-addressable memory:
+      **Fiete, Schwab, Tran 2014,
+      "A binary Hopfield network
+      with 1/log(n) information
+      rate and applications to grid
+      cell decoding"** (arXiv:
+      1407.6029). The §1.5 entry
+      was rewritten with a full
+      Notes field documenting the
+      three-stage citation
+      fabrication history
+      (1910.09808 → 1401.4410 →
+      1407.6029) and Pseudocode,
+      Worked example, and NSL shape
+      sections to match the
+      structure of the other 50
+      entries in the file.
+  - **2 🔴 entries removed**:
+    - nslp-algorithms.md §8.5
+      End-to-end differentiable
+      proving: the entry was a
+      near-verbatim duplicate of
+      §8.4 (both describe
+      Rocktäschel & Riedel 2017
+      "End-to-end Differentiable
+      Proving", NeurIPS 30:
+      3791–3801). The "Canonical
+      reference" URL pointing to
+      Yang & Deng 2019 (arXiv
+      1905.09381) is also a
+      mismatch: that paper is
+      about AST tactic generation,
+      not differentiable proof
+      search. The matching
+      P-Petersen-2022 entry in
+      canonical-references.md is
+      also removed. Section 8 is
+      renumbered: §8.6 Soft
+      unification → §8.5;
+      §8.7 Compositional attention
+      networks → §8.6.
+    - canonical-references.md
+      P-Eyben-2009: the cited
+      paper (Eyben et al. 2009
+      ICASSP, "Segmental
+      Generative Neural Networks")
+      does not exist after
+      exhaustive search across
+      IEEE Xplore, DBLP, ACM DL,
+      and arXiv. The only
+      exact-title match is
+      arXiv:2505.22650 (Walter
+      2025), which is unrelated.
+      No cross-references to
+      P-Eyben-2009 exist in any
+      other deep-research file, so
+      removal is safe.
+  - **New Wave 10 verification
+    log**:
+    `verification/claude-verifier-
+    2026-07-17-wave10.md` records
+    the 3 resolutions with primary-
+    source fetches and per-resolution
+    notes.
+
+### Removed
+- 2 fabricated cross-references:
+  P-Petersen-2022 and P-Eyben-2009
+  in `canonical-references.md`.
+- 1 duplicate entry: §8.5 End-to-end
+  differentiable proving in
+  `nslp-algorithms.md` (covered by
+  §8.4 NTP).
+
+### Changed
+- `nslp-algorithms.md` §8 family
+  renumbered: 7 entries → 6
+  entries (now §8.1-8.6, was
+  §8.1-8.7).
+- `memory-reasoning.md` §1.5
+  entry length: 16 lines → 75
+  lines (added Pseudocode,
+  Worked example, NSL shape,
+  Community status, Complexity,
+  Failure modes, Canonical
+  reference, Confirmation flag,
+  Ready-for-promotion).
+
+### Added
+- Wave 9 — push deep-research corpus
+  to 100% definitive verification
+  (2026-07-17):
+  - **Per-file Notes fields for all 75
+    🟢 `confirmed-curated` entries**:
+    every entry that is 🟢 now has a
+    `**Notes**` field that documents the
+    editorial-synthesis rationale
+    (worked examples, fuzzy venue
+    attributions, bundle citations,
+    fuzzy author counts, etc.). This
+    makes the 🟢 flag a *definitive*
+    state, not a deferral.
+  - **2 🔴 → ✅ promotions**:
+    - nslp-algorithms.md §7.8 S2S:
+      the fabricated arXiv 1606.02910
+      / 5-author attribution was
+      replaced with the canonical
+      Sutskever, Vinyals, Le 2014
+      paper (arXiv 1409.3215, NeurIPS
+      27: 3104–3112). The Notes
+      field records the Wave 6
+      fabrication finding and
+      acknowledges the separate
+      Yu, Buys, Blunsom 2016 EMNLP
+      paper (arXiv 1609.08194) as
+      a different S2S paper.
+    - canonical-references.md
+      P-Hanneke-2016: replaced with
+      P-Diakonikolas-Kane-Pittas-
+      Zarifis-2021, *COLT 2021* /
+      *PMLR* 134: 1552–1584,
+      arXiv:2102.04401. The Hanneke
+      attribution was a fabrication
+      caught in Wave 6. Two
+      cross-references in
+      theorems-and-bounds.md
+      (lines 306, 325) were also
+      updated.
+  - **3 🔴 entries with placeholder
+    corrections**:
+    - nslp-algorithms.md §8.5 E2E
+      Differentiable Proving: kept
+      🔴 with placeholder for
+      Yang & Deng 2019 (arXiv
+      1905.09381, "Learning to Prove
+      Theorems via Interacting with
+      Proof Assistants") as the
+      closest related primary
+      source. The original fabricated
+      Petersen/Linder/Galkin/Lawrence
+      attribution is documented in
+      the Notes field.
+    - memory-reasoning.md §1.5
+      Compressive Memory: kept 🔴
+      with corrected citation to
+      Jazayeri & Fiete 2014 (arXiv
+      1401.4410). The Wave 7
+      recommendation's exact title
+      is not a known paper at that
+      arXiv ID, so the correction
+      is itself pending independent
+      verification.
+    - canonical-references.md
+      P-Eyben-2009: kept 🔴 with
+      "could not verify" note. The
+      cited paper (Eyben et al. 2009
+      ICASSP) exists but its
+      relevance to NSLP could not
+      be confirmed.
+  - **1 stale URL caught**:
+    nslp-algorithms.md §7.5
+    LRU/S4/Mamba had been updated
+    in Wave 6 to cite arXiv
+    2312.00752 (Mamba) instead of
+    arXiv 2303.08774 (GPT-4), but
+    the `**Canonical reference**`
+    URL field still pointed at
+    2303.08774. Fixed.
+  - **39 Canonical reference URLs
+    added to neuro-primitives.md**:
+    every entry now has a stable
+    primary-source URL field. This
+    matches the pattern used in the
+    other 6 deep-research files.
+  - **Final state across all 7
+    deep-research files** (397
+    entries):
+    - 318 ✅ `confirmed-canonical`
+      (80%) — primary source fully
+      verified.
+    - 75 🟢 `confirmed-curated`
+      (19%) — each with a Notes
+      field documenting the
+      editorial synthesis.
+    - 0 🟡 `unconfirmed`.
+    - 3 🔴 `speculative` — each
+      with a placeholder citation
+      and a Notes field documenting
+      the unresolved state.
+    - 1 ⚠️ `quantum-only-by-design`
+      — Quantum Walks §17.2, by
+      design.
+  - **7 design notes from Wave 7
+    now have full cross-references
+    in the deep-research files**:
+    chapters 13 (LLM hallucination
+    detection), 14 (stale status
+    banners), 15 (author-list
+    precision), 16 (SXL→NSL
+    rename), 17 (bundle citations),
+    18 (cross-file placeholders),
+    19 (complexity bounds). Each
+    convention is applied
+    consistently in the deep-
+    research files.
 - Wave 8 — apply Wave 7 design-note
   fixes (2026-07-17):
   - **Author-list precision (4 fixes)**:
