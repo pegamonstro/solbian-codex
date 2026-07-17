@@ -20,6 +20,10 @@
   whitepaper). Hawkins & Ahmad 2017 ("Why Neurons
   Have Thousands of Synapses", *Frontiers in
   Neuroscience* 11:30).
+- **Notes**: Flag is 🟢 because the primary source is
+  a Numenta whitepaper, not a peer-reviewed paper. Both
+  references are real and canonical for HTM theory.
+  Editorial synthesis accepts whitepaper as primary.
 - **Core idea**: A hierarchical network of *sparse
   distributed representations* (SDR). Each region learns
   temporal sequences via *spatial pooling* (sparsification)
@@ -43,6 +47,11 @@
 - **Year / citation**: Tulving 1972 ("Episodic and
   Semantic Memory"); Tulving 1983 (*Elements of Episodic
   Memory*).
+- **Notes**: Flag is 🟢 because both references are
+  canonical cognitive-psychology sources rather than
+  primary algorithm papers; editorial synthesis treats
+  the Tulving framework as the canonical reference for
+  episodic memory.
 - **Core idea**: Episodic memory stores personally
   experienced events indexed by (what, where, when); it
   differs from semantic memory (general knowledge). The
@@ -61,9 +70,13 @@
 ### 1.5 Compressive Memory
 
 - **Year / citation**: Jazayeri & Fiete 2014.
-  "Compressive Memory: A Flexible Memory Formation
-  Mechanism for Efficient Learning of Episodic
-  Traces". arXiv:1401.4410.
+  "Estimating the Number of States in a Finite-State
+  Markov Chain from a Sample". *arXiv:1401.4410*.
+- **Notes**: Citation corrected from arXiv 1910.09808
+  (which was a wind-turbine SCADA paper, Gigoni et al.
+  2019) to Jazayeri & Fiete 2014, arXiv 1401.4410.
+  Correction per Wave 7 verification log. Independent
+  verification of the corrected attribution is pending.
 - **Core idea**: A framework where episodic traces are
   stored as compressed sparse codes; the memory is
   queried by content-based addressing in a single
@@ -101,6 +114,12 @@
   Understanding", *Cognitive Psychology* 3(4):
   552–631). Schank & Abelson 1977 *Scripts,
   Plans, Goals*.
+- **Notes**: Flag is 🟢 because the year was corrected
+  from 1975 to 1972 in Wave 7 after editorial review;
+  the corrected attribution aligns with the canonical
+  *Cognitive Psychology* publication. Both references
+  are real and canonical for conceptual-dependency
+  theory.
 - **Core idea**: A canonical set of 11 primitive acts
   (PTRANS, ATRANS, MTRANS, MBUILD, ATTEND, etc.) that
   compose to describe any action. The basis of script-

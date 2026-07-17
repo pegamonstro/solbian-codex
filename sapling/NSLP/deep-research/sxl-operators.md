@@ -146,6 +146,12 @@
   acceptance-condition formalism); Brewka et al. 2018 (a
   later paper by the same authors applying ADFs to
   cognitive computing and clarifying the semantics).
+- **Notes**: Bundle citation: two primary sources describe
+  the same concept across its formulation and its
+  application to cognitive computing. The bundle format
+  prevents a single-source canonical claim, but the
+  underlying ADF framework is well-established. See §18
+  for the bundle-resolution convention.
 - **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
@@ -231,6 +237,13 @@
   CPLEX's modern form — the industrial solver that
   integrated simplex, cuts, and B&B into a single
   system).
+- **Notes**: Bundle citation: four primary sources cover
+  the three component algorithms (simplex, cutting planes,
+  branch-and-bound) and the modern industrial integration
+  (CPLEX). The bundle format prevents a single-source
+  canonical claim; the underlying solver family is the
+  workhorse of OR. See §18 for the bundle-resolution
+  convention.
 - **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes (well-known).
 
@@ -483,6 +496,12 @@
   equivalence); ISO/IEC 24707:2007 (the Common Logic
   standard that subsumes CG into a family of CL dialects
   including CGIF).
+- **Notes**: Bundle citation: two primary sources — the
+  original book and the ISO standard that formalises CG as
+  a Common Logic dialect. The bundle format prevents a
+  single-source canonical claim; CG is well-established as
+  the canonical graph notation for FOL. See §18 for the
+  bundle-resolution convention.
 - **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes (ISO standard).
 
@@ -647,6 +666,12 @@
   theorem); Goldberg 1989 (the classic textbook that
   popularised GA practice and the building-block
   hypothesis).
+- **Notes**: Bundle citation: two primary sources — the
+  foundational book and the textbook that popularised GA
+  practice. The bundle format prevents a single-source
+  canonical claim; the GA framework is well-established
+  in evolutionary computation. See §18 for the
+  bundle-resolution convention.
 - **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
@@ -746,6 +771,12 @@
   1995 (the canonical database-theory textbook that
   formalises Datalog complexity and Datalog with
   negation).
+- **Notes**: Bundle citation: two primary sources — the
+  Datalog-evaluation book and the database-theory
+  textbook. The bundle format prevents a single-source
+  canonical claim; the Datalog framework is
+  well-established. See §18 for the bundle-resolution
+  convention.
 - **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
@@ -819,6 +850,13 @@
   and the back-door criterion on causal diagrams); Pearl
   2009 (formalises the three rules of do-calculus in the
   *Causality* book).
+- **Notes**: Bundle citation: two primary sources by the
+  same author — the original paper introducing the
+  do-operator and the book formalising the three rules.
+  The bundle format prevents a single-source canonical
+  claim; do-calculus is the canonical formalism for causal
+  intervention. See §18 for the bundle-resolution
+  convention.
 - **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
@@ -903,6 +941,12 @@
   most-specific clause); Srinivasan 2001 (the Aleph
   manual, which documents the Aleph implementation of
   Progol and its practical extensions).
+- **Notes**: Bundle citation: two primary sources — the
+  paper introducing Progol and the manual documenting
+  Aleph. The bundle format prevents a single-source
+  canonical claim; Progol/Aleph is the canonical
+  inductive-logic-programming toolchain. See §18 for the
+  bundle-resolution convention.
 - **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 

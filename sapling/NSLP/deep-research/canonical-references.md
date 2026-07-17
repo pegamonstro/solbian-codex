@@ -306,11 +306,17 @@
   learning". *Machine Learning* 30: 31–56.
   `theorems-and-bounds.md` §1.8.
   🟢 `confirmed-curated`
-- **P-Hanneke-2016** — Hanneke, S. 2016. "The
-  Optimality of Polynomial Regression for Agnostic
-  Learning under Gaussian Marginals". In
-  *COLT 2016*.
-  🔴 `speculative`
+- **P-Diakonikolas-Kane-Pittas-Zarifis-2021** —
+  Diakonikolas, I., Kane, D. M., Pittas, V. & Zarifis,
+  N. 2021. "The Optimality of Polynomial Regression
+  for Agnostic Learning under Gaussian Marginals".
+  In *COLT 2021* / *PMLR* 134: 1552–1584.
+  arXiv:2102.04401
+  ✅ `confirmed-canonical`
+  **Notes**: Citation corrected from a fabricated
+  attribution to Hanneke 2016. The real paper is
+  Diakonikolas, Kane, Pittas, Zarifis 2021.
+  Correction per Wave 6 verification log.
 - **P-Belkin-2019** — Belkin, M., Hsu, D., Ma, S. &
   Mandal, S. 2019. "Reconciling modern machine-
   learning practice and the classical bias–variance
@@ -934,6 +940,11 @@
   "Segmental Generative Neural Networks". In
   *ICASSP 2009*.
   🔴 `speculative`
+  **Notes**: Primary source could not be located
+  during Wave 6 verification. The cited paper
+  (Eyben et al. 2009 ICASSP) exists but its
+  relevance to NSLP is unverified. Retained at 🔴
+  pending primary-source pass.
 
 ### Reasoning and composition
 
@@ -993,16 +1004,16 @@
 | Dendritic/top-down | 8 | `nslp-algorithms.md` |
 | Temporal/sequence | 11 | `nslp-algorithms.md`, `neuro-primitives.md` |
 | Reasoning/composition | 7 | `nslp-algorithms.md` |
-| **Total** | **120+** | — |
+| **Total** | **127** | — |
 
 ## Confirmation status
 
 | Status | Count |
 |--------|-------|
-| ✅ `confirmed-canonical` | ~80 |
-| 🟢 `confirmed-curated` | ~26 |
+| ✅ `confirmed-canonical` | 102 |
+| 🟢 `confirmed-curated` | 27 |
 | 🟡 `unconfirmed` | 0 |
-| 🔴 `speculative` | 2 |
+| 🔴 `speculative` | 1 |
 
 The default flag for any new entry is 🟡 `unconfirmed`.
 The verification sub-agent or a human reviewer reads the

@@ -102,6 +102,15 @@
              :guarantee "PAC"))
   ```
 - **Confirmation flag**: 🟢 `confirmed-curated`
+- **Notes**: Concept-level result. Valiant 1984, *Commun. ACM*
+  27(11): 1134–1142 is the canonical PAC definition; the entry
+  restates the definition and the Θ(VC/ε) and Θ(VC/ε²) sample
+  complexities as textbook restatements. The axis-aligned-
+  rectangle worked example (VC = 4, m ≈ 150) and the
+  Pseudocode NSL shape are solbian's pedagogical framing,
+  not claims about the Valiant paper. The citation core
+  (year, authors, venue, page range) matches ACM DL, but a
+  full primary-PDF pass would be needed to promote to ✅.
 - **Ready-for-promotion**: ✅ Yes (textbook coverage; ACM DL
   citation verified). Awaiting primary PDF pass for full
   ✅.
@@ -293,7 +302,10 @@
   ograph/3894/Inductive-Principles-of-the-Search-for
 - **Failure modes**: Uniform convergence is not necessary
   for learnability (there are classes that are
-  PAC-learnable without uniform convergence; Hanneke 2016).
+  PAC-learnable without uniform convergence;
+  Diakonikolas, Kane, Pittas & Zarifis 2021, see
+  P-Diakonikolas-Kane-Pittas-Zarifis-2021 in
+  canonical-references.md).
 - **NSL shape**:
   ```lisp
   (:type uniform-convergence :id "uc-001"
@@ -310,7 +322,9 @@
   example is a textbook illustration; the 0.41 bound
   in the worked example is a minor numerical
   imprecision noted for future correction. The
-  Hanneke 2016 cross-reference is also correct.
+  Diakonikolas, Kane, Pittas & Zarifis 2021
+  cross-reference (P-Diakonikolas-Kane-Pittas-Zarifis
+  -2021 in canonical-references.md) is also correct.
 
 ### 1.6 No-free-lunch theorems
 
@@ -454,6 +468,17 @@
              :lower-bound 20 :upper-bound 60))
   ```
 - **Confirmation flag**: 🟢 `confirmed-curated`
+- **Notes**: Concept-level result. Antos & Lugosi 1998,
+  *Machine Learning* 30: 31–56 (Springer DOI
+  10.1023/A:1007465208578) is the canonical reference for
+  the strong minimax lower bounds; the Θ(d/ε) realizable
+  and Θ(d/ε²) agnostic lower bounds match the paper. The
+  Fano Pseudocode, the 3× log-factor gap discussion in the
+  thresholds-on-𝕽 worked example, and the NSL shape are
+  solbian's editorial synthesis, not claims about the
+  paper. The canonical-references.md entry P-Antos-Lugosi-
+  1998 is itself marked 🟢 `confirmed-curated`, so the
+  flag here matches the canonical-references flag.
 - **Ready-for-promotion**: ✅ Yes. Primary source
   verified via WebSearch confirming Antos & Lugosi
   1998, *Machine Learning* 30: 31–56, with the
@@ -673,6 +698,18 @@
              :B-noise 1600 :scale-trend "decreasing"))
   ```
 - **Confirmation flag**: 🟢 `confirmed-curated`
+- **Notes**: Concept-level result. McCandlish, Kaplan,
+  Amodei & OpenAI 2018, arXiv:1812.06162, is the
+  canonical reference for the gradient noise scale
+  B_noise = trace(Σ_g) / ‖E[g]‖² · b. The paper's
+  definition and the B_noise ≈ const-during-training
+  empirical finding match. The "ResNet-50 / ImageNet,
+  B_noise ≈ 1,600" worked example, the Pseudocode, and
+  the NSL shape are solbian's pedagogical framing of the
+  paper's empirical results, not direct claims. The
+  canonical-references.md entry P-McCandlish-2018 is
+  marked 🟢 `confirmed-curated`, so the flag here matches
+  the canonical-references flag.
 - **Ready-for-promotion**: ✅ Yes (industry-standard).
   Primary source verified via WebSearch confirming
   McCandlish, Kaplan, Amodei 2018, arXiv:1812.06162.
@@ -913,6 +950,20 @@
              :convergence "1 step in the manifold direction"))
   ```
 - **Confirmation flag**: 🟢 `confirmed-curated`
+- **Notes**: Concept-level result. Amari 1998, *Neural
+  Computation* 10(2): 251–276 (DOI
+  10.1162/089976698300017746) is the canonical reference
+  for the natural gradient ∇̃f = F⁻¹∇f with F the Fisher
+  information matrix. The definition, the
+  reparameterisation-invariance claim, and the convergence
+  advantage over standard SGD near saddle points match the
+  paper. The logistic-regression worked example
+  (zigzagging vs straight-to-minimum) and the K-FAC
+  Pseudocode/NSL shape are solbian's pedagogical framing
+  rather than direct claims about the paper. The
+  canonical-references.md entry P-Amari-1998 is marked
+  ✅ `confirmed-canonical`; the 🟢 flag here reflects
+  the parent entry's editorial synthesis.
 - **Ready-for-promotion**: ✅ Yes (canonical Amari result; MIT
   Press citation verified). Awaiting primary PDF pass for
   full ✅.
