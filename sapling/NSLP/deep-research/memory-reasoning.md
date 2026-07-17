@@ -17,12 +17,14 @@
 ### 1.1 Hierarchical Temporal Memory (HTM)
 
 - **Year / citation**: Hawkins & George 2006 (Numenta
-  whitepaper). Hawkins, Ahmad, Cui 2017 ("Why Neurons
-  Have Thousands of Synapses").
+  whitepaper). Hawkins & Ahmad 2017 ("Why Neurons
+  Have Thousands of Synapses", *Frontiers in
+  Neuroscience* 11:30).
 - **Core idea**: A hierarchical network of *sparse
   distributed representations* (SDR). Each region learns
   temporal sequences via *spatial pooling* (sparsification)
   and *temporal memory* (prediction via column activation).
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes (Numenta implementation).
 
 ### 1.2 Sparse Distributed Memory (SDM)
@@ -33,6 +35,7 @@
   d-dimensional binary vectors (n = 256, d = 1000). On
   read, the k nearest addresses contribute, weighted by
   Hamming distance. Probabilistic in nature.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 1.3 Episodic Memory (Tulving)
@@ -45,23 +48,27 @@
   differs from semantic memory (general knowledge). The
   "encoding specificity principle" predicts that retrieval
   is most successful when context matches encoding.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes (theoretical frame;
   implementations are many).
 
 ### 1.4 ACT-R Declarative Memory
 
 - **Covered in cognitive-cycles.md §1.1**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 1.5 Compressive Memory
 
-- **Year / citation**: Sullivan & Harding 2019.
-  "Compressive Memory". arXiv:1910.09808.
+- **Year / citation**: Jazayeri & Fiete 2014.
+  "Compressive Memory: A Flexible Memory Formation
+  Mechanism for Efficient Learning of Episodic
+  Traces". arXiv:1401.4410.
 - **Core idea**: A framework where episodic traces are
   stored as compressed sparse codes; the memory is
   queried by content-based addressing in a single
   associative lookup.
-- **Ready-for-promotion**: ⚠️ Recent; not yet widely
-  adopted.
+- **Confirmation flag**: 🔴 `speculative`
+- **Ready-for-promotion**: ⚠️ Pending primary-source pass.
 
 ## 2. Knowledge Representation
 
@@ -72,6 +79,7 @@
 - **Core idea**: Concepts are nodes; relations are labelled
   edges. *Spreading activation* propagates energy from
   activation sources outward.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (frame model).
 
 ### 2.2 Frames (Minsky)
@@ -82,17 +90,21 @@
 - **Core idea**: A *frame* is a data structure with slots
   and slot values. Frames are organised in a hierarchy;
   inheritance propagates default values.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 2.3 Conceptual Dependency (Schank)
 
-- **Year / citation**: Schank 1975 ("Conceptual
-  Dependency Theory"). Schank & Abelson 1977 *Scripts,
+- **Year / citation**: Schank 1972 ("Conceptual
+  Dependency: A Theory of Natural Language
+  Understanding", *Cognitive Psychology* 3(4):
+  552–631). Schank & Abelson 1977 *Scripts,
   Plans, Goals*.
 - **Core idea**: A canonical set of 11 primitive acts
   (PTRANS, ATRANS, MTRANS, MBUILD, ATTEND, etc.) that
   compose to describe any action. The basis of script-
   based NLU.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 2.4 Conceptual Graphs (Sowa)
@@ -100,64 +112,79 @@
 - **Year / citation**: Sowa 1976, 1984. ISO/IEC 24707
   Common Logic.
 - **Covered in sxl-operators.md §6.1**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 2.5 OWL 2 / Description Logics
 
 - **Covered in sxl-operators.md §2.1-2.3**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 2.6 Markov Logic Networks (MLN)
 
 - **Covered in sxl-operators.md §6.3**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 2.7 Knowledge Graph Embeddings
 
 - **Covered in sxl-operators.md §6.5**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ## 3. Reasoning and Inference Algorithms
 
 ### 3.1 Variable Elimination for BNs
 
 - **Covered in sxl-operators.md §5.1**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 3.2 Belief Propagation
 
 - **Covered in sxl-operators.md §5.2**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 3.3 MCMC and Gibbs Sampling
 
 - **Covered in sxl-operators.md §5.3**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 3.4 CDCL (SAT)
 
 - **Covered in sxl-operators.md §3.1**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 3.5 Simulated Annealing
 
 - **Covered in sxl-operators.md §7.3**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 3.6 Genetic Algorithm
 
 - **Covered in sxl-operators.md §7.4**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 3.7 CMA-ES
 
 - **Covered in sxl-operators.md §7.5**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 3.8 Particle Swarm Optimisation
 
 - **Covered in sxl-operators.md §7.6**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 3.9 Ant Colony Optimisation
 
 - **Covered in sxl-operators.md §7.7**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 3.10 Rete Algorithm
 
 - **Covered in sxl-operators.md §8.1**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 3.11 Answer Set Programming (ASP)
 
 - **Covered in sxl-operators.md §8.3**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ## 4. Multi-Agent and Distributed Reasoning
 
@@ -170,6 +197,7 @@
 - **Core idea**: A manager announces a task; agents bid;
   the manager awards the contract to the best bid. Used
   in FIPA-compliant multi-agent systems.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (FIPA standard).
 
 ### 4.2 VCG Auction (Vickrey-Clarke-Groves)
@@ -179,6 +207,7 @@
 - **Core idea**: An auction where each agent's payment
   equals the externality the agent imposes on the others'
   utilities. Dominant strategy is to bid truthfully.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 4.3 PBFT (Practical Byzantine Fault Tolerance)
@@ -189,6 +218,7 @@
   tolerates f Byzantine faults with 3f+1 replicas
   through a three-phase protocol (pre-prepare, prepare,
   commit). O(n²) messages per request.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (industry: IBM
   Hyperledger Fabric, etc.).
 
@@ -201,6 +231,7 @@
   election, log replication, and a joint-consensus
   membership change. Designed for understandability
   (vs Paxos).
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 4.5 Paxos
@@ -210,6 +241,7 @@
 - **Core idea**: A two-phase consensus protocol with
   proposers, acceptors, and learners. Multi-Paxos
   amortises phase 1.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (foundational).
 
 ### 4.6 Federated Learning (FedAvg)
@@ -220,18 +252,20 @@
 - **Core idea**: Each client trains on local data; the
   server averages model updates periodically. Reduces
   communication by 10-100× vs naive distributed SGD.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 4.7 CRDTs (Conflict-Free Replicated Data Types)
 
 - **Year / citation**: Shapiro, Preguiça, Baquero, Zawirski
-  2011. "A Comprehensive Study of Concurrently Replicated
-  Data Types". RR 2011.
+  2011. "A Comprehensive Study of Convergent and
+  Commutative Replicated Data Types". INRIA RR-7506.
 - **Core idea**: Data types whose concurrent updates
   *commute* and *converge* without coordination.
   Two families: state-based (CvRDTs, joined by the
   semi-lattice join) and op-based (CmRDTs, with causal
   delivery).
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 5. Causal Reasoning
@@ -240,26 +274,31 @@
 
 - **Year / citation**: Pearl 1995, 2009.
 - **Covered in sxl-operators.md §10.1**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 5.2 PC Algorithm
 
 - **Year / citation**: Spirtes, Glymour, Scheines 2000.
 - **Covered in sxl-operators.md §10.2**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 5.3 GES (Greedy Equivalence Search)
 
 - **Year / citation**: Chickering 2002.
 - **Covered in sxl-operators.md §12.1**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 5.4 LiNGAM
 
 - **Year / citation**: Shimizu et al. 2006.
 - **Covered in sxl-operators.md §12.2**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 5.5 Convergent Cross Mapping (CCM)
 
 - **Year / citation**: Sugihara et al. 2012.
 - **Covered in sxl-operators.md §10.3**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 5.6 Granger Causality
 
@@ -270,6 +309,7 @@
   improve the prediction of Y beyond using only past Y.
   Tested via F-test on the restricted vs unrestricted
   regression.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (Nobel-cited).
 
 ## 6. Reinforcement Learning
@@ -281,6 +321,7 @@
   *Machine Learning* 47: 235–256.
 - **Core idea**: a_t = argmax_a (Q̂(a) + √(2 ln t / N(a))).
   The bonus is the UCB1 confidence term.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.2 Thompson Sampling
@@ -292,6 +333,7 @@
 - **Core idea**: Sample θ from the posterior
   P(θ | D), then take a_t = argmax_a E[R | θ, a]. The
   posterior shrinks as data accumulates.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.3 Value Iteration
@@ -300,6 +342,7 @@
 - **Core idea**: V_{k+1}(s) = max_a Σ_{s', r} p(s', r | s, a)
   [r + γ V_k(s')]. Converges in polynomial time; for
   discount factor γ, error decays as γ^k.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.4 Q-Learning
@@ -310,6 +353,7 @@
   Q(s, a) ← Q(s, a) + α [r + γ max_{a'} Q(s', a') - Q(s, a)].
   Converges to Q* with appropriate learning-rate decay
   and visit conditions.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.5 DQN
@@ -321,6 +365,7 @@
   parameterised by θ, a target network parameterised by
   θ_target (periodically synced), and experience replay.
   Loss: (r + γ max_{a'} Q(s', a'; θ_target) - Q(s, a; θ))².
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.6 Policy Gradient (REINFORCE)
@@ -330,6 +375,7 @@
   Reinforcement Learning". *Machine Learning* 8: 229–256.
 - **Core idea**: ∇_θ J(θ) = E_τ[Σ_t ∇_θ log π_θ(a_t|s_t) G_t].
   The REINFORCE update: θ ← θ + α G_t ∇_θ log π_θ(a_t|s_t).
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.7 A2C / A3C
@@ -339,19 +385,23 @@
 - **Core idea**: n-step actor-critic with parallel
   workers (A3C) or synchronous update (A2C). Loss
   combines policy gradient with a value baseline.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.8 PPO
 
 - **Covered in cognitive-cycles.md §6.5**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 6.9 SAC
 
 - **Covered in cognitive-cycles.md §6.4**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 6.10 AlphaZero / MuZero
 
 - **Covered in cognitive-cycles.md §6.3**.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 
 ### 6.11 TD3 (Twin Delayed DDPG)
 
@@ -362,6 +412,7 @@
   take the min), delayed policy update, target policy
   smoothing. Stabilises actor-critic in continuous action
   spaces.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.12 World Models
@@ -373,6 +424,7 @@
   the next latent in the latent space; C is a small linear
   controller that takes z_t and h_t as input and outputs
   actions. Trained inside the dreamed world.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.13 Hindsight Experience Replay (HER)
@@ -383,6 +435,7 @@
   goal* set to the actually-achieved final state, in
   addition to the original (failed) goal. Solves the
   sparse-reward problem in goal-conditioned RL.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.14 Curiosity-Driven Exploration (ICM)
@@ -395,6 +448,7 @@
   current (φ(s_t), a_t). The prediction error is the
   intrinsic reward. The forward model is trained with
   inverse-dynamics as an auxiliary loss.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.15 Empowerment
@@ -406,6 +460,7 @@
   the next state, E(s) = max_{p(a|s)} I(A; S' | S=s).
   It is intrinsic, channel-capacity-based, and
   state-dependent.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 7. Promotion Summary

@@ -36,6 +36,7 @@
   b = -0.5. y = sign(0.3 + 0.3 - 0.5) = sign(0.1) = +1.
   After a few epochs the weights converge to [0.5, 0.5],
   b = -0.7, separating the four input patterns.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 1.2 ADALINE / LMS (Widrow-Hoff)
@@ -44,6 +45,7 @@
   Switching Circuits". IRE WESCON Conv. Record.
 - **Core idea**: Linear combiner with LMS error: w ←
   w + η (y - ŷ) x. The basis of adaptive filters.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 1.3 Hopfield Network
@@ -56,6 +58,7 @@
   E = -Σ_{i<j} w_ij s_i s_j decreases monotonically. Each
   stored pattern is a local minimum. Storage capacity
   ≈ 0.14 N (Amit, Gutfreund, Sompolinsky 1987).
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 1.4 Modern Hopfield Networks (continuous)
@@ -66,6 +69,7 @@
   E = -lse(β, X^T ξ) + ½ ξ^T ξ + const. Yields softmax-
   based retrieval that exactly corresponds to transformer
   attention.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (links Hopfield to
   Transformers).
 
@@ -77,6 +81,7 @@
 - **Core idea**: Stochastic binary units with energy
   E = -Σ_i b_i s_i - Σ_{i<j} w_ij s_i s_j. Contrastive
   divergence approximates the gradient of log-likelihood.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 1.6 Self-Organising Map (Kohonen)
@@ -88,6 +93,7 @@
   weight vector w_i. On input x, find the BMU
   i* = argmin ||x - w_i|| and update w_i ← w_i +
   η(i, i*) (x - w_i) for i in a neighbourhood of i*.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 2. Modern Architectures
@@ -104,6 +110,7 @@
 - **Complexity**: For an input of size H×W×C with K×K
   filters and M output channels, convolution is
   O(HWKC²M).
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (canonical).
 
 ### 2.2 LSTM and GRU
@@ -115,6 +122,7 @@
   and a cell state c. The forget gate controls retention;
   the input gate controls write; the output gate controls
   read.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 2.3 Transformer (encoder, decoder, encoder-decoder)
@@ -125,6 +133,7 @@
   with feed-forward blocks, residual connections, and
   layer norm. Standard sizes range from millions to
   hundreds of billions of parameters.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 2.4 Vision Transformer (ViT)
@@ -134,6 +143,7 @@
 - **Core idea**: Patchify the image into 16×16 tokens;
   add positional embeddings; pass through a transformer
   encoder.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 2.5 State-Space Models (S4, Mamba)
@@ -145,6 +155,7 @@
   structured HiPPO initialisation. Mamba adds input-
   dependent (selective) state matrices.
 - **Complexity**: O(L) per layer.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 2.6 Graph Neural Networks (GCN, GAT, GraphSAGE)
@@ -156,6 +167,7 @@
   σ(Σ_{j ∈ N(i) ∪ {i}} (1/|N(i)|) W^{(l)} h_j^{(l)}).
   GAT uses learned attention weights. GraphSAGE samples
   fixed-size neighbourhoods.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 2.7 Mixture of Experts (MoE)
@@ -166,6 +178,7 @@
 - **Core idea**: A gating network selects k of N experts
   per token. Only the selected experts compute a
   forward pass.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 2.8 Neural ODE
@@ -177,6 +190,7 @@
   integrated by an adaptive-step ODE solver
   (Dormand-Prince RK45). Memory-efficient backprop via
   the adjoint method.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 2.9 Diffusion Models (DDPM, score-based)
@@ -188,6 +202,7 @@
   Gaussian noise to x_0 to reach x_T. *Reverse*: learn
   the score ∇_x log p_t(x) and run Langevin dynamics
   backwards to generate x_0.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 2.10 Variational Autoencoder (VAE)
@@ -198,6 +213,7 @@
   maximise the ELBO L = E_q[log p_θ(x|z)] -
   KL(q_φ(z|x) || p(z)). The reparameterisation trick
   z = μ + σ ⊙ ε enables backprop through the sample.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 2.11 Normalising Flows
@@ -208,6 +224,7 @@
 - **Core idea**: A bijective, invertible mapping
   f: ℝ^d → ℝ^d with tractable Jacobian; change of
   variables gives exact log-likelihood.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 3. Activation Functions and Normalisation
@@ -220,6 +237,7 @@
 - **Core idea**: Non-linear scalar maps. ReLU(x) =
   max(0, x). GELU(x) = x · Φ(x). Swish(x) =
   x · sigmoid(βx). Mish(x) = x · tanh(softplus(x)).
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 3.2 BatchNorm, LayerNorm, GroupNorm
@@ -230,6 +248,7 @@
 - **Core idea**: Normalise activations to zero mean and
   unit variance; learn scale and shift. LayerNorm
   normalises across features, not batch.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 4. Neuro-Symbolic Integration
@@ -247,6 +266,7 @@
 - **Worked example**: Encode "the cat chases the mouse" as
   S = (cat ⊗ agent) + (chase ⊗ pred) + (mouse ⊗ theme).
   Query "the chaser?" = S · agent^T = cat.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 4.2 Holographic Reduced Representations (HRR)
@@ -256,6 +276,7 @@
 - **Core idea**: Vectors in ℂ^d (or ℝ^d with circular
   convolution). Binding: a ⊛ b = IFFT(FFT(a) ⊙ FFT(b)).
   Unbinding: a ⊛ b ⊛ b⁻¹ ≈ a.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 4.3 Neural Module Networks
@@ -266,6 +287,7 @@
   neural modules (find, attend, count, compare); the
   modules are assembled and run on the image. The parser
   can be learned end-to-end.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 4.4 Logic Tensor Networks (LTN)
@@ -276,6 +298,7 @@
   differentiable tensor network. Each predicate P(x) is
   a function returning a value in [0, 1]; logical
   connectives are t-norms / t-conorms.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 4.5 DeepProbLog
@@ -285,6 +308,7 @@
 - **Core idea**: ProbLog extended with neural predicates.
   Inference is reduced to weighted model counting over a
   CNF encoding that includes the neural predicates.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 4.6 Differentiable Plasticity
@@ -296,6 +320,7 @@
   and a plastic component hebb_ij; the total weight is
   w_ij + α · hebb_ij where α is a learnable plasticity
   coefficient.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 5. Spiking Neural Networks
@@ -307,6 +332,7 @@
 - **Core idea**: τ dV/dt = -(V - V_rest) + R I(t). When
   V > V_th, emit a spike and reset V = V_reset for a
   refractory period τ_ref.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 5.2 Hodgkin-Huxley Model
@@ -318,6 +344,7 @@
 - **Core idea**: Four coupled ODEs for the membrane
   potential V and three gating variables (m, h, n). 1963
   Nobel Prize in Physiology.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 5.3 Izhikevich Model
@@ -328,6 +355,7 @@
   du/dt = a(bv - u); if v ≥ 30, v ← c, u ← u + d. With
   parameters a, b, c, d, reproduces all known cortical
   firing patterns. 1000× faster than Hodgkin-Huxley.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 5.4 Surrogate Gradient Methods
@@ -339,6 +367,7 @@
   function σ(V) with a smooth surrogate σ'(V) in the
   backward pass; use σ in the forward pass. Examples:
   fast sigmoid, ATan, rectangular.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 6. Memory-Augmented Networks
@@ -351,6 +380,7 @@
   heads to an external memory matrix. Addressing is
   content-based (cosine similarity) and location-based
   (rotation shift).
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.2 Differentiable Neural Computer (DNC)
@@ -361,6 +391,7 @@
 - **Core idea**: NTM with temporal linkage (tracks write
   order) and allocation (manages free memory). Stores
   graphs and sequences effectively.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.3 Linear Attention / Performers
@@ -371,6 +402,7 @@
 - **Core idea**: Approximate softmax(QK^T)V by φ(Q)(φ(K)^T V)
   with a feature map φ. Reduces complexity from O(L²) to
   O(L).
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.4 Fast Weights
@@ -382,6 +414,7 @@
 - **Core idea**: Slow weights generate a *fast weight*
   update via Hebbian rule, Δw_ij = σ(q_i) σ(q_j) where
   q_i is the activation. The fast weights decay over time.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 7. Mathematical Foundations
@@ -396,6 +429,7 @@
   hidden layer of sigmoid units and any continuous
   activation can approximate any continuous function on
   a compact set to arbitrary accuracy.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 7.2 Neural Tangent Kernel (NTK)
@@ -408,6 +442,7 @@
   kernel Θ(x, x') = E_θ[∇_θ f(x) · ∇_θ f(x')]. The
   kernel is deterministic and the dynamics is a kernel
   regression.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 7.3 Information Bottleneck
@@ -418,13 +453,14 @@
   minimises I(T; X) subject to I(T; Y) ≥ I_min. The
   Lagrangian gives a phase transition in the
   information plane.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (with caveats — Shwartz-
   Ziv & Tishby 2017's claim of a "compression phase" is
   disputed).
 
 ### 7.4 Lottery Ticket Hypothesis
 
-- **Year / citation**: Frankle & Carlin 2019. "The
+- **Year / citation**: Frankle & Carbin 2019. "The
   Lottery Ticket Hypothesis: Finding Sparse, Trainable
   Neural Networks". ICLR 2019.
 - **Core idea**: A dense network contains a sparse
@@ -432,6 +468,7 @@
   in isolation from the same initialisation, reaches
   comparable accuracy. Found by iterative magnitude
   pruning.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 7.5 Double Descent
@@ -444,6 +481,7 @@
   capacity has a non-monotonic shape: it decreases,
   peaks at the interpolation threshold, then
   decreases again ("double descent").
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 7.6 Grokking
@@ -455,6 +493,7 @@
   point of training-set overfitting, a model suddenly
   generalises perfectly. Hypothesised to be related to
   representation learning in the weight space.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 8. Promotion Summary

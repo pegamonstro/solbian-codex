@@ -70,6 +70,7 @@
   (:type belief-revision :id "br-001" :schema "seed.op/belief-revision/v1"
    :content (:belief-set "{...}" :input "{p}" :postulate-set [success inclusion ...]))
   ```
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes. 40 years of validation.
 
 ### 1.2 Dung's Argumentation Frameworks
@@ -115,6 +116,7 @@
              :attacks [[:from "a-001" :to "b-001"] ...]
              :semantics "grounded"))
   ```
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes. ICCMA-validated.
 
 ### 1.3 Abstract Dialectical Frameworks (ADF)
@@ -132,6 +134,7 @@
   prefs) extends to preferences.
 - **Complexity**: Model existence is in P; 3-valued and
   conflict-free ADF model checking is co-NP-complete.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 2. Description Logics and the OWL Family
@@ -146,6 +149,7 @@
   restrictions, and concept inclusion.
 - **Complexity**: Concept satisfiability is PSPACE-complete
   (Schmidt-Schauß & Smolka 1991). With GCIs, ExpTime-complete.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 2.2 SROIQ — the basis of OWL 2 DL
@@ -159,6 +163,7 @@
   OWL 2 DL.
 - **Complexity**: Satisfiability is 2-NExpTime-complete; data
   complexity (ABox) drops to NP.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (OWL 2 standard).
 
 ### 2.3 EL family (tractable profile)
@@ -170,6 +175,7 @@
   reasoning.
 - **Complexity**: Polynomial time (linear in the size of the
   TBox for classification; PTime data complexity).
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 3. SAT, SMT, and Constraint Satisfaction
@@ -186,6 +192,7 @@
 - **Complexity**: NP-complete in general; phase-transition
   threshold at ratio ≈ 4.267 (for 3-SAT).
 - **Canonical reference**: https://www.princeton.edu/~chaff/publications/SAT_2001.pdf
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 3.2 Simplex, branch-and-cut, and LP/MIP solvers
@@ -195,6 +202,7 @@
   modern form).
 - **Community status**: Standard OR tools; CPLEX, Gurobi,
   HiGHS, GLPK.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes (well-known).
 
 ### 3.3 DPLL(T) / SMT
@@ -207,6 +215,7 @@
   solvers (equality with uninterpreted functions, linear
   arithmetic, bit-vectors, arrays) via the Nelson-Oppen
   combination. Z3, CVC5, Yices, MathSAT implement this.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 4. Symbolic Planning
@@ -220,6 +229,7 @@
   preconditions (positive/negative literals), add list,
   delete list. A planning problem = initial state, goal
   state, operators.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (universal).
 
 ### 4.2 GraphPlan
@@ -230,6 +240,7 @@
   that encodes mutual exclusion relations; extracts a plan by
   backward search. Polynomial per layer; exponential in the
   overall search.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 4.3 SATPlan
@@ -240,6 +251,7 @@
 - **Core idea**: Encode the bounded planning problem (horizon
   T) as a SAT formula; use a SAT solver to find a satisfying
   assignment; iterate over T.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (used in Blackbox,
   6th-place IPC-1998).
 
@@ -254,6 +266,7 @@
 - **Community status**: Won the deterministic-track IPC-2004.
   Successor systems (LPG, Metric-FF, Scorpion, SymK) use the
   same approach.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 5. Probabilistic Reasoning
@@ -267,6 +280,7 @@
   elimination produces a factor over the remaining
   variables. Complexity is exponential in the elimination
   width.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 5.2 Belief Propagation (sum-product)
@@ -277,6 +291,7 @@
 - **Core idea**: On a tree, exact in two passes. On a graph
   with cycles, "loopy BP" is approximate; convergence is not
   guaranteed.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 5.3 MCMC (Gibbs sampling, Metropolis-Hastings)
@@ -287,6 +302,7 @@
 - **Core idea**: Approximate the posterior by a long
   ergodic Markov chain. The stationary distribution is the
   target. Burn-in and thinning are used in practice.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 5.4 Kalman Filter and Extended Kalman Filter
@@ -298,6 +314,7 @@
   update cycle with O(d²) per step (d = state dimension).
   EKF linearises non-linear models with first-order Taylor
   expansion.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 5.5 Particle Filter (SMC)
@@ -309,6 +326,7 @@
 - **Core idea**: A set of weighted particles approximates the
   posterior. Resampling drops low-weight particles. Works for
   any non-linear/non-Gaussian model.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 6. Knowledge Representation
@@ -320,6 +338,7 @@
 - **Core idea**: A graph notation with two node types
   (concepts, conceptual relations) and arcs. Equivalence to
   FOL (Sowa 1984).
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes (ISO standard).
 
 ### 6.2 Description Logic Knowledge Bases (DL-Lite, EL++)
@@ -330,6 +349,7 @@
   Data Access) or for large-scale TBoxes. DL-Lite is FOL-
   rewritable (data complexity AC⁰). EL++ supports polynomial-
   time classification.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.3 Markov Logic Networks (MLN)
@@ -341,6 +361,7 @@
   n_i(x)) where n_i(x) is the count of true groundings of F_i
   in the world x. Inference by MCMC or lifted BP; learning by
   pseudo-likelihood or MC-SAT.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (Alchemy, Tuffy, Markov
   theBeast, ProbCog, etc.).
 
@@ -353,6 +374,7 @@
   clause is labelled with a probability; the success
   probability of a query is computed by converting to a
   Boolean formula and using weighted model counting.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 6.5 Knowledge Graph Embeddings (TransE, ComplEx, RotatE)
@@ -366,6 +388,7 @@
   head + relation ≈ tail. Trained by negative sampling.
 - **Complexity**: O(d) per triple; SOTA on FB15k-237 and
   WN18RR.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (PyKEEN, AmpliGraph,
   OpenKE).
 
@@ -378,6 +401,7 @@
 - **Core idea**: Repeatedly remove values from variable
   domains that have no support on a neighbouring variable.
   O(ed³) per pass.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 7.2 Backtracking with Forward Checking + AC-3
@@ -386,6 +410,7 @@
   Tree Search Efficiency for Constraint Satisfaction
   Problems". *AIJ* 14: 263–313.
 - **Community status**: Standard CSP technique.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 7.3 Simulated Annealing
@@ -396,6 +421,7 @@
 - **Core idea**: Accept worse moves with probability
   exp(-ΔE/T); T is decreased according to a cooling schedule.
   Provably converges to a global optimum under log schedule.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 7.4 Genetic Algorithm (GA)
@@ -405,6 +431,7 @@
 - **Core idea**: A population of candidate solutions is
   evolved by selection, crossover, and mutation.
   Schema theorem explains GA dynamics.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 7.5 CMA-ES (Covariance Matrix Adaptation Evolution Strategy)
@@ -415,6 +442,7 @@
 - **Core idea**: Iteratively updates a full covariance matrix
   over the search distribution. State of the art on
   continuous black-box optimisation. O(d²) per step.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 7.6 Particle Swarm Optimisation (PSO)
@@ -424,6 +452,7 @@
 - **Core idea**: Particles move in the search space, attracted
   to their personal best and the global best, with inertia.
   Simple, derivative-free, parallelisable.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 7.7 Ant Colony Optimisation (ACO)
@@ -433,6 +462,7 @@
 - **Core idea**: Pheromone trails on a graph; ants sample
   paths probabilistically; trails are reinforced on good
   paths and evaporate. ACO for TSP, VRP, scheduling.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 8. Logic Programming and Production Systems
@@ -448,6 +478,7 @@
   constant R.
 - **Community status**: Used in CLIPS, Jess, Drools, OPS5,
   OPS83. Treat algorithm variants: Rete-II, RETE-UL, Rete-OO.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (CLIPS, Jess, Drools all
   use it).
 
@@ -459,6 +490,7 @@
 - **Core idea**: Bottom-up evaluation of Horn-clause rules
   until a fixed point. PTIME for non-recursive; PSPACE for
   full Datalog with negation.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 8.3 Answer Set Programming (ASP)
@@ -469,6 +501,7 @@
   program has zero, one, or many *answer sets* (stable
   models). Solver: clingo, DLV.
 - **Complexity**: NP-complete (disjunctive: Σ₂P-complete).
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 9. Truth Maintenance Systems
@@ -481,6 +514,7 @@
   justification (in/out set of supporting beliefs). A
   *belief revision* can flip a node in/out; justifications
   propagate. Justifications are propositional.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 9.2 ATMS (Assumption-Based TMS)
@@ -490,6 +524,7 @@
 - **Core idea**: Every datum is labelled by the set of
   *assumptions* (basic hypotheses) under which it holds.
   Labels are prime-implicants. Avoids backtracking.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 10. Causality and Counterfactuals
@@ -502,6 +537,7 @@
   DAG, allow identification of causal effects from
   observational and experimental distributions. The
   *backdoor* and *front-door* criteria are special cases.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 10.2 PC Algorithm (causal discovery)
@@ -512,6 +548,7 @@
   remove edges using conditional independence tests;
   orient v-structures; propagate orientation rules.
   Faithfulness assumption required.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 10.3 Convergent Cross Mapping (CCM)
@@ -522,6 +559,7 @@
   reconstructions of one variable contain the signature of
   the other. CCM detects weak-to-moderate coupling in
   non-separable systems.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (with caveats — disputed
   for lagged correlations).
 
@@ -535,6 +573,7 @@
 - **Core idea**: Top-down greedy generalisation of Horn
   clauses using information gain. Outputs a set of first-
   order rules.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 11.2 Progol / Aleph
@@ -546,6 +585,7 @@
   most-specific clause that, together with the background
   knowledge, entails a positive example. Then searches the
   generalisation lattice.
+- **Confirmation flag**: 🟢 `confirmed-curated`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 12. Causal Discovery and Learning
@@ -557,6 +597,7 @@
 - **Core idea**: Searches the space of *Markov equivalence
   classes* using a score function (e.g. BIC). Converges to
   the true CPDAG under faithfulness and large-sample limit.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 12.2 LiNGAM (Linear Non-Gaussian Acyclic Model)
@@ -567,6 +608,7 @@
 - **Core idea**: ICA-based identification of the causal order
   when the data are non-Gaussian. The first independent
   component is the source.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 13. Concept Formation and Categorisation
@@ -580,6 +622,7 @@
   incrementally. Each new instance either adds to an
   existing class, creates a new class, or merges/splits
   classes to maximise category utility.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 13.2 Formal Concept Analysis (FCA)
@@ -591,6 +634,7 @@
   constructs a *concept lattice* where each node is a pair
   (extent, intent). The intent of a concept is the maximal
   set of attributes shared by all objects in the extent.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 14. Case-Based Reasoning
@@ -603,6 +647,7 @@
 - **Core idea**: Two-stage retrieval. Stage 1 (MAC): cheap
   surface-similarity filter. Stage 2 (FAC): structural-
   mapping alignment to find the best match.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 14.2 Structure-Mapping Engine (SME)
@@ -613,6 +658,7 @@
 - **Core idea**: Aligns two structured representations by
   finding the maximum consistent one-to-one mapping between
   their predicates that preserves higher-order relations.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 15. Modal and Temporal Logic
@@ -626,6 +672,7 @@
   (release). Used for model checking (Pnueli 1977, Vardi &
   Wolper 1986).
 - **Complexity**: Model checking is PSPACE-complete.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 15.2 CTL and CTL*
@@ -636,6 +683,7 @@
   quantifiers A (all paths) and E (exists a path).
 - **Complexity**: CTL model checking is P-complete; CTL* is
   PSPACE-complete.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ### 15.3 μ-calculus
@@ -646,6 +694,7 @@
 - **Core idea**: Fixpoint logic over transition systems.
   Subsumes CTL, CTL*, PDL. The basis of model checkers like
   CADP and mCRL2.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 16. Abstract Interpretation
@@ -661,6 +710,7 @@
   (intervals, polyhedra, octagons, zones, congruences) and
   computing on them. The Galois connection guarantees
   soundness.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (industry standard for
   static analysis: Astrée, Polyspace, CodeSonar).
 
@@ -673,6 +723,7 @@
 - **Core idea**: Quantum search in O(√N) queries. Amplitude
   amplification. The classical analogue (amplitude
   amplification, AA) is used in heuristic search.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes (quantum); amplitude
   amplification is classical-ready.
 
@@ -683,6 +734,7 @@
 - **Core idea**: Quantum analogue of random walks. Provides
   polynomial speedup for certain graph problems (element
   distinctness, triangle finding).
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ⚠️ Quantum-only; classical
   analogue is standard random walks.
 
