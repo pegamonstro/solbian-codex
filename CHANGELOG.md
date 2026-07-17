@@ -6,6 +6,60 @@
 ## [Unreleased]
 
 ### Added
+- Wave 6 — deep-research verification (2026-07-17):
+  adds the `sapling/NSLP/deep-research/`
+  knowledge base (8 deep-research files:
+  README + 7 profile files covering 60
+  algorithm profiles, 24 theorem profiles,
+  and 118 references) and applies deep
+  verification to the 90 remaining 🟡
+  `unconfirmed` entries. Three parallel
+  verification agents ran (Wave 6), each
+  producing an entry-by-entry log under
+  `verification/claude-verifier-2026-07-17.md`.
+  - **nslp-algorithms.md (60 profiles,
+    57 🟡)**: 30 promoted to ✅
+    `confirmed-canonical`, 28 to 🟢
+    `confirmed-curated`, 2 downgraded
+    to 🔴 `speculative` (S2S and
+    End-to-end differentiable proving
+    had fabricated citations). Key
+    corrections: R-STDP journal name
+    (Biological Cybernetics → Cerebral
+    Cortex 17(10):2443-2452); Mamba
+    arXiv ID (2303.08774 → 2312.00752);
+    LMU 3rd author (Günther → Eliasmith);
+    Differentiable plasticity (4 authors,
+    not 3); Learned optimization (8
+    authors, not 7). S2S real paper is
+    arXiv 1609.08194 by Yu, Buys, Blunsom
+    (EMNLP 2016), not the cited
+    1606.02910 / 5-author fabrication.
+  - **theorems-and-bounds.md (24 profiles,
+    20 🟡)**: 18 promoted to ✅ and 2 to
+    🟢 (`sample-complexity-lower-bounds`,
+    `gradient-noise-scale`). 0 🟡 remaining.
+  - **canonical-references.md (118
+    references, 13 🟡)**: 9 promoted to
+    ✅, 2 to 🟢 (Sherman-Guillemot author
+    typo fixed; Yu citation corrected in 3
+    places), 2 downgraded to 🔴
+    (`P-Hanneke-2016` was a fabrication;
+    the real PAC-learning agnostic-learning
+    result is by Diakonikolas et al. 2021;
+    `P-Eyben-2009` could not be located).
+    Status table updated.
+  - **Total**: 90 🟡 entries resolved.
+    Three new entries in the verification
+    log directory: `claude-verifier-2026-
+    07-16.md`, `claude-verifier-2026-07-16-
+    wave2.md`, and the Wave 6 master log
+    `claude-verifier-2026-07-17.md`
+    (3511 lines). The 4 remaining
+    occurrences of "🟡 unconfirmed" in
+    canonical-references.md are
+    documentation lines defining the flag,
+    not entries.
 - Wave 4 + Wave 5 adversarial-verification
   remediation (2026-07-17):
   - **Wave 4 (verification)**: 3 parallel
