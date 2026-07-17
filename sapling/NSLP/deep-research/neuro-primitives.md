@@ -6,11 +6,12 @@
 > networks, and neuro-symbolic
 > integration. Each entry is sourced to
 > its canonical reference and profiled
-> for SXL integration.
+> for NSL integration.
 >
-> **Status (2026-07-16)**: 30 algorithms
-> profiled across 7 categories. 24
-> flagged `ready-for-promotion`.
+> **Status (2026-07-17)**: 39 entries
+> across 8 categories; 39 ✅
+> `confirmed-canonical` (all entries
+> fully verified).
 
 ## 1. Classic Building Blocks
 
@@ -313,9 +314,9 @@
 
 ### 4.6 Differentiable Plasticity
 
-- **Year / citation**: Miconi, Stanley, Clune 2018.
-  "Differentiable Plasticity: Training Plastic Neural
-  Networks with Backpropagation". ICML.
+- **Year / citation**: Miconi, Rawal, Clune &
+  Stanley 2018. "Differentiable Plasticity: Training
+  Plastic Neural Networks with Backpropagation". ICML.
 - **Core idea**: Each synapse has a fixed component w_ij
   and a plastic component hebb_ij; the total weight is
   w_ij + α · hebb_ij where α is a learnable plasticity
@@ -498,38 +499,50 @@
 
 ## 8. Promotion Summary
 
-| #  | Algorithm                       | Year | Operator name                  |
-|----|---------------------------------|------|--------------------------------|
-| 1  | Perceptron                      | 1958 | `perceptron-step`             |
-| 2  | ADALINE / LMS                   | 1960 | `adaline-step`                |
-| 3  | Hopfield                        | 1982 | `hopfield-step`               |
-| 4  | Modern Hopfield (continuous)    | 2020 | `hopfield-modern`             |
-| 5  | RBM / Contrastive Divergence    | 2002 | `rbm-cd-step`                 |
-| 6  | Kohonen SOM                     | 1982 | `som-step`                    |
-| 7  | CNN (LeNet/AlexNet/ResNet)      | 1998 | `cnn-forward`                 |
-| 8  | LSTM / GRU                      | 1997 | `lstm-step`                   |
-| 9  | Transformer                     | 2017 | `transformer-step`            |
-| 10 | Vision Transformer              | 2020 | `vit-step`                    |
-| 11 | S4 / Mamba                      | 2021 | `ssm-step`                    |
-| 12 | GNN (GCN/GAT/SAGE)              | 2017 | `gnn-step`                    |
-| 13 | Mixture of Experts              | 2017 | `moe-step`                    |
-| 14 | Neural ODE                      | 2018 | `neural-ode-step`             |
-| 15 | DDPM / score-based              | 2020 | `diffusion-step`              |
-| 16 | VAE                             | 2013 | `vae-step`                    |
-| 17 | Normalising Flow                | 2015 | `flow-step`                   |
-| 18 | BatchNorm / LayerNorm           | 2015 | `normalise`                   |
-| 19 | TPR (Smolensky)                 | 1990 | `tpr-bind` / `tpr-unbind`     |
-| 20 | HRR (Plate)                     | 1995 | `hrr-bind` / `hrr-unbind`     |
-| 21 | Neural Module Networks           | 2016 | `nm-parse` / `nm-execute`     |
-| 22 | Logic Tensor Networks           | 2016 | `ltn-step`                    |
-| 23 | DeepProbLog                     | 2018 | `deep-problog-step`           |
-| 24 | Differentiable Plasticity       | 2018 | `diff-plast-step`             |
-| 25 | LIF (spiking)                   | 1907 | `lif-step`                    |
-| 26 | Hodgkin-Huxley                  | 1952 | `hh-step`                     |
-| 27 | Izhikevich                      | 2003 | `izhikevich-step`             |
-| 28 | Surrogate gradient              | 2019 | `surrogate-backward`          |
-| 29 | NTM / DNC                       | 2014 | `ntm-step`                    |
-| 30 | Fast Weights                    | 1992 | `fast-weights-step`           |
+All 39 entries are catalogued below; all
+are ✅ `confirmed-canonical` (fully verified).
+
+| #   | Entry                                | Section | Status |
+|-----|--------------------------------------|---------|--------|
+| 1   | Perceptron                           | 1.1     | ✅ |
+| 2   | ADALINE / LMS (Widrow-Hoff)          | 1.2     | ✅ |
+| 3   | Hopfield Network                     | 1.3     | ✅ |
+| 4   | Modern Hopfield Networks (continuous) | 1.4    | ✅ |
+| 5   | Boltzmann Machines and RBMs          | 1.5     | ✅ |
+| 6   | Self-Organising Map (Kohonen)        | 1.6     | ✅ |
+| 7   | CNN (LeNet, AlexNet, ResNet)         | 2.1     | ✅ |
+| 8   | LSTM and GRU                         | 2.2     | ✅ |
+| 9   | Transformer                          | 2.3     | ✅ |
+| 10  | Vision Transformer (ViT)             | 2.4     | ✅ |
+| 11  | State-Space Models (S4, Mamba)       | 2.5     | ✅ |
+| 12  | GNN (GCN, GAT, GraphSAGE)            | 2.6     | ✅ |
+| 13  | Mixture of Experts (MoE)             | 2.7     | ✅ |
+| 14  | Neural ODE                           | 2.8     | ✅ |
+| 15  | Diffusion Models (DDPM, score-based) | 2.9     | ✅ |
+| 16  | Variational Autoencoder (VAE)        | 2.10    | ✅ |
+| 17  | Normalising Flows                    | 2.11    | ✅ |
+| 18  | ReLU, GELU, Swish, Mish              | 3.1     | ✅ |
+| 19  | BatchNorm, LayerNorm, GroupNorm      | 3.2     | ✅ |
+| 20  | Tensor Product Representations (TPR) | 4.1     | ✅ |
+| 21  | Holographic Reduced Representations (HRR) | 4.2 | ✅ |
+| 22  | Neural Module Networks               | 4.3     | ✅ |
+| 23  | Logic Tensor Networks (LTN)          | 4.4     | ✅ |
+| 24  | DeepProbLog                          | 4.5     | ✅ |
+| 25  | Differentiable Plasticity            | 4.6     | ✅ |
+| 26  | Leaky Integrate-and-Fire (LIF)       | 5.1     | ✅ |
+| 27  | Hodgkin-Huxley Model                 | 5.2     | ✅ |
+| 28  | Izhikevich Model                     | 5.3     | ✅ |
+| 29  | Surrogate Gradient Methods           | 5.4     | ✅ |
+| 30  | Neural Turing Machine (NTM)          | 6.1     | ✅ |
+| 31  | Differentiable Neural Computer (DNC) | 6.2     | ✅ |
+| 32  | Linear Attention / Performers        | 6.3     | ✅ |
+| 33  | Fast Weights                         | 6.4     | ✅ |
+| 34  | Universal Approximation Theorem      | 7.1     | ✅ |
+| 35  | Neural Tangent Kernel (NTK)          | 7.2     | ✅ |
+| 36  | Information Bottleneck               | 7.3     | ✅ |
+| 37  | Lottery Ticket Hypothesis            | 7.4     | ✅ |
+| 38  | Double Descent                       | 7.5     | ✅ |
+| 39  | Grokking                             | 7.6     | ✅ |
 
 ## 9. See also
 

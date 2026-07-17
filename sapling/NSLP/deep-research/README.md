@@ -5,7 +5,7 @@
 > This directory is the
 > solbian-side knowledge base for
 > promoting community-approved
-> algorithms to first-class SXL
+> algorithms to first-class NSL
 > operators in
 > `~/seed-dev/src/seedcogd/` and the
 > Lua brain cycle in
@@ -21,7 +21,7 @@
 > known complexity class and tractable
 > restrictions, (4) it has a worked
 > numerical example, and (5) it has a
-> defined SXL entity shape.
+> defined NSL entity shape.
 
 ## Confirmation status
 
@@ -35,7 +35,7 @@ chain is. We use five levels:
 | ✅ `confirmed-canonical` | The primary citation, year, author list, and reference URL have been verified against multiple independent sources (textbook, Wikipedia, arXiv, official documentation). The algorithm is safe to promote without further review. |
 | 🟢 `confirmed-curated` | The primary citation and year are correct, but the algorithm has been profiled from a textbook or survey and not yet checked against the primary paper. Worth a second pass before promotion. |
 | 🟡 `unconfirmed` | The algorithm name, year, and basic idea are plausible, but at least one of the following is uncertain: the exact author list, the publication venue, the reference URL, the worked example, or the complexity class. **Requires verification** before promotion. The next research wave (or a human reviewer) must confirm. |
-| 🟠 `derived-from-partial` | The agent that produced this entry stalled before the final structured return; some sections (e.g. pseudocode or SXL shape) are reconstructed from the agent's tool-call stream rather than from a completed profile. Treat with caution. |
+| 🟠 `derived-from-partial` | The agent that produced this entry stalled before the final structured return; some sections (e.g. pseudocode or NSL shape) are reconstructed from the agent's tool-call stream rather than from a completed profile. Treat with caution. |
 | 🔴 `speculative` | The entry is plausible but the citation chain is weak or self-referential. **Do not promote** without a primary-source pass. |
 
 The default flag for new entries is
@@ -80,7 +80,7 @@ verifier; entries are append-only).
 | `cognitive-cycles.md`      | Cognitive cycle and time-series algorithms (memory consolidation, prediction, attention, RL) | 24 |
 | `neuro-primitives.md`      | Neuro-computational primitives (NNs, spiking, neuro-symbolic) | 30 |
 | `memory-reasoning.md`      | Memory architectures, knowledge representation, multi-agent, causal, RL | 32 |
-| `nslp-algorithms.md`       | **Deep dive** for the Neuro-Symbolic Language Processor (NSLP): mathematical machinery for the SXL/SXP operator layer | 60 |
+| `nslp-algorithms.md`       | **Deep dive** for the Neuro-Symbolic Language Processor (NSLP): mathematical machinery for the NSL/NSP operator layer | 60 |
 | `theorems-and-bounds.md`   | Foundational theorems, complexity bounds, and approximation guarantees for the operator set | 24 |
 | `canonical-references.md`  | Master reference list: every primary paper, textbook, and survey cited in this knowledge base | 80+ |
 | `verification/`            | Append-only verification logs (one per verifier) | — |
@@ -111,7 +111,7 @@ Each entry follows the same structure:
    textbook chapter.
 8. **Failure modes** — known edge cases
    or limitations.
-9. **SXL shape** — the entity form
+9. **NSL shape** — the entity form
    the algorithm should produce.
 10. **Confirmation flag** — see the
     table above.
@@ -122,7 +122,7 @@ Each entry follows the same structure:
 
 A `ready-for-promotion` algorithm in
 this knowledge base becomes a
-**first-class SXL operator** in
+**first-class NSL operator** in
 `~/seed-dev/` via the following flow:
 
 1. **Spec entry**: add the algorithm
@@ -241,7 +241,7 @@ base span all five layers:
 - `../INTEGRATION.md` — how sapling
   agents connect to the bus.
 - `~/seed-dev/docs/cognition/SXL_LANGUAGE_SPECIFICATION.md`
-  — canonical SXL entity form.
+  — canonical NSL entity form.
 - `~/seed-dev/src/seedcogd/main.c`
   — the 12-phase C cycle.
 - `~/solbian/engineering-manual/seed/02-DAEMONS.md`

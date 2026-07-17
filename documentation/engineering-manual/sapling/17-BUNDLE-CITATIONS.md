@@ -29,42 +29,61 @@ historical chain).
 
 The bundle citation pattern is:
 
-- **§1.3 Default Logic**: Reiter 1980 (the
-  original paper) and a 1997 book chapter
-  formalising the semantics.
-- **§5.1 Bayesian Network Variable
+- **§1.3 Abstract Dialectical Frameworks
+  (ADF)**: Brewka et al. 2011 (the
+  technical report that introduces the
+  framework) and Brewka et al. 2018
+  (a later paper on cognitive computing
+  applications) — same authors, evolution
+  of the same framework.
+- **§3.2 Simplex, branch-and-cut, and
+  LP/MIP solvers**: Dantzig 1947 (simplex
+  algorithm), Gomory 1958 (cutting planes),
+  Land & Doig 1960 (branch-and-bound),
+  Bixby 2000 (CPLEX modern form) — a
+  chain of refinements to the same OR
+  method family.
+- **§5.1 Bayesian Networks — Variable
   Elimination**: Zhang & Poole 1994 (the
-  algorithm) and Dechter 1998 (the bucket
-  elimination framework).
-- **§5.2 Bayesian Network Junction Tree**:
-  Lauritzen & Spiegelhalter 1988 and
-  Cowell et al. 1999.
-- **§6.1 Description Logics**: Baader et al.
-  2003 (the *Handbook of Description Logics*)
-  and a 1991 paper introducing the
-  *attributive concept language with
-  complements* (ALC).
-- **§6.2 EL++ ontologies**: Baader et al.
-  2005 and Brandt 2004.
-- **§7.4 Modal Logic S5**: Hughes &
-  Cresswell 1996 (the standard reference) and
-  Lewis & Langford 1959 (the classical
-  formulation).
-- **§8.2 Answer Set Programming**:
-  Gelfond & Lifschitz 1988 (the original
-  paper) and Brewka et al. 2011 (the modern
-  reference).
-- **§10.1 do-Calculus**: Pearl 1995
-  (the *Biometrika* paper) and Pearl 2009
-  (the *Causality* book).
-- **§11.2 Influence Diagrams**: Howard &
-  Matheson 1984 (the original) and
-  Shachter 1986 (the modern formulation).
-- **§3.2 SAT solvers**: Davis, Logemann &
-  Loveland 1962 (DPLL) and Silva &
-  Sakallah 1996 (GRASP / conflict-clause
-  learning), bundled as one entry on SAT
-  solving.
+  basic VE algorithm) and Dechter 1996
+  (the bucket-elimination framework) — two
+  different formulations of VE.
+- **§5.2 Belief Propagation (sum-product)**:
+  Pearl 1982 (BP on Bayesian networks) and
+  Kschischang, Frey, Loeliger 2001 (BP on
+  factor graphs) — two different
+  formulations of BP.
+- **§6.1 Conceptual Graphs (CG)**:
+  Sowa 1976/1984 (the foundational book
+  *Conceptual Structures*) and ISO/IEC
+  24707:2007 (the Common Logic standard
+  that subsumes CG) — same concept, an
+  evolving standard.
+- **§6.2 Description Logic Knowledge Bases
+  (DL-Lite, EL++)**: Calvanese et al. 2007
+  (DL-Lite) and Baader, Brandt, Lutz 2005
+  (EL++) — two different DL families.
+- **§7.4 Genetic Algorithm (GA)**: Holland
+  1975 (the foundational book *Adaptation
+  in Natural and Artificial Systems*) and
+  Goldberg 1989 (the classic textbook) —
+  same concept, two foundational works.
+- **§8.2 Forward Chaining with Datalog**:
+  Ceri, Gottlob, Tanca 1989 (the
+  foundational book *Logic Programming and
+  Databases*) and Abiteboul, Hull, Vianu
+  1995 (*Foundations of Databases*) — two
+  textbook references on the same topic.
+- **§10.1 Pearl's Causal Calculus
+  (do-calculus)**: Pearl 1995 (the
+  *Biometrika* paper) and Pearl 2009 (the
+  *Causality* book) — same author, the
+  paper that introduces do-calculus and
+  the book that formalises it.
+- **§11.2 Progol / Aleph**: Muggleton 1995
+  (the Progol paper) and Srinivasan 2001
+  (the Aleph manual) — Progol theory and
+  its Aleph implementation.
 
 Each bundle is a *single entry* in the file
 but a *chain* of primary sources. The Wave 7
@@ -145,28 +164,35 @@ The following 10 entries in
 
 | § | Operator | Bundle | Recommended |
 |---|----------|--------|-------------|
-| 1.3 | Default Logic | Reiter 1980 + Antoniou 1997 | Split |
-| 3.2 | SAT solvers | DPLL 1962 + GRASP 1996 | Split |
-| 5.1 | BN Variable Elimination | Zhang & Poole 1994 + Dechter 1998 | Split |
-| 5.2 | BN Junction Tree | Lauritzen & Spiegelhalter 1988 + Cowell 1999 | Split |
-| 6.1 | Description Logics | Baader 2003 + Schmidt-Schauß 1991 | Document |
-| 6.2 | EL++ ontologies | Baader 2005 + Brandt 2004 | Document |
-| 7.4 | Modal Logic S5 | Hughes & Cresswell 1996 + Lewis 1959 | Document |
-| 8.2 | Answer Set Programming | Gelfond & Lifschitz 1988 + Brewka 2011 | Split |
-| 10.1 | do-Calculus | Pearl 1995 + Pearl 2009 | Document |
-| 11.2 | Influence Diagrams | Howard & Matheson 1984 + Shachter 1986 | Document |
+| 1.3 | Abstract Dialectical Frameworks (ADF) | Brewka et al. 2011 + Brewka et al. 2018 | Document |
+| 3.2 | Simplex / branch-and-cut / LP-MIP | Dantzig 1947 + Gomory 1958 + Land & Doig 1960 + Bixby 2000 | Document |
+| 5.1 | BN Variable Elimination | Zhang & Poole 1994 + Dechter 1996 | Split |
+| 5.2 | Belief Propagation (sum-product) | Pearl 1982 + Kschischang, Frey, Loeliger 2001 | Split |
+| 6.1 | Conceptual Graphs (CG) | Sowa 1976/1984 + ISO/IEC 24707:2007 | Document |
+| 6.2 | DL-Lite / EL++ | Calvanese et al. 2007 + Baader, Brandt, Lutz 2005 | Split |
+| 7.4 | Genetic Algorithm (GA) | Holland 1975 + Goldberg 1989 | Document |
+| 8.2 | Forward Chaining with Datalog | Ceri, Gottlob, Tanca 1989 + Abiteboul, Hull, Vianu 1995 | Document |
+| 10.1 | do-Calculus (Pearl) | Pearl 1995 + Pearl 2009 | Document |
+| 11.2 | Progol / Aleph | Muggleton 1995 + Srinivasan 2001 | Document |
 
 The recommended column is the agent's
 recommendation based on the entry's content.
 The "Split" rows are entries where the two
-sources describe *different algorithms* (e.g.,
-DPLL vs GRASP are two different SAT-solving
-algorithms). The "Document" rows are entries
-where the two sources describe the *same
-concept* at different levels of formality
-(e.g., the 1995 *Biometrika* paper and the
-2009 *Causality* book are both about
-do-calculus).
+sources describe *different algorithms or
+frameworks* (e.g., Zhang & Poole 1994's basic
+VE is a different algorithm from Dechter
+1996's bucket-elimination framework; BP on
+Bayesian nets and BP on factor graphs are
+two different formulations; DL-Lite and
+EL++ are two different DL families). The
+"Document" rows are entries where the
+sources describe the *same concept* at
+different levels of formality or stages of
+evolution (e.g., Holland 1975 and Goldberg
+1989 are both about genetic algorithms;
+Pearl 1995 and Pearl 2009 are both about
+do-calculus; Brewka 2011 and 2018 are by
+the same authors on the same framework).
 
 ## How to read this chapter
 

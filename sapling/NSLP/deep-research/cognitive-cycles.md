@@ -6,11 +6,11 @@
 > memory consolidation, attention, and
 > reinforcement learning. Each entry is
 > sourced to its canonical reference and
-> profiled for SXL integration.
+> profiled for NSL integration.
 >
-> **Status (2026-07-16)**: 24 algorithms
-> profiled. 16 are flagged
-> `ready-for-promotion`.
+> **Status (2026-07-17)**: 38 entries;
+> 38 ready-for-promotion (32 ✅,
+> 6 🟢, 0 🔴).
 
 ## 1. Working Memory and Attention
 
@@ -18,8 +18,8 @@
 
 - **Year / citation**: Anderson 1993 (*The Adaptive Character
   of Thought*); Anderson 2007 (*How Can the Human Mind
-  Occur in a Physical System?*). Pievot, Anderson et al.
-  (2005+ ACT-R reference papers).
+  Occur in a Physical System?*). ACT-R Reference Manual
+  (Anderson, Bothell, Byrne, Douglass, Lebiere, Qin 2004+).
 - **Core idea**: The activation of a chunk i in declarative
   memory is
   `A_i = ln(Σ_j t_j^(-d)) + Σ_k W_k · S_ik + ε`,
@@ -49,7 +49,7 @@
   threshold is sigmoid(1.667 - τ) where τ is the retrieval
   threshold.
 - **Canonical reference**: https://act-r.psy.cmu.edu/
-- **SXL shape**:
+- **NSL shape**:
   ```lisp
   (:type actr-retrieval :schema "seed.cog/actr/v1"
    :content (:chunk-id "..." :context [{:element "..." :weight ... :similarity ...}]
@@ -84,7 +84,7 @@
   to global ignition (Dehaene's neural correlate).
 - **Community status**: Major theory of consciousness; many
   cognitive architectures implement GWT.
-- **SXL shape**: A workspace is an SXL entity
+- **NSL shape**: A workspace is an NSL entity
   `(:type workspace :id ... :content {:coalition [...]:modules [...] :broadcast-epoch 0 ...})`.
 - **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
@@ -442,10 +442,19 @@
 
 - **Year / citation**: Browne et al. 2012. "A Survey of
   Monte Carlo Tree Search Methods". *IEEE TCIAIG* 4(1):
-  1–43. Silver et al. 2016, 2017, 2018 (AlphaGo/Zero/MuZero).
+  1–43. Silver et al. 2016, *Nature* 529: 484–489
+  (AlphaGo). Silver et al. 2017, *Nature* 550: 354–359
+  (AlphaGo Zero). Silver et al. 2018, *Science* 362:
+  1140–1144 (AlphaZero). Schrittwieser et al. 2020,
+  *Nature* 588: 604–609 (MuZero).
 - **Core idea**: Build a search tree incrementally; select by
   UCB; expand; rollout; back-up. UCT (Kocsis & Szepesvári
-  2006) is the standard.
+  2006) is the standard. AlphaGo combines MCTS with
+  policy/value networks; AlphaGo Zero learns both purely
+  from self-play; AlphaZero generalises the approach
+  beyond Go to chess and shogi; MuZero additionally
+  *learns the world model* (rules not given) via a
+  learned latent dynamics model.
 - **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
@@ -473,9 +482,11 @@
 
 ### 6.6 Decision Transformer
 
-- **Year / citation**: Chen et al. 2021. "Decision
-  Transformer: Reinforcement Learning via Sequence
-  Modeling". NeurIPS 2021.
+- **Year / citation**: Lili Chen, Kevin Lu, Aravind
+  Rajeswaran, Kimin Lee, Adithyavairavan Murali, Mohit
+  Hessel, Pieter Abbeel, Aravind Srinivas, Igor Mordatch
+  2021. "Decision Transformer: Reinforcement Learning
+  via Sequence Modeling". NeurIPS 2021.
 - **Core idea**: Treat RL as conditional sequence modelling.
   Predict the next action given the past (return-to-go,
   state, action) tokens.
@@ -513,32 +524,50 @@
 
 ## 8. Promotion Summary
 
-| #  | Algorithm                       | Year | Operator name                  |
-|----|---------------------------------|------|--------------------------------|
-| 1  | ACT-R activation                | 1993 | `actr-activation`             |
-| 2  | Soar decision cycle             | 1987 | `soar-decide`                 |
-| 3  | Global Workspace (Baars)        | 1988 | `gwt-broadcast`               |
-| 4  | Soft attention (Bahdanau)       | 2014 | `attention-soft`              |
-| 5  | Multi-head self-attention       | 2017 | `attention-multihead`         |
-| 6  | Squeeze-Excitation              | 2018 | `attention-se`                |
-| 7  | Itti-Koch saliency              | 1998 | `saliency-itti`               |
-| 8  | Kalman / EKF                    | 1960 | `ekf-step`                    |
-| 9  | Particle filter                 | 1993 | `particle-filter-step`        |
-| 10 | Bayesian surprise               | 2006 | `bayesian-surprise`           |
-| 11 | Free-energy principle           | 2010 | `free-energy-step`            |
-| 12 | Predictive coding               | 1999 | `predictive-coding-step`      |
-| 13 | Baum-Welch (HMM)                | 1972 | `baum-welch`                  |
-| 14 | Hebbian / Oja / STDP            | 1949 | `hebb-step` / `oja-step` / `stdp-step` |
-| 15 | Backprop                        | 1986 | `backprop-step`               |
-| 16 | Adam optimiser                  | 2014 | `adam-step`                   |
-| 17 | EWC / SI (continual learning)   | 2017 | `ewc-regularise` / `si-regularise` |
-| 18 | Options (HRL)                   | 1999 | `options-step`                |
-| 19 | DYNA                            | 1990 | `dyna-plan`                   |
-| 20 | MCTS / UCT                      | 2006 | `mcts-search`                 |
-| 21 | PPO                             | 2017 | `ppo-step`                    |
-| 22 | SAC                             | 2018 | `sac-step`                    |
-| 23 | Decision Transformer            | 2021 | `decision-transformer-step`   |
-| 24 | Type-2 SDT                      | 2003 | `metacog-roc2`                |
+All 38 entries are catalogued below with
+their current verification status. All 38
+are ready-for-promotion (32 ✅, 6 🟢, 0 🔴).
+
+| #   | Entry                                | Section | Status |
+|-----|--------------------------------------|---------|--------|
+| 1   | ACT-R Declarative Memory Activation  | 1.1     | 🟢 |
+| 2   | SOAR Decision Cycle                  | 1.2     | ✅ |
+| 3   | Global Workspace Theory (GWT)        | 1.3     | ✅ |
+| 4   | Soft Attention (Bahdanau)            | 1.4     | ✅ |
+| 5   | Multi-Head Self-Attention / Transformer | 1.5  | ✅ |
+| 6   | Squeeze-and-Excitation               | 1.6     | ✅ |
+| 7   | Itti-Koch-Niebur Saliency Map        | 1.7     | ✅ |
+| 8   | Kalman Filter                        | 2.1     | ✅ |
+| 9   | Extended Kalman Filter (EKF)         | 2.2     | 🟢 |
+| 10  | Particle Filter                      | 2.3     | ✅ |
+| 11  | Bayesian Surprise (Itti-Baldi)       | 2.4     | 🟢 |
+| 12  | Free-Energy Principle / Active Inference | 2.5 | ✅ |
+| 13  | Predictive Coding (Rao-Ballard)      | 2.6     | ✅ |
+| 14  | HMM and Baum-Welch                   | 2.7     | ✅ |
+| 15  | Ebbinghaus Forgetting Curve          | 3.1     | ✅ |
+| 16  | Power Law of Practice                | 3.2     | ✅ |
+| 17  | Synaptic Tagging and Capture (STC)   | 3.3     | ✅ |
+| 18  | Complementary Learning Systems (CLS) | 3.4     | ✅ |
+| 19  | Hippocampal Replay (Sharp-Wave Ripples) | 3.5 | ✅ |
+| 20  | Memory Reconsolidation               | 3.6     | ✅ |
+| 21  | Schema Consolidation                 | 3.7     | ✅ |
+| 22  | Hebbian Learning                     | 4.1     | ✅ |
+| 23  | Oja's Rule                           | 4.2     | ✅ |
+| 24  | STDP (Spike-Timing-Dependent Plasticity) | 4.3 | ✅ |
+| 25  | Backpropagation                      | 4.4     | ✅ |
+| 26  | Adam Optimiser                       | 4.5     | ✅ |
+| 27  | Elastic Weight Consolidation (EWC)   | 4.6     | ✅ |
+| 28  | Synaptic Intelligence (SI)           | 4.7     | ✅ |
+| 29  | Information-Theoretic Salience       | 5.1     | ✅ |
+| 30  | Affective Gating and the Amygdala    | 5.2     | ✅ |
+| 31  | Hierarchical RL (Options Framework)  | 6.1     | ✅ |
+| 32  | DYNA                                 | 6.2     | 🟢 |
+| 33  | Model-Based RL and MCTS              | 6.3     | ✅ |
+| 34  | Soft Actor-Critic (SAC)              | 6.4     | ✅ |
+| 35  | PPO (Proximal Policy Optimisation)   | 6.5     | ✅ |
+| 36  | Decision Transformer                 | 6.6     | 🟢 |
+| 37  | Type-2 Signal Detection Theory       | 7.1     | 🟢 |
+| 38  | Nelson-Narens Framework              | 7.2     | ✅ |
 
 ## 9. See also
 

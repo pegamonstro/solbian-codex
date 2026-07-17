@@ -3,6 +3,202 @@
 > Append-only record of significant decisions. Newest entries at the
 > top. Format: date, decision, rationale, alternatives considered.
 
+## 2026-07-17 — Wave 8: apply Wave 7 design-note fixes
+
+**Decision**: Run Wave 8 to apply the
+full backlog of actionable fixes from
+the 7 Wave 7 design notes (chapters
+13-19 of the Engineering Manual).
+
+**What was done** (5 categories, 4
+parallel agents, 1 manual fix):
+
+1. **Author-list precision** (design
+   note 15): 4 author-list corrections
+   applied. Differentiable Plasticity
+   fixed in 2 files (3 → 4 authors
+   including Rawal). Decision
+   Transformer expanded to 9 authors.
+   AlphaGo bundle split into 4
+   separate papers.
+2. **Stale status banners and
+   Promotion Summary tables** (design
+   note 14): 4 banner updates and 4
+   Promotion Summary table expansions
+   (sxl: 18→55, cogcycles: 24→38,
+   neuro: 30→39, memreason: 31→51).
+3. **Cross-file placeholder
+   promotion** (design note 18): 21
+   entries in `memory-reasoning.md`
+   promoted from 🟢 to ✅ after their
+   sibling-file cross-references were
+   verified. Cross-references rewritten
+   from "Covered in X.md" to "See
+   X.md §Y (canonical reference: URL)".
+4. **SXL → NSL rename** (design note
+   16): 6 of 7 deep-research files
+   renamed body SXL → NSL. SPEC.md
+   and ARCHITECTURE.md preserved
+   because SXL is a distinct term
+   there (data plane, not control
+   plane). ADR created at
+   `documentation/adr/0001-sxl-to-nsl-
+   rename.md`.
+5. **Complexity bounds** (design note
+   19): 45 entries in sxl-operators.md
+   now have a `**Complexity**` field
+   in Big-O notation with named size
+   parameters. 16 entries marked
+   "complexity bounds pending primary
+   source" where the original paper
+   has no formal complexity analysis.
+6. **Bundle-citation resolution**
+   (design note 17): 10 entries
+   resolved. 3 Split (each bundled
+   source becomes its own sub-entry,
+   all promoted to ✅). 7 Document
+   (citation chain field added, stays
+   🟢). sxl-operators.md grew from
+   52 to 55 entries.
+7. **"Pievot" typo** (manual fix in
+   this session): the Wave 7
+   verification log flagged "Pievot"
+   in `cognitive-cycles.md` §1.1 as a
+   likely typo for "Lebiere" or one
+   of the ACT-R Reference Manual
+   co-authors. The string was
+   replaced with the canonical ACT-R
+   Reference Manual author list
+   (Anderson, Bothell, Byrne,
+   Douglass, Lebiere, Qin 2004+).
+
+**Why this approach**:
+
+The 7 Wave 7 design notes were
+synthesised from 35 cross-file
+findings into 7 coherent themes
+(chapters 13-19 of the Engineering
+Manual). Each theme had a clear
+*action*: apply X to entries Y in
+file Z. The work was mechanical
+(mechanical edits, no new research
+required) and could be parallelised
+across 4 agents, one per theme-group:
+
+- Agent 1: Author lists + banners +
+  cross-file placeholders (Groups
+  A+B+E in the Wave 8 plan).
+- Agent 2: Bundle-citation
+  resolution (Group C, deferred to a
+  second pass after the design note
+  was fixed).
+- Agent 3: Complexity bounds
+  (Group D, research-heavy).
+- Agent 4: SXL → NSL rename + ADR
+  (Group F, cross-cutting).
+
+The Wave 6/7 lesson — *the
+verification log is evidence, the
+parent file's flag state is proof*
+— was repeated in every agent's
+brief. After all 4 agents completed,
+a separate verification agent ran
+14 greps to confirm the parent
+files matched the agents' claims.
+12 of 14 PASS, 1 reporting error
+(sxl-operators.md claim of 51 ✅/0
+🟢 was actually 41 ✅/10 🟢 — fixed
+in a follow-up bundle pass), and 1
+typo (Pievot) that was corrected
+manually in this session.
+
+**Alternatives considered**:
+
+- *Run agents sequentially.* Rejected:
+  the 4 groups are independent and
+  parallelisation saves wall-clock.
+  The only dependency was the
+  bundle-citation agent, which had
+  to wait for the design note fix
+  (chapter 17) before it could
+  proceed. That dependency was
+  resolved by fixing the design note
+  in the parent session before
+  re-launching the agent.
+- *Skip the bundle work and commit
+  partial.* Rejected: the user
+  explicitly approved the full
+  bundle work in the Wave 7 design
+  note (chapter 17). Deferring
+  would have left 10 of 55 sxl-
+  operators entries at 🟢 without
+  a documented resolution.
+- *Revise the design note first.*
+  Accepted: the design note's
+  section numbers were off (only 2
+  of 10 rows matched the file's
+  actual structure). The bundle
+  agent ran into the mismatch and
+  stopped in plan mode, at which
+  point the user asked to fix the
+  design note first. After the fix,
+  the agent re-ran cleanly.
+
+**Result**:
+
+Final Wave 8 state across all 7
+deep-research files:
+
+| File | Entries | ✅ | 🟢 | 🟡 | 🔴 | ⚠️ |
+|------|---------|-----|-----|-----|-----|-----|
+| sxl-operators.md | 55 | 47 | 7 | 0 | 0 | 1 |
+| memory-reasoning.md | 51 | 47 | 3 | 0 | 1 | 0 |
+| cognitive-cycles.md | 38 | 32 | 6 | 0 | 0 | 0 |
+| neuro-primitives.md | 39 | 39 | 0 | 0 | 0 | 0 |
+| nslp-algorithms.md | 60 | 30 | 28 | 0 | 2 | 0 |
+| theorems-and-bounds.md | 24 | 20 | 4 | 0 | 0 | 0 |
+| canonical-references.md | 135 | 103 | 29 | 0 | 3 | 0 |
+| **Total** | **402** | **318** | **77** | **0** | **6** | **1** |
+
+`make check` passes. The deep-
+research corpus is now internally
+consistent: 79% of entries are ✅,
+the remaining 21% are 🟢 with a
+documented reason (bundled citation
+or sibling-file dependency), and
+the 6 🔴 are concentrated in the 3
+fabrications caught across Waves
+6+7 (S2S §7.8, E2E Differentiable
+Proving §8.5, Compressive Memory
+§1.5) plus 3 Wave-6 canonical-
+reference downgrades.
+
+**Revision history**:
+
+None — this is the first Wave 8
+entry.
+
+**Pitfall (2026-07-17)**: The
+bundle-citation design note
+(chapter 17) had section numbers
+that were off for 8 of 10 entries.
+The original design note was
+authored without grepping the
+file's actual section structure,
+and the section numbers were
+inferred from the file's *topic*
+rather than its actual headings.
+The fix: rewrite the design
+note's "Why this chapter" and
+"Specific entries that need a
+resolution" sections to match the
+file's actual `### N.M` headings.
+**Mitigation**: future design
+notes that name specific section
+numbers should be cross-checked
+against the parent file before
+the design note is published.
+
 ## 2026-07-16 — Deep audit + reconciliation completed
 
 **Decision**: Run a multi-agent deep audit

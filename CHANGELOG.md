@@ -6,6 +6,111 @@
 ## [Unreleased]
 
 ### Added
+- Wave 8 — apply Wave 7 design-note
+  fixes (2026-07-17):
+  - **Author-list precision (4 fixes)**:
+    nslp-algorithms.md §1.10 and
+    neuro-primitives.md §4.6
+    Differentiable Plasticity corrected
+    from 3 to 4 authors (Miconi, Rawal,
+    Clune, Stanley 2018).
+    cognitive-cycles.md §6.6 Decision
+    Transformer expanded from "Chen et al.
+    2021" to full 9-author list.
+    cognitive-cycles.md §6.3 AlphaGo/Zero
+    bundle split into 4 separate papers
+    (Silver 2016 *Nature* 529, Silver 2017
+    *Nature* 550, Silver 2018 *Science* 362,
+    Schrittwieser 2020 *Nature* 588).
+  - **Stale status banners + Promotion
+    Summary tables (4 files)**: all 4
+    unscoped deep-research files (sxl,
+    cogcycles, neuro, memreason) had
+    banners claiming 30-31 entries when
+    they actually had 38-52. Banners
+    updated to 2026-07-17. Promotion
+    Summary tables expanded to match
+    entry counts (sxl: 18→55 rows,
+    cogcycles: 24→38, neuro: 30→39,
+    memreason: 31→51).
+  - **Cross-file placeholder promotion
+    (19 entries in memory-reasoning.md)**:
+    entries depending on sxl-operators.md
+    or cognitive-cycles.md for their
+    definition promoted from 🟢 to ✅
+    after the sibling files were
+    verified. The "Covered in X.md"
+    placeholder format replaced with
+    "See X.md §Y (canonical reference:
+    URL)" cross-references. Result:
+    memory-reasoning.md now at 47 ✅,
+    3 🟢, 0 🟡, 1 🔴.
+  - **SXL → NSL rename propagation
+    (6 files + 1 ADR)**: 6 of 7
+    deep-research files (and 2 sapling
+    cross-references in AGENTS.md and
+    ENTITIES.md) renamed "SXL" to "NSL"
+    in body. SPEC.md and ARCHITECTURE.md
+    preserved because SXL is a *distinct*
+    term there (data plane, not control
+    plane). ADR created at
+    `documentation/adr/0001-sxl-to-nsl-
+    rename.md` recording the rename
+    decision, the 4 alternatives
+    considered, and the consequences.
+  - **Complexity bounds for 45 SXL
+    entries**: every entry in
+    sxl-operators.md now has a
+    `**Complexity**` field in Big-O
+    notation with named size parameters
+    (per the Wave 7 design note
+    convention). 16 entries marked
+    "complexity bounds pending primary
+    source" where the original paper
+    has no formal complexity analysis.
+  - **Bundle-citation resolution
+    (10 entries in sxl-operators.md)**:
+    3 Split (each bundled source
+    becomes its own sub-entry, all
+    promoted to ✅): §5.1 → 5.1a BN
+    Variable Elimination (Zhang & Poole
+    1994) + 5.1b Bucket Elimination
+    (Dechter 1996); §5.2 → 5.2a BP on
+    Bayesian Networks (Pearl 1982) +
+    5.2b BP on Factor Graphs
+    (Kschischang et al. 2001); §6.2 →
+    6.2a DL-Lite (Calvanese et al. 2007)
+    + 6.2b EL++ (Baader et al. 2005). 7
+    Document (citation chain field
+    added, stays 🟢): §1.3 ADF,
+    §3.2 Simplex/LP-MIP, §6.1 Conceptual
+    Graphs, §7.4 GA, §8.2 Datalog,
+    §10.1 do-Calculus, §11.2 Progol.
+    sxl-operators.md now at 55 entries:
+    47 ✅, 7 🟢, 0 🟡, 1 ⚠️.
+  - **Design note fix (chapter 17)**:
+    the bundle-citations design note's
+    section numbers were off (only 2 of
+    10 rows matched the file's actual
+    structure). Corrected to match
+    reality; the file had different
+    topics (e.g., the design note
+    called §1.3 "Default Logic" but
+    the file had "Abstract Dialectical
+    Frameworks"). The design note is
+    now the authoritative list of
+    bundle entries.
+  - **"Pievot" typo fixed in
+    cognitive-cycles.md §1.1**: the
+    "Pievot, Anderson et al. 2005+ ACT-R
+    reference papers" string had no
+    known ACT-R author "Pievot"
+    (per Wave 7 verification log). The
+    string was replaced with the
+    canonical ACT-R Reference Manual
+    author list (Anderson, Bothell,
+    Byrne, Douglass, Lebiere, Qin
+    2004+).
 - Wave 7 — deep-research verification +
   7 design notes (2026-07-17):
   - **Verification of 4 unscoped deep-research

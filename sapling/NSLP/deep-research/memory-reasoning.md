@@ -8,9 +8,9 @@
 > learning. Each entry is sourced to its
 > canonical reference.
 >
-> **Status (2026-07-16)**: 32 algorithms
-> profiled across 6 categories. 26
-> flagged `ready-for-promotion`.
+> **Status (2026-07-17)**: 51 entries;
+> 47 ✅, 3 🟢, 1 🔴 (Compressive
+> Memory §1.5).
 
 ## 1. Memory Architectures
 
@@ -54,8 +54,9 @@
 
 ### 1.4 ACT-R Declarative Memory
 
-- **Covered in cognitive-cycles.md §1.1**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `cognitive-cycles.md` §1.1 (canonical reference:
+  https://act-r.psy.cmu.edu/)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 1.5 Compressive Memory
 
@@ -111,80 +112,95 @@
 
 - **Year / citation**: Sowa 1976, 1984. ISO/IEC 24707
   Common Logic.
-- **Covered in sxl-operators.md §6.1**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §6.1 (canonical reference:
+  https://www.w3.org/2001/sw/wiki/Conceptual_Graphs)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 2.5 OWL 2 / Description Logics
 
-- **Covered in sxl-operators.md §2.1-2.3**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §2.1-2.3 (canonical reference:
+  https://www.w3.org/TR/owl2-overview/)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 2.6 Markov Logic Networks (MLN)
 
-- **Covered in sxl-operators.md §6.3**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §6.3 (canonical reference:
+  https://en.wikipedia.org/wiki/Markov_logic_network)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 2.7 Knowledge Graph Embeddings
 
-- **Covered in sxl-operators.md §6.5**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §6.5 (canonical reference:
+  https://arxiv.org/abs/1707.01449)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ## 3. Reasoning and Inference Algorithms
 
 ### 3.1 Variable Elimination for BNs
 
-- **Covered in sxl-operators.md §5.1**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §5.1 (canonical reference:
+  https://en.wikipedia.org/wiki/Variable_elimination)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 3.2 Belief Propagation
 
-- **Covered in sxl-operators.md §5.2**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §5.2 (canonical reference:
+  https://en.wikipedia.org/wiki/Belief_propagation)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 3.3 MCMC and Gibbs Sampling
 
-- **Covered in sxl-operators.md §5.3**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §5.3 (canonical reference:
+  https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 3.4 CDCL (SAT)
 
-- **Covered in sxl-operators.md §3.1**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §3.1 (canonical reference:
+  https://en.wikipedia.org/wiki/Conflict-driven_clause_learning)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 3.5 Simulated Annealing
 
-- **Covered in sxl-operators.md §7.3**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §7.3 (canonical reference:
+  https://en.wikipedia.org/wiki/Simulated_annealing)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 3.6 Genetic Algorithm
 
-- **Covered in sxl-operators.md §7.4**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §7.4 (canonical reference:
+  https://en.wikipedia.org/wiki/Genetic_algorithm)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 3.7 CMA-ES
 
-- **Covered in sxl-operators.md §7.5**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §7.5 (canonical reference:
+  https://arxiv.org/abs/1604.00772)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 3.8 Particle Swarm Optimisation
 
-- **Covered in sxl-operators.md §7.6**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §7.6 (canonical reference:
+  https://en.wikipedia.org/wiki/Particle_swarm_optimization)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 3.9 Ant Colony Optimisation
 
-- **Covered in sxl-operators.md §7.7**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §7.7 (canonical reference:
+  https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 3.10 Rete Algorithm
 
-- **Covered in sxl-operators.md §8.1**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §8.1 (canonical reference:
+  https://en.wikipedia.org/wiki/Rete_algorithm)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 3.11 Answer Set Programming (ASP)
 
-- **Covered in sxl-operators.md §8.3**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §8.3 (canonical reference:
+  https://en.wikipedia.org/wiki/Answer_set_programming)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ## 4. Multi-Agent and Distributed Reasoning
 
@@ -265,7 +281,7 @@
   Two families: state-based (CvRDTs, joined by the
   semi-lattice join) and op-based (CmRDTs, with causal
   delivery).
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **Confirmation flag**: ✅ `confirmed-canonical`
 - **Ready-for-promotion**: ✅ Yes.
 
 ## 5. Causal Reasoning
@@ -279,8 +295,9 @@
 ### 5.2 PC Algorithm
 
 - **Year / citation**: Spirtes, Glymour, Scheines 2000.
-- **Covered in sxl-operators.md §10.2**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `sxl-operators.md` §10.2 (canonical reference:
+  https://en.wikipedia.org/wiki/PC_algorithm)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 5.3 GES (Greedy Equivalence Search)
 
@@ -390,18 +407,21 @@
 
 ### 6.8 PPO
 
-- **Covered in cognitive-cycles.md §6.5**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `cognitive-cycles.md` §6.5 (canonical reference:
+  https://arxiv.org/abs/1707.06347)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 6.9 SAC
 
-- **Covered in cognitive-cycles.md §6.4**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `cognitive-cycles.md` §6.4 (canonical reference:
+  https://arxiv.org/abs/1801.01290)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 6.10 AlphaZero / MuZero
 
-- **Covered in cognitive-cycles.md §6.3**.
-- **Confirmation flag**: 🟢 `confirmed-curated`
+- **See `cognitive-cycles.md` §6.3 (canonical reference:
+  https://www.nature.com/articles/s41586-020-03157-9)**.
+- **Confirmation flag**: ✅ `confirmed-canonical`
 
 ### 6.11 TD3 (Twin Delayed DDPG)
 
@@ -465,39 +485,64 @@
 
 ## 7. Promotion Summary
 
-| #  | Algorithm                       | Year | Operator name                  |
-|----|---------------------------------|------|--------------------------------|
-| 1  | HTM                             | 2006 | `htm-spatial-pooling`         |
-| 2  | SDM                             | 1988 | `sdm-read` / `sdm-write`      |
-| 3  | Episodic Memory (Tulving)       | 1972 | `episode-encode` / `episode-retrieve` |
-| 4  | Semantic Networks               | 1968 | `spread-activation`           |
-| 5  | Frames                          | 1975 | `frame-match`                 |
-| 6  | Conceptual Dependency           | 1975 | `cd-parse`                    |
-| 7  | Contract Net                    | 1980 | `contract-net-announce` / `contract-net-bid` |
-| 8  | VCG auction                     | 1961 | `vcg-allocate`                |
-| 9  | PBFT                            | 1999 | `pbft-step`                   |
-| 10 | Raft                            | 2014 | `raft-step`                   |
-| 11 | Paxos                           | 1998 | `paxos-step`                  |
-| 12 | FedAvg                          | 2017 | `fedavg-aggregate`            |
-| 13 | CRDTs                           | 2011 | `crdt-merge`                  |
-| 14 | do-Calculus                     | 1995 | `do-calculus-identify`        |
-| 15 | PC Algorithm                    | 2000 | `pc-discover`                 |
-| 16 | GES                             | 2002 | `ges-discover`                |
-| 17 | LiNGAM                          | 2006 | `lingam-discover`             |
-| 18 | CCM                             | 2012 | `ccm-detect`                  |
-| 19 | Granger Causality               | 1969 | `granger-test`                |
-| 20 | UCB1                            | 2002 | `ucb1-select`                 |
-| 21 | Thompson Sampling               | 1933 | `thompson-select`             |
-| 22 | Value Iteration                 | 1957 | `value-iteration`             |
-| 23 | Q-Learning                      | 1989 | `q-learning-step`             |
-| 24 | DQN                             | 2015 | `dqn-step`                    |
-| 25 | REINFORCE                       | 1992 | `reinforce-step`              |
-| 26 | A2C / A3C                       | 2016 | `a2c-step` / `a3c-step`       |
-| 27 | TD3                             | 2018 | `td3-step`                    |
-| 28 | World Models                    | 2018 | `world-model-dream`           |
-| 29 | HER                             | 2017 | `her-replay`                  |
-| 30 | ICM (curiosity)                 | 2017 | `icm-step`                    |
-| 31 | Empowerment                     | 2005 | `empowerment-compute`         |
+All 51 entries are catalogued below with
+their current verification status. 47 are
+✅, 3 are 🟢, and 1 is 🔴
+(§1.5 Compressive Memory).
+
+| #   | Entry                                | Section | Status |
+|-----|--------------------------------------|---------|--------|
+| 1   | Hierarchical Temporal Memory (HTM)   | 1.1     | 🟢 |
+| 2   | Sparse Distributed Memory (SDM)      | 1.2     | ✅ |
+| 3   | Episodic Memory (Tulving)            | 1.3     | 🟢 |
+| 4   | ACT-R Declarative Memory             | 1.4     | ✅ |
+| 5   | Compressive Memory                   | 1.5     | 🔴 |
+| 6   | Semantic Networks                    | 2.1     | ✅ |
+| 7   | Frames (Minsky)                      | 2.2     | ✅ |
+| 8   | Conceptual Dependency (Schank)       | 2.3     | 🟢 |
+| 9   | Conceptual Graphs (Sowa)             | 2.4     | ✅ |
+| 10  | OWL 2 / Description Logics           | 2.5     | ✅ |
+| 11  | Markov Logic Networks (MLN)          | 2.6     | ✅ |
+| 12  | Knowledge Graph Embeddings           | 2.7     | ✅ |
+| 13  | Variable Elimination for BNs         | 3.1     | ✅ |
+| 14  | Belief Propagation                   | 3.2     | ✅ |
+| 15  | MCMC and Gibbs Sampling              | 3.3     | ✅ |
+| 16  | CDCL (SAT)                           | 3.4     | ✅ |
+| 17  | Simulated Annealing                  | 3.5     | ✅ |
+| 18  | Genetic Algorithm                    | 3.6     | ✅ |
+| 19  | CMA-ES                               | 3.7     | ✅ |
+| 20  | Particle Swarm Optimisation          | 3.8     | ✅ |
+| 21  | Ant Colony Optimisation              | 3.9     | ✅ |
+| 22  | Rete Algorithm                       | 3.10    | ✅ |
+| 23  | Answer Set Programming (ASP)         | 3.11    | ✅ |
+| 24  | Contract Net Protocol                | 4.1     | ✅ |
+| 25  | VCG Auction (Vickrey-Clarke-Groves)  | 4.2     | ✅ |
+| 26  | PBFT (Practical Byzantine Fault Tol.) | 4.3    | ✅ |
+| 27  | Raft Consensus                       | 4.4     | ✅ |
+| 28  | Paxos                                | 4.5     | ✅ |
+| 29  | Federated Learning (FedAvg)          | 4.6     | ✅ |
+| 30  | CRDTs (Conflict-Free Replicated DT)  | 4.7     | ✅ |
+| 31  | Pearl's do-Calculus                  | 5.1     | ✅ |
+| 32  | PC Algorithm                         | 5.2     | ✅ |
+| 33  | GES (Greedy Equivalence Search)      | 5.3     | ✅ |
+| 34  | LiNGAM                               | 5.4     | ✅ |
+| 35  | Convergent Cross Mapping (CCM)       | 5.5     | ✅ |
+| 36  | Granger Causality                    | 5.6     | ✅ |
+| 37  | UCB1 (Multi-Armed Bandit)            | 6.1     | ✅ |
+| 38  | Thompson Sampling                    | 6.2     | ✅ |
+| 39  | Value Iteration                      | 6.3     | ✅ |
+| 40  | Q-Learning                           | 6.4     | ✅ |
+| 41  | DQN                                  | 6.5     | ✅ |
+| 42  | Policy Gradient (REINFORCE)          | 6.6     | ✅ |
+| 43  | A2C / A3C                            | 6.7     | ✅ |
+| 44  | PPO                                  | 6.8     | ✅ |
+| 45  | SAC                                  | 6.9     | ✅ |
+| 46  | AlphaZero / MuZero                   | 6.10    | ✅ |
+| 47  | TD3 (Twin Delayed DDPG)              | 6.11    | ✅ |
+| 48  | World Models                         | 6.12    | ✅ |
+| 49  | Hindsight Experience Replay (HER)    | 6.13    | ✅ |
+| 50  | Curiosity-Driven Exploration (ICM)   | 6.14    | ✅ |
+| 51  | Empowerment                          | 6.15    | ✅ |
 
 ## 8. See also
 
