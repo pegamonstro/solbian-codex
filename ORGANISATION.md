@@ -16,6 +16,9 @@
 | tag `archive-gitea-solbian-seed-scrolls-2026-09-20` | Frozen pointer |
 | `working/synthesis-2026-09-20` | Living Working Codex + AUDIT (Waves 2–4) |
 | tag `working/synthesis-2026-09-20` | Frozen tag for that working snapshot |
+| `spec/phase-i-software-stack` | Phase I software-stack SPEC pack (PROPOSED · not doctrine · not CANONICAL) |
+| tag `spec-phase-i-2026-09-20` | Frozen pointer to Phase I specs |
+
 
 ## Out of this repo
 - **Codex Machina** → `pegamonstro/codex-machina` (separate product)
