@@ -10,6 +10,10 @@
 | `main` | Current product tip (Mac-tracked historical checkout) |
 | `archive/codex-solbian-seed-flat-md` | Former GH `codex-solbian-seed` flat MD pack |
 | tag `archive/codex-solbian-seed-2026-09-20` | Frozen pointer to that archive |
+| `archive/gitea-solbian-md` | Gitea `00_codex_solbian/solbian.git` (MD / Set C lab forge) |
+| tag `archive-gitea-solbian-md-2026-09-20` | Frozen pointer |
+| `archive/gitea-solbian-seed-scrolls` | Gitea `solbian-seed-scrolls` flat MD |
+| tag `archive-gitea-solbian-seed-scrolls-2026-09-20` | Frozen pointer |
 | `working/synthesis-2026-09-20` | Living Working Codex + AUDIT (Waves 2–4) |
 | tag `working/synthesis-2026-09-20` | Frozen tag for that working snapshot |
 
