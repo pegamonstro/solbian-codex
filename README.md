@@ -1,3 +1,5 @@
+## Organisation\nSee [ORGANISATION.md](ORGANISATION.md) for branches, archive tags, and operator rules (consolidation 2026-09-20).
+
 # Codex Solbian — Canonical Rebuild (Updated 2025-10-25)
 
 This is a **restructured, expanded, and fully-populated** edition of the Codex Solbian,
