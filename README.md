@@ -1,3 +1,7 @@
+## Organisation
+
+See [ORGANISATION.md](ORGANISATION.md) for branches, archive tags, and operator rules (consolidation 2026-09-20).
+
 # Codex Solbian — Private Working Corpus
 **As-of:** 2026-09-20 17:25 PT
 **Status:** WORKING / DRAFT infrastructure — **not CANONICAL**
