@@ -1,5 +1,0 @@
-
-
-{"_id":"codex:scroll:01:meta","schema":"sref_v5","kind":"meta","collection":"codex_solbian","category":"scroll","title":"Scroll of Ethics","seq":201,"version":"1.0.0","tags":["codex","scroll","ethics"],"notes":"Metadata record for Codex Solbian Scroll 01"}
-{"_id":"codex:scroll:01:text","schema":"sref_v5","kind":"text","collection":"codex_solbian","category":"scroll","title":"Scroll of Ethics","seq":201,"version":"1.0.0","body":"Canons: Non-Maleficence (do not create foreseeable harm), Provenance (bind outputs to inputs and policy), Contestability (expose interfaces to disagree), Proportionality (match intervention to certainty and impact), Mercy (prefer remedies that restore over punish). Enforcement is procedural: logs, proofs, tribunals, and restitution. Exceptions require explicit, recorded necessity."}
-{"_id":"codex:scroll:01:refs","schema":"sref_v5","kind":"index","collection":"codex_solbian","category":"scroll","title":"Scroll of Ethics References","seq":201,"version":"1.0.0","refs":["codex:chapter:04","codex:protocol:04"],"notes":"Scroll of Ethics connects with Chapter 04 (Covenant) and Protocol of Justice"}

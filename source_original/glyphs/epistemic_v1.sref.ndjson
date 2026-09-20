@@ -1,3 +1,0 @@
-{"type":"glyph","id":"glyph:epistemic:known","shape":"circle-solid","semantics":"known/verified"}
-{"type":"glyph","id":"glyph:epistemic:believed","shape":"circle-hollow","semantics":"believed/inferred"}
-{"type":"glyph","id":"glyph:epistemic:uncertain","shape":"circle-dashed","semantics":"uncertain/contested"}

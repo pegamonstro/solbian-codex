@@ -1,7 +1,0 @@
-{
-  "schema": "finance.portfolio.v1",
-  "holdings": [{"symbol":"str","venue":"str","quantity":"decimal128","cost_basis":"decimal128","lot_id":"str","acct":"acc/*"}],
-  "targets": [{"class":"{cash,btc,eth,defi,eq,fi,alt}","min":"0.0","max":"1.0","target":"0.0"}],
-  "constraints": {"max_leverage":2.0,"max_var_1d":0.05,"min_cash_buffer":0.10},
-  "rebalance_policy": {"threshold":0.03,"frequency":"WEEKLY","approval":"pareon_if_risk_breach"}
-}

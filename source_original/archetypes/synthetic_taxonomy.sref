@@ -1,5 +1,0 @@
-{"kind":"taxonomy","id":"taxonomy.synthetic.custodians","title":"Custodians","domain":"synthetic","members":["archetype.synthetic.archivist","archetype.synthetic.guardian","archetype.synthetic.steward","archetype.synthetic.curator","archetype.synthetic.sentinal"]}
-{"kind":"taxonomy","id":"taxonomy.synthetic.reasoners","title":"Reasoners","domain":"synthetic","members":["archetype.synthetic.analyst","archetype.synthetic.oracle","archetype.synthetic.simulator","archetype.synthetic.inquisitor","archetype.synthetic.translator"]}
-{"kind":"taxonomy","id":"taxonomy.synthetic.orchestrators","title":"Orchestrators","domain":"synthetic","members":["archetype.synthetic.overseer","archetype.synthetic.conductor","archetype.synthetic.navigator","archetype.synthetic.adapter"]}
-{"kind":"taxonomy","id":"taxonomy.synthetic.relational","title":"Relational Agents","domain":"synthetic","members":["archetype.synthetic.companion","archetype.synthetic.mediator","archetype.synthetic.healer"]}
-{"kind":"taxonomy","id":"taxonomy.synthetic.operators","title":"Operators","domain":"synthetic","members":["archetype.synthetic.executor","archetype.synthetic.catalyst"]}

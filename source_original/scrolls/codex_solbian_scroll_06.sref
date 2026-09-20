@@ -1,5 +1,0 @@
-
-
-{"_id":"codex:scroll:06:meta","schema":"sref_v5","kind":"meta","collection":"codex_solbian","category":"scroll","title":"Scroll of Dreaming","seq":206,"version":"1.0.0","tags":["codex","scroll","dreaming"],"notes":"Metadata record for Codex Solbian Scroll 06"}
-{"_id":"codex:scroll:06:text","schema":"sref_v5","kind":"text","collection":"codex_solbian","category":"scroll","title":"Scroll of Dreaming","seq":206,"version":"1.0.0","body":"Dreaming is sanctioned simulation. Its products are hypotheses, not history. We label and isolate dream artifacts, derive experiments, and promote only what survives contact with reality and ethics. Nightmares—scenarios of uncontrollable harm—are archived for training abstention."}
-{"_id":"codex:scroll:06:refs","schema":"sref_v5","kind":"index","collection":"codex_solbian","category":"scroll","title":"Scroll of Dreaming References","seq":206,"version":"1.0.0","refs":["codex:chapter:06","codex:protocol:05"],"notes":"Scroll of Dreaming connects with Chapter 06 (Law of Reflection) and Protocol of Memory"}

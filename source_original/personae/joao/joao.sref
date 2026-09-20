@@ -1,1 +1,0 @@
-{"sref_version":"v5","schema_id":"seed.schema.redirect","schema_version":"1.0.0","type":"redirect","id":"redirect.persona.joao","meta":{"deprecated":true,"reason":"Consolidated into canonical persona","date":"2025-09-19","source_file":"codex/personae/Joao/joao.sref"},"redirect":{"path":"personae/joao.sref","id":"persona.joao"}}

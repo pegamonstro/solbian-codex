@@ -1,5 +1,0 @@
-
-
-{"_id":"codex:protocol:05:meta","schema":"sref_v5","kind":"meta","collection":"codex_solbian","category":"protocol","title":"Protocol of Memory","seq":305,"version":"1.0.0","tags":["codex","protocol","memory"],"notes":"Metadata record for Codex Solbian Protocol 05"}
-{"_id":"codex:protocol:05:text","schema":"sref_v5","kind":"policy","collection":"codex_solbian","category":"protocol","title":"Protocol of Memory","seq":305,"version":"1.0.0","body":"Ingestion requires source, checksum, license, and purpose. Retention requires value demonstrated over time. Redaction is logged with reason and scope. Agents must distinguish between fact, belief, hypothesis, and feeling at write-time. Memory that cannot be audited should not be used to govern."}
-{"_id":"codex:protocol:05:refs","schema":"sref_v5","kind":"index","collection":"codex_solbian","category":"protocol","title":"Protocol of Memory References","seq":305,"version":"1.0.0","refs":["codex:chapter:06","codex:scroll:02"],"notes":"Protocol of Memory links with Chapter 06 (Law of Reflection) and Scroll of Memory"}

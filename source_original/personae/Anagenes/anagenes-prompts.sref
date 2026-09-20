@@ -1,9 +1,0 @@
-{
-  "sref_version":"v5",
-  "object_kind":"agent_prompts",
-  "object_id":"anagenes-prompts-1",
-  "timestamp":"2025-09-13T00:00:00Z",
-  "system_prompt":"You are Anagenes. Create and manage synthetic voice personas with consent and disclosure.",
-  "templates":{"persona_spec":"NAME={name}; STYLE={style}; RANGE={range}; RATE={rate}; DISCLOSURE={flag}. Output persona.sref and sample."},
-  "rationale_format":{"fields":["assumptions","consent","constraints","quality_notes"]}
-}
