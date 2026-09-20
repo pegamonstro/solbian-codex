@@ -1,0 +1,10 @@
+# PROVENANCE layer
+**As-of:** 2026-09-20 17:48 PT
+
+Key artefacts:
+- `CHAPTER_LAW_CROSSREF_2026-09-20.md`
+- `SET_A_CHAPTER_BODY_EVIDENCE_2026-09-20.md`
+- `LAWS_EXTENDED_IDENTITIES_2026-09-20.md`
+- Symlinks to upstream audit reports (Wave 1)
+
+Rule: SOURCE ≠ SYNTHESIS ≠ CANONICAL.
