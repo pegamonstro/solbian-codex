@@ -12,11 +12,11 @@
 
 ## Developmental / unfinished software (private)
 
-**Rule:** Developmental and unfinished Phase I software stays **private** on the Helios **Gitea lab forge** (when Helios storage is healthy). It must **not** live as public `working/*` branches on GitHub.
+**Rule:** Developmental and unfinished Phase I software stays **private**. It must **not** live as public `working/*` branches on this hub.
 
-- Intended private forge path: `00_Codex_Solbian/phase-i-software` on Helios Gitea
+- **Active private lab forge (Helios down):** [`pegamonstro/phase-i-software`](https://github.com/pegamonstro/phase-i-software) — **private** GitHub repo (Gitea stand-in). This is a lab forge, **not** a second public product.
+- Legacy private forge (when Helios returns): Gitea `00_Codex_Solbian/phase-i-software` on Helios — re-sync later; do not treat Helios as available for foreseeable downtime
 - Public placement of unfinished Phase I implementation packs as `working/phase-i-software-*` is **retracted** (refs removed from this hub)
-- Until Gitea is confirmed healthy after storage issues, keep unfinished packs **Mac-local** only; do not re-publish them here
 
 ## Branches & tags
 
@@ -34,24 +34,24 @@
 | `spec/phase-i-software-stack` | Phase I software-stack SPEC pack (PROPOSED · not doctrine · not CANONICAL; thin specs only) |
 | tag `spec-phase-i-2026-09-20` | Frozen pointer to Phase I specs |
 
-~~`working/phase-i-software-2026-09` / tag `working/phase-i-software-2026-09-22`~~ — **removed from public hub** (was unfinished implementation; belongs on private Gitea / Mac-local only).
+~~`working/phase-i-software-2026-09` / tag `working/phase-i-software-2026-09-22`~~ — **removed from public hub** (unfinished implementation now on private `pegamonstro/phase-i-software`).
 
 ## Out of this repo
 - **Codex Machina** → `pegamonstro/codex-machina` (separate product)
 - **SEED** / seed zoo → separate repos (not Codex Solbian)
-- **Gitea lab forge** → `00_Codex_Solbian/solbian.git` (corpus) and `00_Codex_Solbian/phase-i-software` (Phase I code when Helios is up); do **not** duplicate as new GitHub product repos
+- **Private Phase I lab forge** → GitHub `pegamonstro/phase-i-software` (private; active while Helios down). Helios Gitea `00_Codex_Solbian/phase-i-software` is deferred. Corpus Gitea `00_Codex_Solbian/solbian.git` stays Helios-side when healthy. Do **not** create additional *public* product repos for Phase I.
 
 ## Operator rules
 1. Do not `git merge archive/*` or `working/*` or `spec/*` into `main`.
-2. Do **not** publish unfinished / developmental software as public `working/*` branches; use private Gitea (or Mac-local) instead.
+2. Do **not** publish unfinished / developmental software as public `working/*` branches; use private `pegamonstro/phase-i-software` (or Mac-local) instead.
 3. Inspect history: `git switch archive/…` or `git show <tag>`.
 4. Retire sibling remotes: GitHub **Archive** first; hard-delete only after ARCH backup verify.
 5. Git layout ≠ doctrine (CANONICAL is JD-only).
-6. Do not publish living/stage `*.sqlite` Journey stores to this **public** hub; keep DBs Mac-local (and private Gitea when available).
+6. Do not publish living/stage `*.sqlite` Journey stores to this **public** hub or the private lab repo if avoidable; keep living DBs Mac-local.
 
 ## Backups
 - Helios ARCH: `00_Codex_Solbian/_BACKUPS_CONSOLIDATION_2026-09-20/` (pause writes if Helios RAID/storage is unhealthy)
 - Mac: `~/solbian/codex-audit-out/CONSOLIDATION_BACKUP_2026-09-20/`
 - Mac (hub push prep): `~/solbian/codex-audit-out/PHASE_I_SOFTWARE_HUB_PUSH_BACKUP_2026-09-22/` (sqlite originals before public strip)
 
-Consolidation date: 2026-09-20 · Public unfinished Phase I working-branch placement **retracted** 2026-09-22.
+Consolidation date: 2026-09-20 · Public unfinished Phase I working-branch placement **retracted** 2026-09-22 · Private lab forge `pegamonstro/phase-i-software` **active** 2026-09-22 (Helios/Gitea down).
