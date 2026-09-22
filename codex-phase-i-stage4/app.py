@@ -1139,6 +1139,17 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(200, result)
             return
         if path.startswith("/api/engine/"):
+            # Drain unread body so a keep-alive client does not see the next
+            # request line start with leftover JSON (Python 501 "…}POST").
+            try:
+                length = int(self.headers.get("Content-Length") or 0)
+            except ValueError:
+                length = 0
+            if length > 0:
+                try:
+                    self.rfile.read(length)
+                except OSError:
+                    pass
             self._error(405, "the Engine surface is read-only except POST "
                              "/api/engine/run, POST /api/engine/synthesize and "
                              "POST /api/engine/proposals/<id>/accept")

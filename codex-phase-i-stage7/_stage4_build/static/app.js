@@ -20,6 +20,27 @@ const fmtBytes = (n) => {
   return (n / 1048576).toFixed(2) + ' MB';
 };
 
+
+/** Format proposal.based_on for display: array, object, or scalar. */
+function formatBasedOn(value) {
+  if (value == null || value === '') return '—';
+  if (Array.isArray(value)) return value.length ? value.join(', ') : '—';
+  if (typeof value === 'object') {
+    const ids = Array.isArray(value.message_ids) ? value.message_ids : null;
+    const parts = [];
+    if (value.engine) parts.push('engine=' + value.engine);
+    if (ids && ids.length) parts.push('messages=' + ids.length + ' [' + ids.slice(0, 6).join(', ') + (ids.length > 6 ? ', …' : '') + ']');
+    if (value.note) parts.push(String(value.note));
+    // Fallback: stable key=value dump for unknown object shapes
+    if (!parts.length) {
+      try { return JSON.stringify(value); } catch (_) { return String(value); }
+    }
+    return parts.join(' · ') || '—';
+  }
+  return String(value);
+}
+
+
 const api = {
   async get(path) {
     const r = await fetch(path, { headers: { Accept: 'application/json' } });
@@ -57,7 +78,7 @@ const state = {
     mode: 'working',
     cdLimit: 25, cdOffset: 0, cdTotal: 0, cdId: null,
   },
-  engine: { limit: 50, offset: 0, total: 0, propId: null, loaded: false },
+  engine: { limit: 50, offset: 0, total: 0, propId: null, loaded: false, stale: false },
 };
 
 /* ============================ TABS ============================ */
@@ -76,8 +97,9 @@ function selectTab(name) {
     loadCodexWorking();
     setCodexMode(state.codex.mode);
   }
-  if (name === 'engine' && !state.engine.loaded) {
+  if (name === 'engine' && (!state.engine.loaded || state.engine.stale)) {
     state.engine.loaded = true;
+    state.engine.stale = false;
     loadEngine();
   }
 }
@@ -126,6 +148,15 @@ async function openConversation(id) {
 function renderConversation(conv) {
   const view = $('#convView');
   view.classList.remove('empty');
+  // Hybrid synthesis controls act on the active conversation (still explicit).
+  const actions = $('#convEngineActions');
+  if (actions) {
+    actions.classList.remove('hidden');
+    const label = $('#convSynthConv');
+    if (label) label.textContent = conv.id;
+    const out = $('#convSynthOut');
+    if (out) { out.classList.add('hidden'); out.innerHTML = ''; }
+  }
   const msgs = conv.messages || [];
   const msgHtml = msgs.length
     ? msgs.map((m) => (
@@ -190,6 +221,62 @@ async function sendMessage(ev) {
     }
   } catch (err) {
     showError('#msgError', err);
+  }
+}
+
+/* -------- Explicit hybrid synthesis for the active conversation -------- */
+function synthResultHtml(data) {
+  const llm = data.llm_requested
+    ? (data.llm_drafted
+        ? '<span class="badge badge-working">LLM draft created</span>'
+        : '<span class="badge badge-warn">LLM failed closed</span>')
+    : '';
+  const errHtml = (data.llm_requested && !data.llm_drafted && data.llm_error)
+    ? '<div class="error">LLM draft failed closed: ' + esc(data.llm_error) + '</div>'
+    : '';
+  return '<div class="readonly-banner">' +
+      'Conversation <span class="mono">' + esc(data.conversation_id) + '</span> · ' +
+      '<strong>' + esc(data.mode) + '</strong> mode · exit ' + esc(data.returncode) +
+      ' · new PROPOSED ' + esc(data.new_proposals) +
+      ' (hybrid ' + esc(data.new_hybrid_proposals) + ')' +
+      ' · CANONICAL ' + esc(data.canonical) +
+      ' · no_canonical ' + esc(data.no_canonical) + ' ' + llm + '</div>' +
+    errHtml +
+    '<div class="layer-note">Raw Journey messages and provenance untouched; ' +
+      'nothing was auto-Accepted.</div>' +
+    '<pre class="preview">' + esc(data.stdout || '') +
+      (data.stderr ? '\n[stderr]\n' + esc(data.stderr) : '') + '</pre>';
+}
+
+async function synthesizeDialogue(useLLM) {
+  if (!state.convId) {
+    showError('#convSynthOut', new Error('Select a conversation first.'));
+    return;
+  }
+  if (useLLM) {
+    const ok = window.confirm(
+      'Draft with the optional LLM?\n\n' +
+      'This still only creates PROPOSED candidates; it never Accepts anything. ' +
+      'If the LLM endpoint is unreachable the engine fails closed.');
+    if (!ok) return;
+  }
+  const out = $('#convSynthOut');
+  const btn = useLLM ? $('#synthLLM') : $('#synthDeterministic');
+  out.classList.remove('hidden');
+  out.innerHTML = '<div class="readonly-banner">Running ' +
+    (useLLM ? 'optional LLM draft' : 'deterministic synthesis') + ' for ' +
+    esc(state.convId) + '…</div>';
+  if (btn) btn.disabled = true;
+  try {
+    const data = await api.post('/api/engine/synthesize',
+      { conversation_id: state.convId, llm: !!useLLM });
+    out.innerHTML = synthResultHtml(data);
+    state.engine.loaded = false;    // Engine list changed
+    state.engine.stale = true;      // refresh when the Engine tab is opened
+  } catch (err) {
+    out.innerHTML = '<div class="error">Synthesis failed: ' + esc(err.message) + '</div>';
+  } finally {
+    if (btn) btn.disabled = false;
   }
 }
 
@@ -507,6 +594,8 @@ function engineQuery() {
   if (q) params.set('q', q);
   const s = $('#estatus').value;
   if (s) params.set('status', s);
+  if ($('#eIncludeThemes') && $('#eIncludeThemes').checked) params.set('include_themes', '1');
+  if ($('#eAll') && $('#eAll').checked) params.set('all', '1');
   params.set('limit', state.engine.limit);
   params.set('offset', state.engine.offset);
   return params.toString();
@@ -606,7 +695,7 @@ function renderProposal(p) {
         metaRow('attribution', p.attribution, true) +
         metaRow('created_at', p.created_at) +
         metaRow('updated_at', p.updated_at) +
-        metaRow('based_on', (p.based_on || []).join(', ') || '—', true) +
+        metaRow('based_on', formatBasedOn(p.based_on), true) +
       '</dl>' +
       '<div class="section-title">Summary</div>' +
       '<div>' + esc(p.summary) + '</div>' +
@@ -645,6 +734,7 @@ async function acceptProposal(id) {
     state.codex.loaded = false;   // WORKING list changed
     await loadEngine();
     await openProposal(id);
+    await loadCodexWorking();     // refresh the WORKING codex_document list
     loadMeta();
   } catch (err) {
     $('#engineRunOut').classList.remove('hidden');
@@ -778,6 +868,13 @@ function wireEngine() {
     state.engine.offset = 0;
     loadProposals();
   });
+  ['#eIncludeThemes', '#eAll'].forEach((sel) => {
+    const el = $(sel);
+    if (el) el.addEventListener('change', () => {
+      state.engine.offset = 0;
+      loadProposals();
+    });
+  });
   $('#propPrev').addEventListener('click', () => {
     state.engine.offset = Math.max(0, state.engine.offset - state.engine.limit);
     loadProposals();
@@ -795,6 +892,8 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#newConvToggle').addEventListener('click', () => $('#newConvForm').classList.toggle('hidden'));
   $('#newConvCancel').addEventListener('click', () => $('#newConvForm').classList.add('hidden'));
   $('#newConvForm').addEventListener('submit', createConversation);
+  $('#synthDeterministic').addEventListener('click', () => synthesizeDialogue(false));
+  $('#synthLLM').addEventListener('click', () => synthesizeDialogue(true));
   wireCodex();
   wireEngine();
   loadMeta();

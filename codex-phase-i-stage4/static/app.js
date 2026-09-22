@@ -20,6 +20,27 @@ const fmtBytes = (n) => {
   return (n / 1048576).toFixed(2) + ' MB';
 };
 
+
+/** Format proposal.based_on for display: array, object, or scalar. */
+function formatBasedOn(value) {
+  if (value == null || value === '') return '—';
+  if (Array.isArray(value)) return value.length ? value.join(', ') : '—';
+  if (typeof value === 'object') {
+    const ids = Array.isArray(value.message_ids) ? value.message_ids : null;
+    const parts = [];
+    if (value.engine) parts.push('engine=' + value.engine);
+    if (ids && ids.length) parts.push('messages=' + ids.length + ' [' + ids.slice(0, 6).join(', ') + (ids.length > 6 ? ', …' : '') + ']');
+    if (value.note) parts.push(String(value.note));
+    // Fallback: stable key=value dump for unknown object shapes
+    if (!parts.length) {
+      try { return JSON.stringify(value); } catch (_) { return String(value); }
+    }
+    return parts.join(' · ') || '—';
+  }
+  return String(value);
+}
+
+
 const api = {
   async get(path) {
     const r = await fetch(path, { headers: { Accept: 'application/json' } });
@@ -674,7 +695,7 @@ function renderProposal(p) {
         metaRow('attribution', p.attribution, true) +
         metaRow('created_at', p.created_at) +
         metaRow('updated_at', p.updated_at) +
-        metaRow('based_on', (p.based_on || []).join(', ') || '—', true) +
+        metaRow('based_on', formatBasedOn(p.based_on), true) +
       '</dl>' +
       '<div class="section-title">Summary</div>' +
       '<div>' + esc(p.summary) + '</div>' +

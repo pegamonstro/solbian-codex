@@ -13,7 +13,10 @@ frameworks):
 * **Engine** — inspect PROPOSED proposals and their provenance, **Run living
   loop** (runs the Stage 5 engine against the living store, in place), and
   **Accept → WORKING** for a single PROPOSED proposal (controlled
-  consolidation).  A dry-run button is kept for compatibility.
+  consolidation).  A dry-run button is kept for compatibility.  The Solace
+  conversation view also offers **Synthesize dialogue** (Stage 5b hybrid
+  deterministic path, the default) and **Draft with LLM** (explicit confirm;
+  fails closed), both of which only ever create PROPOSED candidates.
 
 Living store (Stage 7)
 ----------------------
@@ -90,6 +93,13 @@ DEFAULT_ENGINE_PY = os.environ.get(
     "SOLBIAN_ENGINE_PY", os.path.join(STAGE5_DIR, "engine.py"))
 ENGINE_TIMEOUT = 240
 
+# Stage 5b hybrid synthesis engine: explicit deterministic (default) or optional
+# LLM dialogue synthesis into PROPOSED candidates.  Never auto-Accepts.
+HYBRID_DIR = "/Users/archcore/solbian/codex-phase-i-stage5/codex-phase-i-stage5b-hybrid"
+DEFAULT_HYBRID_PY = os.environ.get(
+    "SOLBIAN_HYBRID_PY", os.path.join(HYBRID_DIR, "engine.py"))
+HYBRID_TIMEOUT = 240
+
 # Engine kinds the "Run living loop" button runs.  The Solace append path runs
 # only the fast `durable` analyzer.
 LIVING_LOOP_KINDS = ("plurality", "duplicates", "underdeveloped", "durable",
@@ -117,6 +127,21 @@ _CONV_ROUTE = re.compile(r"^/api/solace/conversations/([A-Za-z0-9_\-]+)$")
 _MSG_ROUTE = re.compile(r"^/api/solace/conversations/([A-Za-z0-9_\-]+)/messages$")
 _ENGINE_PROP_ROUTE = re.compile(r"^/api/engine/proposals/([A-Za-z0-9_\-]+)$")
 _ENGINE_ACCEPT_ROUTE = re.compile(r"^/api/engine/proposals/([A-Za-z0-9_\-]+)/accept$")
+# Route-safe conversation id used by the explicit hybrid synthesize endpoint.
+_CONV_ID_RE = re.compile(r"^[A-Za-z0-9_\-]{1,128}$")
+
+
+def _as_bool(value) -> bool:
+    """Coerce JSON/query-ish truthy values without surprising ``"false"``."""
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return value.strip().lower() in ("1", "true", "yes", "on")
+    return bool(value)
+
+
+def _query_flag(query, name: str) -> bool:
+    return _as_bool((query.get(name) or [""])[0])
 
 
 def now_iso() -> str:
@@ -359,6 +384,13 @@ def engine_facets(conn) -> dict:
 def list_engine_proposals(conn, query) -> dict:
     limit = max(1, min(500, int((query.get("limit") or ["50"])[0] or 50)))
     offset = max(0, int((query.get("offset") or ["0"])[0] or 0))
+    # Quiet by default: only the hybrid:* synthesis rows, and Theme:* hidden.
+    #   include_themes=1  -> keep hybrid:* but also show Theme:*
+    #   all=1             -> show everything (older Stage-5 archaeology too)
+    all_flag = _query_flag(query, "all")
+    include_themes = _query_flag(query, "include_themes") or all_flag
+    hybrid_only = not all_flag
+
     where, params = [], []
     q = (query.get("q") or [""])[0].strip()
     if q:
@@ -369,6 +401,10 @@ def list_engine_proposals(conn, query) -> dict:
     if status:
         where.append("p.status = ?")
         params.append(status)
+    if hybrid_only:
+        where.append("p.attribution LIKE 'hybrid:%'")
+    if not include_themes:
+        where.append("p.summary NOT LIKE 'Theme:%'")
     where_sql = (" WHERE " + " AND ".join(where)) if where else ""
     total = conn.execute(
         f"SELECT COUNT(*) FROM proposal p{where_sql}", params).fetchone()[0]
@@ -381,8 +417,15 @@ def list_engine_proposals(conn, query) -> dict:
             ORDER BY p.created_at DESC, p.id
             LIMIT ? OFFSET ?""",
         params + [limit, offset]).fetchall()
+    try:
+        unfiltered_total = conn.execute("SELECT COUNT(*) FROM proposal").fetchone()[0]
+    except sqlite3.Error:
+        unfiltered_total = total
     return {"total": total, "limit": limit, "offset": offset, "read_only": True,
-            "canonical": "NONE", "proposals": rows_to_dicts(rows)}
+            "canonical": "NONE", "unfiltered_total": unfiltered_total,
+            "quiet": {"hybrid_only": hybrid_only, "include_themes": include_themes,
+                      "all": all_flag},
+            "proposals": rows_to_dicts(rows)}
 
 
 def engine_proposal_detail(conn, pid: str) -> dict | None:
@@ -471,6 +514,135 @@ def engine_dry_run(engine_db: str, engine_py: str) -> tuple[dict | None, str | N
         "stdout": stdout,
         "stderr": stderr,
     }, None
+
+
+class SynthesizeError(Exception):
+    """Explicit synthesize request failed before the engine could run."""
+
+    def __init__(self, message: str, status: int = 400):
+        super().__init__(message)
+        self.status = status
+
+
+def _proposal_count(conn, where: str = "", params=()) -> int:
+    return conn.execute(
+        f"SELECT COUNT(*) FROM proposal {where}", params).fetchone()[0]
+
+
+def _tail(text: str, n: int = 400) -> str:
+    text = (text or "").strip()
+    return text if len(text) <= n else "..." + text[-n:]
+
+
+def _extract_llm_error(stderr: str) -> str | None:
+    """Pull the fail-closed LLM reason out of the hybrid engine's stderr."""
+    for line in reversed((stderr or "").splitlines()):
+        low = line.lower()
+        if "llm error" in low or "failed closed" in low:
+            return line.split(":", 1)[-1].strip() or line.strip()
+    return None
+
+
+def synthesize_dialogue(db_path: str, hybrid_py: str, conversation_id: str,
+                        use_llm: bool = False,
+                        timeout: int = HYBRID_TIMEOUT) -> dict:
+    """Explicitly synthesize PROPOSED dialogue candidates via the hybrid engine.
+
+    Deterministic extraction is the default; ``use_llm`` only adds the optional
+    LLM draft when the caller explicitly asked for it.  The engine is always
+    invoked with ``--db <server living DB>`` (never the historical corpus) as an
+    argv list (``shell=False``) with an explicit cwd, a timeout and captured
+    output.  Nothing is ever auto-Accepted; results stay PROPOSED.
+    """
+    if not isinstance(conversation_id, str) or not _CONV_ID_RE.match(conversation_id):
+        raise SynthesizeError(
+            "conversation_id is required and must match [A-Za-z0-9_-]{1,128}", 400)
+    if not os.path.isfile(hybrid_py):
+        raise SynthesizeError(f"hybrid engine CLI not found: {hybrid_py}", 503)
+    if not os.path.isfile(db_path):
+        raise SynthesizeError(f"living store not found: {db_path}", 503)
+
+    with connect_ro(db_path) as conn:
+        conv = conn.execute(
+            "SELECT id, title FROM conversation WHERE id = ?",
+            (conversation_id,)).fetchone()
+        if conv is None:
+            raise SynthesizeError(f"conversation not found: {conversation_id}", 404)
+        before_total = _proposal_count(conn)
+        before_hybrid = _proposal_count(conn, "WHERE attribution LIKE 'hybrid:%'")
+        before_llm = _proposal_count(conn, "WHERE attribution = 'hybrid:llm'")
+
+    argv = [sys.executable, hybrid_py, "--db", db_path]
+    if use_llm:
+        argv.append("--llm")
+    argv += ["synthesize-dialogue", "--conversation", conversation_id]
+
+    timed_out = False
+    try:
+        proc = subprocess.run(
+            argv, cwd=os.path.dirname(hybrid_py), shell=False,
+            capture_output=True, text=True, timeout=timeout)
+        returncode, stdout, stderr = proc.returncode, proc.stdout, proc.stderr
+    except subprocess.TimeoutExpired as exc:
+        timed_out = True
+        returncode = 124
+        out = exc.stdout
+        stdout = out.decode("utf-8", "replace") if isinstance(out, bytes) else (out or "")
+        err = exc.stderr
+        stderr = (err.decode("utf-8", "replace") if isinstance(err, bytes) else (err or ""))
+        stderr = (stderr + "\n" if stderr else "") + \
+            f"hybrid engine timed out after {timeout}s"
+    except OSError as exc:
+        returncode, stdout, stderr = 1, "", str(exc)
+
+    with connect_ro(db_path) as conn:
+        after_total = _proposal_count(conn)
+        after_hybrid = _proposal_count(conn, "WHERE attribution LIKE 'hybrid:%'")
+        after_llm = _proposal_count(conn, "WHERE attribution = 'hybrid:llm'")
+        offenders = living_store.scan_canonical(conn)
+
+    new_total = after_total - before_total
+    new_hybrid = after_hybrid - before_hybrid
+    new_llm = after_llm - before_llm
+    llm_drafted = bool(use_llm and new_llm > 0)
+    llm_error = None
+    if use_llm and not llm_drafted:
+        llm_error = _extract_llm_error(stderr) or (
+            "LLM draft unavailable (fail-closed); deterministic PROPOSED candidates "
+            "were still created.")
+    ok = returncode == 0 and not timed_out and not offenders
+    result = {
+        "ok": ok,
+        "conversation_id": conversation_id,
+        "conversation_title": conv["title"],
+        "living_db": db_path,
+        "hybrid_py": hybrid_py,
+        "mode": "llm" if use_llm else "deterministic",
+        "llm_requested": bool(use_llm),
+        "llm_drafted": llm_drafted,
+        "llm_error": llm_error,
+        "returncode": returncode,
+        "timed_out": timed_out,
+        "stdout": stdout,
+        "stderr": stderr,
+        "proposals_before": before_total,
+        "proposals_after": after_total,
+        "new_proposals": new_total,
+        "proposals_before_hybrid": before_hybrid,
+        "new_hybrid_proposals": new_hybrid,
+        "new_hybrid_llm_proposals": new_llm,
+        "no_canonical": not offenders,
+        "canonical": "NONE",
+        "canonical_offenders": offenders,
+        "read_only": False,
+        "wrote_history": False,
+        "auto_accepted": False,
+    }
+    if returncode != 0 or timed_out:
+        result["error"] = (
+            f"hybrid engine {'timed out' if timed_out else 'failed'} "
+            f"(rc={returncode}): {_tail(stderr)}")
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -786,6 +958,8 @@ class Handler(BaseHTTPRequestHandler):
                         os.path.abspath(self.server.db_path)
                         == os.path.abspath(self.server.engine_db_path)),
                     "engine_py": self.server.engine_py_path,
+                    "hybrid_py": self.server.hybrid_py_path,
+                    "hybrid_engine_available": os.path.isfile(self.server.hybrid_py_path),
                     "counts": counts,
                 })
             return
@@ -930,6 +1104,33 @@ class Handler(BaseHTTPRequestHandler):
             self._json(200, result)
             return
 
+        # ---- Stage 5b explicit hybrid synthesis (deterministic default) ----
+        if path == "/api/engine/synthesize":
+            data, err = self._read_json()
+            if err:
+                self._error(400, err)
+                return
+            if not isinstance(data, dict):
+                self._error(400, "JSON body must be an object")
+                return
+            conv_id = str(data.get("conversation_id") or "").strip()
+            use_llm = _as_bool(data.get("llm"))
+            try:
+                result = synthesize_dialogue(
+                    self.server.db_path, self.server.hybrid_py_path,
+                    conv_id, use_llm=use_llm)
+            except SynthesizeError as exc:
+                self._error(exc.status, str(exc))
+                return
+            if result["timed_out"]:
+                code = 504
+            elif result["returncode"] != 0 or not result["no_canonical"]:
+                code = 503
+            else:
+                code = 200
+            self._json(code, result)
+            return
+
         if path == "/api/engine/dry-run":
             result, err = engine_dry_run(self.server.engine_db_path, self.server.engine_py_path)
             if err:
@@ -938,8 +1139,20 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(200, result)
             return
         if path.startswith("/api/engine/"):
+            # Drain unread body so a keep-alive client does not see the next
+            # request line start with leftover JSON (Python 501 "…}POST").
+            try:
+                length = int(self.headers.get("Content-Length") or 0)
+            except ValueError:
+                length = 0
+            if length > 0:
+                try:
+                    self.rfile.read(length)
+                except OSError:
+                    pass
             self._error(405, "the Engine surface is read-only except POST "
-                             "/api/engine/run and /api/engine/proposals/<id>/accept")
+                             "/api/engine/run, POST /api/engine/synthesize and "
+                             "POST /api/engine/proposals/<id>/accept")
             return
         if path == "/api/solace/conversations":
             data, err = self._read_json()
@@ -980,8 +1193,9 @@ class Handler(BaseHTTPRequestHandler):
         if path.startswith("/api/codex/"):
             self._error(405, "the Codex surface is read-only; no mutation endpoints exist")
         elif path.startswith("/api/engine/"):
-            self._error(405, "the Engine surface only accepts POST /api/engine/run "
-                             "and POST /api/engine/proposals/<id>/accept")
+            self._error(405, "the Engine surface only accepts POST /api/engine/run, "
+                             "POST /api/engine/synthesize and "
+                             "POST /api/engine/proposals/<id>/accept")
         else:
             self._error(405, "method not allowed")
 
@@ -1020,6 +1234,8 @@ def parse_args(argv=None):
                    help="engine store to browse read-only (defaults to the living store)")
     p.add_argument("--engine-py", default=DEFAULT_ENGINE_PY,
                    help="Stage 5 engine CLI used by the living loop + dry-run")
+    p.add_argument("--hybrid-py", default=DEFAULT_HYBRID_PY,
+                   help="Stage 5b hybrid synthesis CLI used by /api/engine/synthesize")
     p.add_argument("--no-setup", action="store_true",
                    help="do not auto-build the working DB when missing")
     p.add_argument("--verbose", action="store_true")
@@ -1038,11 +1254,13 @@ def main(argv=None) -> int:
     httpd.db_path = os.path.abspath(args.db)
     httpd.engine_db_path = os.path.abspath(args.engine_db)
     httpd.engine_py_path = os.path.abspath(args.engine_py)
+    httpd.hybrid_py_path = os.path.abspath(args.hybrid_py)
     httpd.verbose = args.verbose
     host, port = httpd.server_address[:2]
     print(f"[app] Codex Solbian — Stage 4 (+ Stage 7 living loop)")
     print(f"[app] living db : {httpd.db_path}")
     print(f"[app] engine db : {httpd.engine_db_path}")
+    print(f"[app] hybrid py : {httpd.hybrid_py_path}")
     print(f"[app] url       : http://{host}:{port}/")
     print(f"[app] CANONICAL: NONE · Solace + engine + explicit consolidation write "
           f"the living store · Codex browse read-only")
