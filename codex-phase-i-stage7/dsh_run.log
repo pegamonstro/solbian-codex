@@ -1,0 +1,46 @@
+Stage 7 is complete. Here's what I built and verified.
+
+## Living store policy (implemented + documented)
+
+One living store: **`/Users/archcore/solbian/codex-phase-i-stage4/data/codex_phase_i.sqlite`** (override via `SOLBIAN_LIVING_DB`/`--db`).
+- Stage 3 SoT (`.../stage3/...`) is read-only baseline.
+- Stage 5 store (`.../stage5/data/...`) is a **seed**: `analysis_run` + PROPOSED rows are copied in **once** (`INSERT OR IGNORE`, skipped when proposals already exist), then Stage 5 is never written again.
+- Runtime adds `analysis_run` + `living_store_meta` (bookkeeping/policy) idempotently.
+- Writers: Solace append, engine run, explicit consolidation. Browse surfaces open `mode=ro`. Mac corpus never written.
+
+## Deliverables (stage7)
+
+| Artifact | Role |
+|---|---|
+| `living_store.py` | core: policy, seed/migration, guarded consolidation, WORKING-browse queries, engine runner |
+| `living_loop.py` | CLI: `once` (throwaway copy by default), `run-engine`, `accept`, `list-proposals`, `list-codex`, `migrate`, `info` |
+| `migrate_living_store.py` | one-time migration CLI |
+| `smoke_stage7.py` | full loop + staged Stage 4 smoke |
+| `_stage4_build/{app.py,smoke_ui.py,static/*}` | staged Stage 4 changes |
+| `apply_to_stage4.sh` | idempotent installer (backs up originals, installs, migrates) |
+| `README.md`, `DSH_RESULT.md` | docs |
+
+**Loop wired into Stage 4:** appending a Solace message auto-runs the `durable` analyzer; Engine tab gets **Run living loop** and **Accept → WORKING**; Codex tab shows a labelled **WORKING · codex_document** layer beside **HISTORICAL · source_document**. Consolidation creates `codex_document` (`WORKING`) + `revision` (`proposal_id`) + copied `provenance_link` on both, marks the proposal `WORKING`, is idempotent, and **can never write CANONICAL** (absent from the schema; `scan_canonical` asserts it).
+
+## Sandbox note
+
+Stage 4/5/3 and the corpus are read-only here (`workspace-write` covers only stage7), and escalation had no approval channel. Per the brief, Stage 4 changes are **staged** under `_stage4_build/` with `apply_to_stage4.sh` (tested end-to-end on a writable copy: install → migrate → 149/149).
+
+## Verification
+
+```
+cd codex-phase-i-stage7 && python3 smoke_stage7.py   → SMOKE STAGE7 PASSED — 31/31 (exit 0)
+cd codex-phase-i-stage7 && python3 living_loop.py once → living loop OK (exit 0)
+cd codex-phase-i-stage4 && python3 smoke_ui.py        → SMOKE UI PASSED — 96/96 (exit 0; old in-place)
+staged/applied Stage 4 smoke_ui.py                    → SMOKE UI PASSED — 149/149 (extended)
+new app + old smoke_ui.py                             → SMOKE UI PASSED — 96/96 (backward compatible)
+```
+
+Also asserted every run: `source_document` unchanged, no CANONICAL status anywhere, Stage 3 SoT and Stage 5 seed byte-identical (sha256), Mac corpus fingerprint unchanged.
+
+To activate the extended Stage 4 UI where Stage 4 is writable:
+```bash
+cd /Users/archcore/solbian/codex-phase-i-stage7 && bash apply_to_stage4.sh
+```
+DSH_EXIT=
+SETTINGS_RESTORED

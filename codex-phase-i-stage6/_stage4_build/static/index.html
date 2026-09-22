@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codex Solbian — Phase I · Stage 4</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <h1>Codex Solbian</h1>
+    <span class="sub">Phase I · Stage 4 — three-surface prototype</span>
+  </div>
+  <div class="badges">
+    <span class="badge badge-warn" title="No canonical flag exists in the data model; nothing here can make content canonical.">CANONICAL: NONE</span>
+    <span class="badge" id="dbBadge" title="Active SQLite store">store …</span>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Surfaces">
+  <button class="tab active" id="tabBtn-solace" data-tab="solace" role="tab" aria-selected="true" aria-controls="tab-solace">Solace</button>
+  <button class="tab" id="tabBtn-codex" data-tab="codex" role="tab" aria-selected="false" aria-controls="tab-codex">
+    Codex Solbian <span class="pill">read-only</span>
+  </button>
+  <button class="tab" id="tabBtn-engine" data-tab="engine" role="tab" aria-selected="false" aria-controls="tab-engine">
+    Engine <span class="pill">proposals · read-only</span>
+  </button>
+</nav>
+
+<main>
+  <!-- ================= SOLACE ================= -->
+  <section id="tab-solace" class="panel" role="tabpanel" aria-labelledby="tabBtn-solace">
+    <div class="split">
+      <aside class="col-left">
+        <div class="panel-head">
+          <h2>Conversations</h2>
+          <button class="btn small ghost" id="newConvToggle">New conversation</button>
+        </div>
+
+        <form id="newConvForm" class="card hidden" autocomplete="off">
+          <label for="convTitle">Title</label>
+          <input type="text" id="convTitle" placeholder="e.g. Stage 4 notes" required>
+          <label for="convParticipants">Participants (comma separated)</label>
+          <input type="text" id="convParticipants" value="jd, solace">
+          <label for="convNotes">Notes</label>
+          <textarea id="convNotes" placeholder="optional context"></textarea>
+          <div class="btn-row">
+            <button class="btn small" type="submit">Create conversation</button>
+            <button class="btn small ghost" type="button" id="newConvCancel">Cancel</button>
+          </div>
+          <div class="error hidden" id="newConvError"></div>
+        </form>
+
+        <ul class="conv-list" id="convList"></ul>
+        <div class="note" id="convEmpty">Loading conversations…</div>
+      </aside>
+
+      <div class="col-right">
+        <div id="convView" class="card empty">Select a conversation, or create one.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CODEX ================= -->
+  <section id="tab-codex" class="panel hidden" role="tabpanel" aria-labelledby="tabBtn-codex">
+    <div class="readonly-banner">
+      Read-only surface. These are pointers into the historical corpus — no edit,
+      rename, delete or “make canonical” control exists. Previews open source files
+      read-only, capped at 200&nbsp;KB.
+    </div>
+
+    <form class="filterbar" id="codexFilters" autocomplete="off">
+      <div class="field grow">
+        <label for="fq">Path / notes search</label>
+        <input type="search" id="fq" placeholder="e.g. scrolls, source_original, .sref">
+      </div>
+      <div class="field">
+        <label for="fstatus">Status</label>
+        <select id="fstatus"><option value="">all</option></select>
+      </div>
+      <div class="field">
+        <label for="frole">Role</label>
+        <select id="frole"><option value="">all</option></select>
+      </div>
+      <div class="field">
+        <label for="fmedia">Media</label>
+        <select id="fmedia"><option value="">all</option></select>
+      </div>
+      <div class="field">
+        <label for="froot">Corpus root</label>
+        <select id="froot"><option value="">all</option></select>
+      </div>
+      <div class="actions">
+        <button class="btn small" type="submit">Apply</button>
+        <button class="btn small ghost" type="button" id="codexReset">Reset</button>
+      </div>
+    </form>
+
+    <div class="split">
+      <aside class="col-left">
+        <div class="panel-head">
+          <h2>source_document</h2>
+          <span class="meta" id="docCount">—</span>
+        </div>
+        <ul class="doc-list" id="docList"></ul>
+        <div class="pager">
+          <button class="btn small ghost" id="prevPage" type="button">‹ Prev</button>
+          <span id="pageLabel">—</span>
+          <button class="btn small ghost" id="nextPage" type="button">Next ›</button>
+        </div>
+      </aside>
+
+      <div class="col-right">
+        <div id="docView" class="card empty">Select a document to see metadata and, where available, a read-only text preview.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ENGINE ================= -->
+  <section id="tab-engine" class="panel hidden" role="tabpanel" aria-labelledby="tabBtn-engine">
+    <div class="readonly-banner">
+      Read-only proposals surface over the Stage 5 engine store. Rows are
+      <code>PROPOSED</code>/<code>WORKING</code> observations with provenance links —
+      there is no accept, merge or “make canonical” control. “Run engine (dry-run)”
+      shells to the Stage 5 engine on a <em>throwaway copy</em> and commits nothing.
+    </div>
+
+    <form class="filterbar" id="engineFilters" autocomplete="off">
+      <div class="field grow">
+        <label for="eq">Summary / id search</label>
+        <input type="search" id="eq" placeholder="e.g. plurality, duplicate, readme.md">
+      </div>
+      <div class="field">
+        <label for="estatus">Status</label>
+        <select id="estatus"><option value="">all</option></select>
+      </div>
+      <div class="field">
+        <label for="elimit">Limit</label>
+        <select id="elimit">
+          <option value="25">25</option>
+          <option value="50" selected>50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button class="btn small" type="submit">Apply</button>
+        <button class="btn small ghost" type="button" id="engineReset">Reset</button>
+        <button class="btn small ghost" type="button" id="engineDryRun" title="Runs the Stage 5 engine with --dry-run on a throwaway copy; commits nothing.">Run engine (dry-run)</button>
+      </div>
+    </form>
+
+    <div id="engineDryRunOut" class="hidden"></div>
+
+    <div class="split">
+      <aside class="col-left">
+        <div class="panel-head">
+          <h2>proposal</h2>
+          <span class="meta" id="propCount">—</span>
+        </div>
+        <ul class="doc-list" id="propList"></ul>
+        <div class="pager">
+          <button class="btn small ghost" id="propPrev" type="button">‹ Prev</button>
+          <span id="propPage">—</span>
+          <button class="btn small ghost" id="propNext" type="button">Next ›</button>
+        </div>
+      </aside>
+
+      <div class="col-right">
+        <div id="propView" class="card empty">Select a proposal to see its body, provenance and relationships.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Codex Solbian Phase I · Stage 4 · Solace writes <code>conversation</code>/<code>message</code> only ·
+  Codex reads <code>source_document</code> read-only · Engine reads <code>proposal</code> read-only ·
+  <strong>CANONICAL: NONE</strong>
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

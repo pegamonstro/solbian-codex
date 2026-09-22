@@ -1,0 +1,56 @@
+Stage 5 smoke — deterministic engine
+engine : /Users/archcore/solbian/codex-phase-i-stage5/engine.py
+SoT    : /Users/archcore/solbian/codex-phase-i-stage3/codex_phase_i.sqlite (read-only)
+
+[1] first run
+  ok   engine run exit 0 (got 0)
+  ok   at least one proposal written (got 44)
+  ok   every proposal has source provenance (0 missing)
+  ok   every concept has source provenance (0 missing)
+  ok   only PROPOSED/WORKING statuses written -> []
+  ok   all engine rows are attributable to engine:stage5:*
+  ok   no CANONICAL value anywhere in the store
+  ok   source_document count unchanged (935 == 935)
+  ok   analysis_run rows recorded (got 5)
+  ok   durable analyzer recorded OK (0 messages -> skipped, no crash)
+  ok   durable correctly reports empty conversation store
+
+[2] re-run is idempotent
+  ok   second run exit 0
+  ok   proposal ids stable across re-run
+  ok   concept ids stable across re-run
+  ok   analysis_run ids stable across re-run
+  ok   row counts stable across re-run (44, 20, 133, 440) == (44, 20, 133, 440)
+  ok   source_document still unchanged after re-run
+
+[3] inspectors
+  ok   list-proposals --json returns proposals
+  ok   show <full id> prints the proposal
+  ok   show <prefix> resolves the proposal
+  ok   show <unknown> fails closed
+  ok   show <concept id> resolves a concept (LIKE wildcards escaped)
+  ok   show <ambiguous concept prefix> fails closed
+  ok   list-runs works
+
+[4] dry-run commits nothing
+  ok   dry-run exit 0
+  ok   dry-run left no engine rows (got 0)
+
+[5] durable analyzer with a synthetic conversation fixture
+  ok   durable-only run exit 0 with messages present
+  ok   long message produced a durable-candidate proposal
+  ok   durable proposal links to the message
+  ok   durable message evidence is TEXT-SUPPORTED (quote stored)
+  ok   durable proposal is labelled INTERPRETATION
+  ok   engine did not add/remove conversations
+
+[6] guards
+  ok   engine refuses --db inside the Mac corpus
+  ok   refusal names the Mac corpus
+  ok   --llm defaults off and still exits 0
+
+[7] outside-world invariants
+  ok   Stage 3 SoT store byte-identical (sha256 unchanged)
+  ok   Mac corpus fingerprint unchanged (never written)
+
+SMOKE PASSED: 37/37 checks

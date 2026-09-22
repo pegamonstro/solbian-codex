@@ -1,0 +1,151 @@
+PASS  server boots and /healthz returns 200
+PASS  GET / returns 200
+PASS  page has all three tabs
+PASS  page states CANONICAL: NONE
+PASS  page has no canonical form control
+PASS  page shows the WORKING codex_document layer
+PASS  page offers Run living loop + Accept controls
+PASS  GET /static/style.css returns 200
+PASS  GET /static/app.js returns 200
+PASS  GET /healthz -> 200 ok
+PASS  healthz reports CANONICAL NONE
+PASS  source_document rows present
+PASS  healthz points engine at the living store
+PASS  GET /api/meta -> 200
+PASS  meta writable tables are conversation+message only
+PASS  meta marks source_document read-only
+PASS  meta count matches healthz
+PASS  meta names the living store
+PASS  meta declares consolidation tables
+PASS  meta declares CANONICAL NONE
+PASS  GET /api/living/meta -> 200
+PASS  living meta reports CANONICAL NONE
+PASS  living store seeded proposals from Stage 5
+PASS  living store records analysis_run rows
+PASS  living proposal statuses are PROPOSED/WORKING only
+PASS  GET /api/codex/facets -> 200
+PASS  facets expose statuses
+PASS  facets expose corpus roots
+PASS  no CANONICAL value exists in the data model
+PASS  facets expose WORKING codex_document layer
+PASS  GET /api/codex/documents -> 200
+PASS  document list respects limit
+PASS  document list reports a total
+PASS  listed document carries 'id'
+PASS  listed document carries 'rel_path'
+PASS  listed document carries 'status'
+PASS  listed document carries 'corpus_root_path'
+PASS  listed document carries 'probable_role'
+PASS  GET document detail -> 200
+PASS  document detail is flagged read_only
+PASS  document detail includes a preview block
+PASS  text preview is available for a real corpus file
+PASS  text preview returns content
+PASS  text preview is flagged read-only
+PASS  text preview honours the 200KB cap
+PASS  previewing a corpus file does not change its mtime
+PASS  POST /api/codex/documents rejected (405)
+PASS  PUT /api/codex/documents rejected (405)
+PASS  PATCH /api/codex/documents rejected (405)
+PASS  DELETE /api/codex/documents rejected (405)
+PASS  PUT /api/codex/documents/<id> rejected (405)
+PASS  PATCH /api/codex/documents/<id> rejected (405)
+PASS  DELETE /api/codex/documents/<id> rejected (405)
+PASS  no canonical elevation endpoint exists
+PASS  GET /api/codex/codex-documents -> 200
+PASS  WORKING codex_document listing reports CANONICAL NONE
+PASS  GET /api/engine/meta -> 200
+PASS  engine meta reports CANONICAL NONE
+PASS  engine meta is flagged read-only
+PASS  engine store exists
+PASS  engine meta reports proposals
+PASS  GET /api/engine/facets -> 200
+PASS  engine facets expose proposal statuses
+PASS  GET /api/engine/runs -> 200
+PASS  engine runs are recorded
+PASS  GET /api/engine/proposals -> 200
+PASS  engine proposal list respects limit
+PASS  engine proposal list reports a total
+PASS  engine proposal list is flagged read-only
+PASS  listed proposal carries 'id'
+PASS  listed proposal carries 'status'
+PASS  listed proposal carries 'summary'
+PASS  listed proposal carries 'attribution'
+PASS  listed proposal carries 'created_at'
+PASS  listed proposal carries 'provenance_count'
+PASS  GET engine proposal detail -> 200
+PASS  engine proposal detail is flagged read-only
+PASS  engine proposal detail exposes provenance
+PASS  engine provenance resolves to a source_document path
+PASS  engine proposal detail exposes based_on
+PASS  POST /api/engine/proposals rejected (405)
+PASS  PUT /api/engine/... rejected (405)
+PASS  PATCH /api/engine/... rejected (405)
+PASS  DELETE /api/engine/... rejected (405)
+PASS  POST /api/engine/dry-run -> 200
+PASS  dry-run reports dry_run true
+PASS  dry-run reports CANONICAL NONE
+PASS  dry-run leaves the engine store byte-identical
+PASS  dry-run exit 0 and shows the rollback
+PASS  POST /api/engine/run -> 200
+PASS  living loop ran and exited 0
+PASS  living loop reports CANONICAL NONE
+PASS  living loop reports no canonical offenders
+PASS  living loop ran against the living store
+PASS  living loop reports proposal totals
+PASS  GET /api/solace/conversations -> 200
+PASS  conversation list is a list
+PASS  POST create conversation -> 201
+PASS  created conversation is WORKING
+PASS  POST jd message -> 201
+PASS  jd message role persisted
+PASS  stub reply is appended and labelled WORKING
+PASS  short-message POST still reports a living-loop run
+PASS  POST solace message -> 201
+PASS  POST long jd message -> 201
+PASS  posting a message runs the durable living loop
+PASS  durable living loop produced a new proposal
+PASS  message-path living loop reports CANONICAL NONE
+PASS  invalid message role rejected (400)
+PASS  empty message body rejected (400)
+PASS  conversation detail returns messages
+PASS  messages are ordered by seq
+PASS  both jd and solace messages persisted
+PASS  conversation list grew by one
+PASS  durable proposal is listed for the long message
+PASS  durable proposal is PROPOSED
+PASS  proposal provenance links the preserved message
+PASS  message provenance is TEXT-SUPPORTED
+PASS  POST accept proposal -> 200
+PASS  consolidation creates a WORKING codex_document
+PASS  consolidation uses WORKING, never CANONICAL
+PASS  consolidation returns CANONICAL NONE
+PASS  consolidation records a revision
+PASS  consolidation copies provenance
+PASS  consolidation marks the proposal accepted (WORKING)
+PASS  WORKING codex_document list grew
+PASS  consolidated document appears in the WORKING list
+PASS  consolidated document is labelled WORKING
+PASS  GET WORKING document detail -> 200
+PASS  WORKING document is flagged read_only
+PASS  WORKING document carries copied message provenance
+PASS  WORKING document revision links the proposal
+PASS  re-accept is idempotent (already accepted)
+PASS  re-accept keeps status WORKING
+PASS  proposal row is now WORKING
+PASS  PUT accept route rejected (405)
+PASS  PATCH accept route rejected (405)
+PASS  DELETE accept route rejected (405)
+PASS  source_document rows were not mutated by any request
+PASS  conversation row persisted to SQLite
+PASS  message rows persisted to SQLite
+PASS  codex_document row persisted to SQLite
+PASS  revision row persisted to SQLite
+PASS  living store: no CANONICAL value anywhere
+PASS  unknown route -> 404
+PASS  server process stopped
+PASS  Stage 3 SoT store byte-identical (sha256 unchanged)
+PASS  Stage 5 seed store byte-identical (sha256 unchanged)
+PASS  Mac corpus fingerprint unchanged (never written)
+
+SMOKE UI PASSED — 149/149 checks

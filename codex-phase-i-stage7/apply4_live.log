@@ -1,0 +1,12 @@
+backup  app.py -> _stage4_build/backup/app.py
+backup  smoke_ui.py -> _stage4_build/backup/smoke_ui.py
+backup  static/index.html -> _stage4_build/backup/static/index.html
+backup  static/app.js -> _stage4_build/backup/static/app.js
+backup  static/style.css -> _stage4_build/backup/static/style.css
+installed app.py, smoke_ui.py, static/*, living_store.py -> /Users/archcore/solbian/codex-phase-i-stage4
+migrating living store: /Users/archcore/solbian/codex-phase-i-stage4/data/codex_phase_i.sqlite
+migrate: seeded=True reason=seeded engine tables from Stage 5 copied={'proposal': 44, 'concept': 20, 'relationship': 133, 'provenance_link': 440, 'analysis_run': 5}
+
+Done. Verify with:
+  cd /Users/archcore/solbian/codex-phase-i-stage4 && python3 smoke_ui.py
+  cd /Users/archcore/solbian/codex-phase-i-stage7 && python3 smoke_stage7.py

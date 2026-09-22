@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codex Solbian — Phase I · Stage 4/7 living loop</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <h1>Codex Solbian</h1>
+    <span class="sub">Phase I · Stage 4 UI + Stage 7 living loop</span>
+  </div>
+  <div class="badges">
+    <span class="badge badge-warn" title="No canonical flag exists in the data model; nothing here can make content canonical.">CANONICAL: NONE</span>
+    <span class="badge badge-working" id="workingBadge" title="WORKING codex_document rows produced by explicit consolidation">WORKING codex_document: …</span>
+    <span class="badge" id="dbBadge" title="Active living SQLite store">store …</span>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Surfaces">
+  <button class="tab active" id="tabBtn-solace" data-tab="solace" role="tab" aria-selected="true" aria-controls="tab-solace">Solace</button>
+  <button class="tab" id="tabBtn-codex" data-tab="codex" role="tab" aria-selected="false" aria-controls="tab-codex">
+    Codex Solbian <span class="pill">read-only</span>
+  </button>
+  <button class="tab" id="tabBtn-engine" data-tab="engine" role="tab" aria-selected="false" aria-controls="tab-engine">
+    Engine <span class="pill">proposals · consolidate</span>
+  </button>
+</nav>
+
+<main>
+  <!-- ================= SOLACE ================= -->
+  <section id="tab-solace" class="panel" role="tabpanel" aria-labelledby="tabBtn-solace">
+    <div class="loop-strip">
+      <span class="loop-step">JD ↔ Solace</span><span class="loop-arrow">→</span>
+      <span class="loop-step">pristine conversation (SQLite)</span><span class="loop-arrow">→</span>
+      <span class="loop-step">Codex Engine (PROPOSED)</span><span class="loop-arrow">→</span>
+      <span class="loop-step">explicit accept</span><span class="loop-arrow">→</span>
+      <span class="loop-step loop-final">WORKING codex_document</span>
+    </div>
+    <div class="split">
+      <aside class="col-left">
+        <div class="panel-head">
+          <h2>Conversations</h2>
+          <button class="btn small ghost" id="newConvToggle">New conversation</button>
+        </div>
+
+        <form id="newConvForm" class="card hidden" autocomplete="off">
+          <label for="convTitle">Title</label>
+          <input type="text" id="convTitle" placeholder="e.g. Stage 7 notes" required>
+          <label for="convParticipants">Participants (comma separated)</label>
+          <input type="text" id="convParticipants" value="jd, solace">
+          <label for="convNotes">Notes</label>
+          <textarea id="convNotes" placeholder="optional context"></textarea>
+          <div class="btn-row">
+            <button class="btn small" type="submit">Create conversation</button>
+            <button class="btn small ghost" type="button" id="newConvCancel">Cancel</button>
+          </div>
+          <div class="error hidden" id="newConvError"></div>
+        </form>
+
+        <ul class="conv-list" id="convList"></ul>
+        <div class="note" id="convEmpty">Loading conversations…</div>
+      </aside>
+
+      <div class="col-right">
+        <div id="convEngineActions" class="engine-actions hidden" aria-label="Hybrid synthesis for the active conversation">
+          <div class="panel-head">
+            <h3>Hybrid synthesis <span class="pill">PROPOSED only</span></h3>
+            <span class="meta" id="convSynthConv">—</span>
+          </div>
+          <div class="actions">
+            <button class="btn small primary" id="synthDeterministic" type="button"
+              title="Deterministic Stage 5b engine: creates PROPOSED candidates only; never Accepts.">Synthesize dialogue</button>
+            <button class="btn small" id="synthLLM" type="button"
+              title="Optional LLM draft; requires explicit confirmation and a reachable endpoint.">Draft with LLM</button>
+            <span class="hint">Deterministic is the default. Nothing is auto-Accepted; review in the Engine tab.</span>
+          </div>
+          <div id="convSynthOut" class="hidden" aria-live="polite"></div>
+        </div>
+        <div id="convView" class="card empty">Select a conversation, or create one.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CODEX ================= -->
+  <section id="tab-codex" class="panel hidden" role="tabpanel" aria-labelledby="tabBtn-codex">
+    <div class="readonly-banner">
+      Two clearly separated layers in the living store: <strong>WORKING</strong>
+      <code>codex_document</code> rows (produced only by an explicit accept) and
+      <strong>HISTORICAL</strong> <code>source_document</code> pointers into the
+      corpus. Browse is read-only here — no edit, rename, delete or “make
+      canonical” control exists. Previews open source files read-only, capped at
+      200&nbsp;KB.
+    </div>
+
+    <div class="segmented" role="group" aria-label="Codex layer">
+      <button class="seg active" id="codexModeWorking" data-mode="working" type="button">
+        WORKING · codex_document <span class="pill pill-working">consolidated</span>
+      </button>
+      <button class="seg" id="codexModeHistorical" data-mode="historical" type="button">
+        HISTORICAL · source_document <span class="pill">read-only</span>
+      </button>
+    </div>
+    <div class="layer-note" id="codexLayerNote">—</div>
+
+    <!-- ---------- WORKING codex_document pane ---------- -->
+    <div class="split hidden" id="codexWorkingPane">
+      <aside class="col-left">
+        <form class="filterbar" id="codexDocFilters" autocomplete="off">
+          <div class="field grow">
+            <label for="cdq">Title / body search</label>
+            <input type="search" id="cdq" placeholder="e.g. durable, plurality">
+          </div>
+          <div class="field">
+            <label for="cdkind">Kind</label>
+            <select id="cdkind"><option value="">all</option></select>
+          </div>
+          <div class="actions">
+            <button class="btn small" type="submit">Apply</button>
+            <button class="btn small ghost" type="button" id="codexDocReset">Reset</button>
+          </div>
+        </form>
+        <div class="panel-head">
+          <h2>codex_document <span class="pill pill-working">WORKING</span></h2>
+          <span class="meta" id="codexDocCount">—</span>
+        </div>
+        <ul class="doc-list" id="codexDocList"></ul>
+        <div class="pager">
+          <button class="btn small ghost" id="cdPrev" type="button">‹ Prev</button>
+          <span id="cdPage">—</span>
+          <button class="btn small ghost" id="cdNext" type="button">Next ›</button>
+        </div>
+      </aside>
+
+      <div class="col-right">
+        <div id="codexDocView" class="card empty">Select a WORKING document to see its body, revision and provenance. Consolidation happens in the Engine tab.</div>
+      </div>
+    </div>
+
+    <!-- ---------- HISTORICAL source_document pane ---------- -->
+    <div class="split" id="codexHistoricalPane">
+      <aside class="col-left">
+        <form class="filterbar" id="codexFilters" autocomplete="off">
+          <div class="field grow">
+            <label for="fq">Path / notes search</label>
+            <input type="search" id="fq" placeholder="e.g. scrolls, source_original, .sref">
+          </div>
+          <div class="field">
+            <label for="fstatus">Status</label>
+            <select id="fstatus"><option value="">all</option></select>
+          </div>
+          <div class="field">
+            <label for="frole">Role</label>
+            <select id="frole"><option value="">all</option></select>
+          </div>
+          <div class="field">
+            <label for="fmedia">Media</label>
+            <select id="fmedia"><option value="">all</option></select>
+          </div>
+          <div class="field">
+            <label for="froot">Corpus root</label>
+            <select id="froot"><option value="">all</option></select>
+          </div>
+          <div class="actions">
+            <button class="btn small" type="submit">Apply</button>
+            <button class="btn small ghost" type="button" id="codexReset">Reset</button>
+          </div>
+        </form>
+
+        <div class="panel-head">
+          <h2>source_document <span class="pill">HISTORICAL</span></h2>
+          <span class="meta" id="docCount">—</span>
+        </div>
+        <ul class="doc-list" id="docList"></ul>
+        <div class="pager">
+          <button class="btn small ghost" id="prevPage" type="button">‹ Prev</button>
+          <span id="pageLabel">—</span>
+          <button class="btn small ghost" id="nextPage" type="button">Next ›</button>
+        </div>
+      </aside>
+
+      <div class="col-right">
+        <div id="docView" class="card empty">Select a document to see metadata and, where available, a read-only text preview.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ENGINE ================= -->
+  <section id="tab-engine" class="panel hidden" role="tabpanel" aria-labelledby="tabBtn-engine">
+    <div class="readonly-banner">
+      Proposals are <code>PROPOSED</code> observations with provenance links.
+      <strong>Run living loop</strong> runs the Stage 5 engine against the living
+      store in place. <strong>Accept → WORKING</strong> performs controlled
+      consolidation <em>for one proposal at a time</em>: it creates a
+      <code>WORKING</code> <code>codex_document</code> + <code>revision</code> and
+      copies provenance. There is no accept-all and no “make canonical” control.
+      “Run engine (dry-run)” is kept for compatibility and commits nothing.
+      The list is <strong>quiet by default</strong>: only <code>hybrid:*</code>
+      synthesis proposals, with <code>Theme:*</code> hidden — widen it with the
+      toggles. New candidates come from <strong>Synthesize dialogue</strong> /
+      <strong>Draft with LLM</strong> in the Solace conversation view.
+    </div>
+
+    <form class="filterbar" id="engineFilters" autocomplete="off">
+      <div class="field grow">
+        <label for="eq">Summary / id search</label>
+        <input type="search" id="eq" placeholder="e.g. plurality, duplicate, readme.md">
+      </div>
+      <div class="field">
+        <label for="estatus">Status</label>
+        <select id="estatus"><option value="">all</option></select>
+      </div>
+      <div class="field">
+        <label for="elimit">Limit</label>
+        <select id="elimit">
+          <option value="25">25</option>
+          <option value="50" selected>50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+      <div class="field checks">
+        <label class="check"><input type="checkbox" id="eIncludeThemes"> Show Theme:*</label>
+        <label class="check"><input type="checkbox" id="eAll"> Show all archaeology</label>
+      </div>
+      <div class="actions">
+        <button class="btn small primary" type="button" id="engineRunLoop" title="Run the Stage 5 engine against the living store (durable + all deterministic analyzers).">Run living loop</button>
+        <button class="btn small" type="submit">Apply</button>
+        <button class="btn small ghost" type="button" id="engineReset">Reset</button>
+        <button class="btn small ghost" type="button" id="engineDryRun" title="Runs the Stage 5 engine with --dry-run on a throwaway copy; commits nothing.">Run engine (dry-run)</button>
+      </div>
+    </form>
+
+    <div id="engineRunOut" class="hidden"></div>
+    <div id="engineDryRunOut" class="hidden"></div>
+
+    <div class="split">
+      <aside class="col-left">
+        <div class="panel-head">
+          <h2>proposal</h2>
+          <span class="meta" id="propCount">—</span>
+        </div>
+        <ul class="doc-list" id="propList"></ul>
+        <div class="pager">
+          <button class="btn small ghost" id="propPrev" type="button">‹ Prev</button>
+          <span id="propPage">—</span>
+          <button class="btn small ghost" id="propNext" type="button">Next ›</button>
+        </div>
+      </aside>
+
+      <div class="col-right">
+        <div id="propView" class="card empty">Select a proposal to see its body, provenance and relationships. A PROPOSED proposal can be explicitly accepted into WORKING Codex content.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Codex Solbian Phase I · Stage 4 UI + Stage 7 living loop · one living store:
+  Solace writes <code>conversation</code>/<code>message</code>, the engine writes
+  PROPOSED rows, explicit accept writes WORKING <code>codex_document</code> +
+  <code>revision</code> · Codex browse is read-only · <strong>CANONICAL: NONE</strong>
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

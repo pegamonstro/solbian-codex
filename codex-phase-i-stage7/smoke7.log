@@ -1,0 +1,45 @@
+Stage 7 smoke — living loop
+living store policy: /Users/archcore/solbian/codex-phase-i-stage4/data/codex_phase_i.sqlite
+
+[1-4] full loop on a throwaway living store
+PASS  throwaway living store created
+PASS  living store starts without analysis_run (un-migrated)
+PASS  one-time Stage 5 seed ran
+PASS  seed copied proposal rows
+PASS  seed copied analysis_run rows
+PASS  analysis_run table now exists
+PASS  second migrate is a no-op
+PASS  preserved Solace message inserted
+PASS  engine durable run exits 0
+PASS  durable analyzer proposed the message
+PASS  proposal is PROPOSED
+PASS  proposal provenance links the message
+PASS  message evidence is TEXT-SUPPORTED
+PASS  consolidation produced a WORKING codex_document
+PASS  consolidation never writes CANONICAL
+PASS  revision row links the proposal
+PASS  provenance copied onto the codex_document
+PASS  provenance copied onto the revision
+PASS  proposal marked accepted (WORKING)
+PASS  re-accept is idempotent
+PASS  codex_document count did not double
+PASS  WORKING document is browsable
+PASS  document detail exposes copied message provenance
+PASS  no CANONICAL anywhere in the living store
+PASS  full loop produced a proposal and a WORKING document
+
+[5] CLI helper
+PASS  living_loop.py once exits 0
+
+[6] staged Stage 4 extended smoke
+PASS  staged Stage 4 overlay built
+PASS  staged Stage 4 smoke_ui.py exits 0
+      SMOKE UI PASSED — 149/149 checks
+NOTE  Stage 4 not installed in place (read-only sandbox); run apply_to_stage4.sh with write access
+
+[7] outside-world invariants
+PASS  Stage 3 SoT store byte-identical (sha256 unchanged)
+PASS  Stage 5 seed store byte-identical (sha256 unchanged)
+PASS  Mac corpus fingerprint unchanged (never written)
+
+SMOKE STAGE7 PASSED — 31/31 checks

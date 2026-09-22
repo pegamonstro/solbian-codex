@@ -1,0 +1,32 @@
+Done. **STATUS: COMPLETE** — all deliverables are in `/Users/archcore/solbian/codex-phase-i-stage4/`.
+
+## What was built
+
+Two surfaces over the Stage 3 SQLite store, Python stdlib only (`http.server` + `sqlite3` + vanilla JS):
+
+- **Solace** — list/open conversations, create one, append `jd`/`solace` messages, optional `[WORKING STUB — not LLM-backed]` reply. Writes touch **only** `conversation` and `message`.
+- **Codex Solbian** — strictly read-only browse/filter of `source_document` (text, status, role, media, root) with full metadata and a path-confined, 200 KB-capped read-only preview. Every non-GET under `/api/codex/` returns 405; no edit/rename/delete/"make canonical" control exists.
+
+## Run it
+
+```bash
+cd /Users/archcore/solbian/codex-phase-i-stage4
+python3 app.py          # -> http://127.0.0.1:8787/
+python3 smoke_ui.py     # exit 0
+```
+
+## Verification
+
+- `python3 smoke_ui.py` → **SMOKE UI PASSED — 61/61 checks, exit 0** (boots the server on an ephemeral port against a throwaway DB copy, drives every endpoint over HTTP, asserts Codex read-only + no-mutation + corpus mtime unchanged, kills the server).
+- Shipped store: `source_document=935`, `conversation=0`, `message=0`.
+- Corpus provably untouched: no file under `/Users/archcore/solbian/codex` (excl. `.git/`) modified since session start; `source_original/` newest mtime still `2026-02-20`.
+
+## Two findings you should know
+
+1. **Working copy, not the Stage 3 file in place.** The sandbox denies writes outside the Stage 4 workspace (`touch` in the Stage 3 dir → *Operation not permitted*), so conversations can't be written there. The brief explicitly allows "or copy into Stage 4 cwd", so `setup_db.py` builds `data/codex_phase_i.sqlite` and the app uses it. `python3 app.py --db /Users/archcore/solbian/codex-phase-i-stage3/codex_phase_i.sqlite` points at Stage 3 directly when run outside the sandbox.
+
+2. **The environment's own full-ingest completed mid-session.** At `00:18:51` the harness ran the full ingest directly against the Stage 3 DB (`ingest_full.log`: `db: …/codex-phase-i-stage3/codex_phase_i.sqlite`, `source_documents: 935`) and replaced Stage 3's inventory JSON with a version carrying `entries_sample` too — which is what finally made the brief's "~966 already ingested" true (it started at 80). **No Stage 4 code wrote to Stage 3**; a controlled probe (`setup_db.py --db data/probe.sqlite`) left it byte-identical. The 966 inventory entries collapse to **935** unique rows due to 31 repeated paths and `UNIQUE(corpus_root_id, rel_path)`.
+
+Both are documented in `README.md` and `DSH_RESULT.md`.
+DSH_EXIT=0
+SETTINGS_RESTORED

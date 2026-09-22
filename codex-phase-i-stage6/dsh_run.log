@@ -1,0 +1,44 @@
+## Summary
+
+### A — Stage 6 Historical Validation: ✅ complete, `smoke_stage6.py` exits 0
+
+Implemented under `/Users/archcore/solbian/codex-phase-i-stage6/`:
+- **`validate_historical.py`** — 45 checks (A1–A7 baseline + E1–E4 engine), prints PASS/FAIL, writes `VALIDATION_REPORT.md`, exit 0 on PASS.
+- **`smoke_stage6.py`** — runs the suite and independently re-asserts SoT/corpus invariants; exit 0.
+- **`VALIDATION_REPORT.md`**, **`README.md`**, **`DSH_RESULT.md`**.
+
+Results (all PASS):
+- Ingest coverage: Stage 3 = Stage 5 = **935** `source_document` rows; 8/8 known Stage 2 paths present.
+- Representation: inventory **966** entries → **935** unique paths → **935** DB rows; gap **31 == 31 duplicates**, no unique `rel_path` dropped.
+- Structure: chapters 62, scrolls 111, protocols 17, legal/laws 11, glossary 2, personae 476; all roles present.
+- Distinctions: law 21 / protocol 35 / scroll 761 / scroll_20_anomaly 2; protocol **01–08 = 8**; A/B/B′/C + Gitea-5 flags stay distinct (functional probe of Stage 3's own `infer_plurality_flags`, no `__pycache__` left behind).
+- Provenance: 44 proposals, 44/44 with provenance, 283 links resolve to `source_document`.
+- Engine: re-run idempotent (44→44→44), `--dry-run` commits 0 rows, refuses `--db` in the Mac corpus, durable week-`.sref` fixture → INTERPRETATION proposal.
+- Preservation: Stage 3 SoT sha256, Stage 5 store sha256, and the Mac `source_original` fingerprint (847 files + listing digest + 20 sample hashes) all identical before/after.
+
+```
+SMOKE STAGE 6 PASSED — 11/11 checks   (validate: 45/45; exit 0)
+```
+
+### B — Stage 4 Engine tab: ⚠️ implemented and verified, **could not be installed**
+
+The Engine surface (read-only `/api/engine/{meta,facets,proposals,proposals/<id>,runs}` + safe `POST /api/engine/dry-run` on a temp copy, no CANONICAL controls) and its UI/smoke extension were built and pass in a staging copy against the real stores: **`SMOKE UI PASSED — 96/96`** (all 61 original Solace/Codex checks still green + 35 Engine checks, including "dry-run leaves the engine store byte-identical").
+
+**Blocker:** the file sandbox permits writes only under `/Users/archcore/solbian/codex-phase-i-stage6`; writes to `codex-phase-i-stage4` return `Operation not permitted`, and escalation to `danger-full-access` reports *"requires approval, but no approval channel is available"* (fail-closed). The shipped Stage 4 is therefore unchanged and its smoke passes as before (`61/61`, exit 0) — but without the Engine tab.
+
+The complete bundle is staged at `codex-phase-i-stage6/_stage4_build/` (`app.py`, `smoke_ui.py`, `static/index.html`, `static/app.js`, updated `README.md`/`DSH_RESULT.md`, pristine originals, captured 96/96 output), with a one-command installer:
+
+```bash
+bash /Users/archcore/solbian/codex-phase-i-stage6/_stage4_build/apply_to_stage4.sh
+# backs up, installs, then: SMOKE UI PASSED — 96/96, exit 0
+```
+
+### Verify (as run)
+```bash
+cd /Users/archcore/solbian/codex-phase-i-stage6 && python3 smoke_stage6.py   # exit 0
+cd /Users/archcore/solbian/codex-phase-i-stage4 && python3 smoke_ui.py       # exit 0 (61/61, unmodified)
+```
+
+Never wrote the Mac corpus or the Stage 3 SoT; full details in `DSH_RESULT.md`.
+DSH_EXIT=
+SETTINGS_RESTORED

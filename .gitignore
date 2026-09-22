@@ -1,0 +1,11 @@
+PHASE_I_BASELINE/_scratch/mac_wt/codex/
+
+# Local sync safety backups (not part of the Phase I pack)
+_pre_push_backup_*/
+
+# Living / stage SQLite stores stay Mac-local (and private Gitea lab).
+# Never publish Journey DBs to the public GitHub product hub.
+**/*.sqlite
+**/*.sqlite-journal
+**/*.sqlite-wal
+**/*.sqlite-shm

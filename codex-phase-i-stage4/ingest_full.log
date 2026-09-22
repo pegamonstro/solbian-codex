@@ -1,0 +1,7 @@
+db                 : /Users/archcore/solbian/codex-phase-i-stage3/codex_phase_i.sqlite
+schema applied     : /Users/archcore/solbian/codex-phase-i-stage3/schema.sql
+inventory json     : baseline_inventory_full.json
+roots registered   : 6
+source_documents   : 935 (from 966 sample entries; sha256 computed=0)
+plurality flag use : {"law_material": 22, "protocol_material": 36, "scroll_20_anomaly": 2, "scroll_material": 766, "scroll_md_vs_sref_ordinals": 102, "sref_artefact": 750}
+table counts       : {"codex_document": 0, "concept": 0, "conversation": 0, "corpus_root": 6, "message": 0, "proposal": 0, "provenance_link": 0, "relationship": 0, "revision": 0, "source_document": 935}

@@ -1,0 +1,77 @@
+Stage 6 smoke — historical validation wrapper
+suite  : /Users/archcore/solbian/codex-phase-i-stage6/validate_historical.py
+report : /Users/archcore/solbian/codex-phase-i-stage6/VALIDATION_REPORT.md
+
+Codex Solbian Phase I — Stage 6 historical validation
+SoT    : /Users/archcore/solbian/codex-phase-i-stage3/codex_phase_i.sqlite (read-only)
+engine : /Users/archcore/solbian/codex-phase-i-stage5/engine.py
+corpus : /Users/archcore/solbian/codex (read-only)
+
+[1] baseline tests (SPEC 12)
+  PASS  [A1a] Stage 3 source_document >= 900  — got 935
+  PASS  [A1b] Stage 5 source_document >= 900 and == Stage 3  — got 935 vs 935
+  PASS  [A1c] known Stage 2 paths exist as rows (8/8)
+  PASS  [A3a] every unique inventory rel_path is represented in the DB (no silent drop)  — missing=0 extra=0
+  PASS  [A3b] inventory/DB gap equals duplicate inventory entries (gap explained)  — gap=31 duplicates=31
+  PASS  [A3c] gap is non-zero and fully accounted for by duplicates  — entry_count=966 unique=935 db=935
+  PASS  [A4-chapters] documents visible under chapters  — prefix=('source_original/chapters/',) count=62
+  PASS  [A4-scrolls] documents visible under scrolls  — prefix=('source_original/scrolls/', 'scrolls/') count=111
+  PASS  [A4-protocols] documents visible under protocols  — prefix=('source_original/protocols/',) count=17
+  PASS  [A4-legal/laws] documents visible under legal/laws  — prefix=('source_original/legal/', 'source_original/manifest/codex_solbian_laws') count=11
+  PASS  [A4-glossary] documents visible under glossary  — prefix=('source_original/glossary/',) count=2
+  PASS  [A4-personae] documents visible under personae  — prefix=('source_original/personae/',) count=476
+  PASS  [A4-role-CHAPTER] role CHAPTER present  — count=62
+  PASS  [A4-role-SCROLL] role SCROLL present  — count=111
+  PASS  [A4-role-PROTOCOL] role PROTOCOL present  — count=17
+  PASS  [A4-role-LAW] role LAW present  — count=5
+  PASS  [A4-role-GLOSSARY] role GLOSSARY present  — count=2
+  PASS  [A5-flag-law_material] plurality flag 'law_material' still present  — count=21
+  PASS  [A5-flag-protocol_material] plurality flag 'protocol_material' still present  — count=35
+  PASS  [A5-flag-scroll_material] plurality flag 'scroll_material' still present  — count=761
+  PASS  [A5-flag-sref_artefact] plurality flag 'sref_artefact' still present  — count=746
+  PASS  [A5-flag-scroll_md_vs_sref_ordinals] plurality flag 'scroll_md_vs_sref_ordinals' still present  — count=102
+  PASS  [A5-flag-scroll_20_anomaly] plurality flag 'scroll_20_anomaly' still present  — count=2
+  PASS  [A5-protocols] protocol 01-08 are all present (not reduced to 5)  — ordinals=['01', '02', '03', '04', '05', '06', '07', '08']
+  PASS  [A5-variants] catalogue variants A/B/B'/C+Gitea-5 stay distinct (no collapse)  — produced={'law_catalogue_A': ['law_material', 'law_catalogue_A'], 'law_catalogue_B': ['law_material', 'law_catalogue_B'], 'law_catalogue_C': ['law_material', 'law_catalogue_C'], 'law_catalogue_Bprime': ['law_material', 'law_catalogue_B', 'law_catalogue_Bprime'], 'protocol_catalogue_gitea5': ['protocol_material', 'protocol_catalogue_gitea5']} plain=['law_material', 'scroll_material', 'sref_artefact']
+  PASS  [A6a] Stage 5 working DB has proposals  — n=44
+  PASS  [A6b] every proposal carries provenance_link  — 44/44
+  PASS  [A6c] >=1 provenance_link resolves to a source_document  — resolved=283
+
+[2] engine tests (throwaway copies only)
+  PASS  [A7a] engine --dry-run exits 0 and reports the rollback  — rc=0
+  PASS  [A7b] dry-run leaves no engine rows committed  — rows=0
+  PASS  [E1a] engine re-runs exit 0  — rc1=0 rc2=0
+  PASS  [E1b] proposal count stable across runs  — 44 == 44 == 44
+  PASS  [E1c] proposal/concept ids and row counts stable (idempotent)  — props 44/44 concepts 20/20
+  PASS  [E1d] source_document untouched by the engine run  — 935 rows
+  PASS  [E1e] every engine proposal has source provenance  — missing=0
+  PASS  [E1f] engine writes PROPOSED/WORKING only  — []
+  PASS  [E1g] no CANONICAL value anywhere in the store  — []
+  PASS  [E2] duplicate detector finds the known readme.md collision  — count=2
+  PASS  [E3a] engine refuses --db inside the Mac corpus  — rc=2 exists=False
+  PASS  [E3b] refusal names the Mac corpus
+  PASS  [E4] personae week .sref -> durable INTERPRETATION proposal with TEXT-SUPPORTED evidence  — proposal linked to message with stored quote
+
+[3] outside-world invariants
+  PASS  [A2a] Stage 3 SoT store byte-identical across validation  — 8c6e15a6c98c… == 8c6e15a6c98c…
+  PASS  [A2b] Mac source_original fingerprint unchanged (file count + sample hashes)  — files=True listing=True samples=True
+  PASS  [A2c] Stage 5 working store unchanged by validation (read-only)  — 1d71dd091123… == 1d71dd091123…
+  PASS  [A7c] no silent content change: validation never wrote SoT or Mac corpus  — SoT + corpus fingerprints identical
+
+report written: /Users/archcore/solbian/codex-phase-i-stage6/VALIDATION_REPORT.md
+
+VALIDATION PASSED — 45/45 checks
+
+PASS  validate_historical.py exits 0
+PASS  validation stdout reports PASS
+PASS  VALIDATION_REPORT.md exists
+PASS  report was (re)written this run
+PASS  report states VERDICT: PASS
+PASS  report has no FAIL rows
+PASS  report contains every expected check id
+PASS  report states CANONICAL: NONE
+PASS  Stage 3 SoT store unchanged (sha256)
+PASS  Stage 5 working store unchanged (sha256)
+PASS  Mac source_original unchanged (count + digest + sample hashes)
+
+SMOKE STAGE 6 PASSED — 11/11 checks

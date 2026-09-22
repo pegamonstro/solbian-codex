@@ -1,0 +1,37 @@
+<!-- Minimal Stage 4 'Synthesize dialogue' button wireframe.
+     Drop into the conversation review page for conv_5bbf3990a8ce4b47
+     or generalize the conversation_id variable.
+
+     The backend handler should call engine.py without --db; the engine will
+     default to the Stage 4 living store:
+       /Users/archcore/solbian/codex-phase-i-stage4/data/codex_phase_i.sqlite
+
+     Deterministic path is safe and default. LLM path requires explicit
+     confirmation / ?llm=1.
+-->
+<div class="engine-actions">
+  <form method="POST" action="/api/synthesize" class="inline">
+    <input type="hidden" name="conversation_id" value="conv_5bbf3990a8ce4b47" />
+    <button type="submit" class="btn btn-primary">
+      Synthesize dialogue
+    </button>
+    <span class="hint">Deterministic path; creates PROPOSED candidates only on the living store.</span>
+  </form>
+
+  <form method="POST" action="/api/synthesize?llm=1" class="inline"
+       onsubmit="return confirm('Draft with optional LLM? This still produces PROPOSED candidates only.')">
+    <input type="hidden" name="conversation_id" value="conv_5bbf3990a8ce4b47" />
+    <button type="submit" class="btn btn-secondary">
+      Draft with LLM
+    </button>
+    <span class="hint">Requires reachable OpenAI-compatible endpoint; fails closed if unavailable.</span>
+  </form>
+</div>
+
+<style>
+  .engine-actions { display: flex; gap: 1rem; align-items: center; margin: 1rem 0; }
+  .inline { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .hint { font-size: 0.85rem; color: #666; }
+  .btn-primary { background: #0056b3; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; }
+  .btn-secondary { background: #e9ecef; color: #333; border: 1px solid #ccc; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; }
+</style>

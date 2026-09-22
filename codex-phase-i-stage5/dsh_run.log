@@ -1,0 +1,35 @@
+Stage 5 is implemented and verified. `python3 smoke_engine.py` exits **0** with **37/37 checks**.
+
+## What was built
+
+| File | Purpose |
+|---|---|
+| `engine.py` | Deterministic engine (stdlib + `sqlite3`) with `run`, `list-proposals`, `show <id>`, `list-runs` |
+| `smoke_engine.py` | End-to-end verification on throwaway copies → exit 0 |
+| `README.md` | Operator docs |
+| `DSH_RESULT.md` | Evidence, acceptance mapping, limitations |
+| `schema_engine.sql` | Documents the one added table (`analysis_run`) |
+| `data/codex_phase_i.sqlite` | Working copy the engine writes to |
+
+## Store handling
+The Stage 3 store is the source of truth and is read-only; the first `run` copies it into `data/` (same pattern Stage 4 uses, since the sandbox only permits writes in this workspace). Stage 4 was not touched.
+
+## Analyses (all 5 required ideas)
+1. **plurality** — 6 flag reminders (`law_material`, `protocol_material`, `scroll_material`, `sref_artefact`, `scroll_md_vs_sref_ordinals`, `scroll_20_anomaly`) plus law/protocol/scroll path-coverage-gap proposals and a scroll-20 check.
+2. **duplicates** — 6 file basename-collision proposals + 1 directory-only aggregate + `BASENAME_COLLISION` relationships.
+3. **underdeveloped** — 20 `PROPOSED` concept candidates (e.g. `topology`, `minsoo`, `audit`) from title-token frequency with no glossary/dedicated-doc hit.
+4. **durable** — long-message extraction with stored quote → `TEXT-SUPPORTED`; Stage 3 has 0 messages, so it records `skipped` (smoke exercises the path with a synthetic conversation fixture).
+5. **discussion** — 11 gap topics from underdeveloped tokens, plurality anomalies, and duplicate clusters.
+
+Result: **44 proposals, 20 concepts, 133 relationships, 440 provenance links, 5 analysis_run rows**, every proposal/concept linked to a source, everything `PROPOSED`/`WORKING`.
+
+## Guardrails verified by smoke
+- No `CANONICAL` in any status/confidence column, nor in engine-written text.
+- `source_document` count **935** + digest unchanged; Stage 3 `sha256` byte-identical; Mac corpus fingerprint unchanged.
+- Re-runs are idempotent (stable ids, counts, and `arun_<sha1(kind, version)>` run ids); human `status`/`definition` edits are preserved.
+- `--dry-run` commits nothing; `--reset` removes only `engine:stage5:*` rows; `--db` inside the Mac corpus is refused with exit 2.
+- `--llm` defaults OFF and is a no-op without `SOLBIAN_LLM_CMD`.
+
+One bug found and fixed during testing: `show` used SQL `LIKE` with unescaped `_`/`%`, which broke concept-prefix resolution — now escaped with `ESCAPE '\'`, and ambiguous concept prefixes fail closed (covered by the two added smoke checks).
+DSH_EXIT=0
+SETTINGS_RESTORED

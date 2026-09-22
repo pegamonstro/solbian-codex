@@ -1,0 +1,33 @@
+**STATUS: COMPLETE** — Stage 3 minimal data layer implemented in `/Users/archcore/solbian/codex-phase-i-stage3`, verified clean-room.
+
+## Deliverables written
+
+| File | Notes |
+|---|---|
+| `SCHEMA.md` | Finalized: `created_at`/`updated_at` + `status` enum on every table (brief constraint 6), `attribution` where applicable, `inventory_status` preserving raw Stage 2 labels, `message.sent_at`. |
+| `schema.sql` | Executable SQLite DDL — 10 tables, indexes, `CHECK` constraints on all enums. `CANONICAL` deliberately absent. |
+| `codex_phase_i.sqlite` | Created by applying DDL: 6 `corpus_root` rows, 80 `source_document` rows. |
+| `ingest_baseline.py` | Read-only ingest; registers `/Users/archcore/solbian/codex` as `CURRENT` / `PRIMARY_HISTORICAL_WORKING_TREE` (notes-only), plus the 5 other candidate roots; loads the sample JSON; infers law/protocol/scroll `plurality_flags`; optional read-only sha256 (`--no-sha256` to skip). |
+| `smoke_test.py` | Asserts tables, inserts conversation→messages→document→proposal→revision→provenance, round-trips joins, checks FK/uniqueness/enum guards. |
+| `README.md` | Run + inspection instructions, read-only guarantee. |
+| `DSH_RESULT.md` | Full result, changed files, embedded smoke stdout/stderr, deviations. |
+
+## Verification
+
+```
+$ python3 ingest_baseline.py     # exit 0 — roots=6, source_documents=80, sha256=35
+$ python3 smoke_test.py          # exit 0, stderr empty
+SMOKE TEST PASSED
+```
+
+Recreated from scratch (`rm codex_phase_i.sqlite` → ingest → smoke) both exit 0; re-running ingest is idempotent (deterministic ids + `UNIQUE(corpus_root_id, rel_path)` upsert).
+
+## Safety
+
+- Corpus access is exclusively `open(path, "rb")` in `sha256_readonly()` — no write/move/delete anywhere in the scripts. Mac tree mtimes unchanged.
+- No `CANONICAL` value can be stored (CHECK-rejected, and the smoke test proves the rejection).
+- Plurality kept as `status` / `plurality_flags` / verbatim `inventory_status`; no catalogue merge logic; stdlib + `sqlite3` only.
+
+**Noted deviation:** `classification` is single-valued, so the primary root uses `CURRENT` with the HISTORICAL SoT role recorded in `role`/`notes`; and only the 80 sample entries (of `entry_count` 966) were ingested — the full inventory can be ingested later via `--json` with no schema change. The nested `STAGE_3_MINIMAL_DATA_LAYER/` input copy was left untouched.
+DSH_EXIT_A=0
+SETTINGS_RESTORED_A

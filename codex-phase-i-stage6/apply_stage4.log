@@ -1,0 +1,103 @@
+[apply] build   : /Users/archcore/solbian/codex-phase-i-stage6/_stage4_build
+[apply] stage4  : /Users/archcore/solbian/codex-phase-i-stage4
+[apply] backup  : /Users/archcore/solbian/codex-phase-i-stage6/_stage4_build/_backup_20260921_010409
+[apply] installed; running python3 smoke_ui.py ...
+PASS  server boots and /healthz returns 200
+PASS  GET / returns 200
+PASS  page has all three tabs
+PASS  page states CANONICAL: NONE
+PASS  page has no canonical form control
+PASS  GET /static/style.css returns 200
+PASS  GET /static/app.js returns 200
+PASS  GET /healthz -> 200 ok
+PASS  healthz reports CANONICAL NONE
+PASS  source_document rows present
+PASS  GET /api/meta -> 200
+PASS  meta writable tables are conversation+message only
+PASS  meta marks source_document read-only
+PASS  meta count matches healthz
+PASS  GET /api/codex/facets -> 200
+PASS  facets expose statuses
+PASS  facets expose corpus roots
+PASS  no CANONICAL value exists in the data model
+PASS  GET /api/codex/documents -> 200
+PASS  document list respects limit
+PASS  document list reports a total
+PASS  listed document carries 'id'
+PASS  listed document carries 'rel_path'
+PASS  listed document carries 'status'
+PASS  listed document carries 'corpus_root_path'
+PASS  listed document carries 'probable_role'
+PASS  GET document detail -> 200
+PASS  document detail is flagged read_only
+PASS  document detail includes a preview block
+PASS  text preview is available for a real corpus file
+PASS  text preview returns content
+PASS  text preview is flagged read-only
+PASS  text preview honours the 200KB cap
+PASS  previewing a corpus file does not change its mtime
+PASS  POST /api/codex/documents rejected (405)
+PASS  PUT /api/codex/documents rejected (405)
+PASS  PATCH /api/codex/documents rejected (405)
+PASS  DELETE /api/codex/documents rejected (405)
+PASS  PUT /api/codex/documents/<id> rejected (405)
+PASS  PATCH /api/codex/documents/<id> rejected (405)
+PASS  DELETE /api/codex/documents/<id> rejected (405)
+PASS  no canonical elevation endpoint exists
+PASS  GET /api/engine/meta -> 200
+PASS  engine meta reports CANONICAL NONE
+PASS  engine meta is flagged read-only
+PASS  engine store exists
+PASS  engine meta reports proposals
+PASS  engine proposal statuses are PROPOSED/WORKING only
+PASS  GET /api/engine/facets -> 200
+PASS  engine facets expose proposal statuses
+PASS  GET /api/engine/runs -> 200
+PASS  engine runs are recorded
+PASS  GET /api/engine/proposals -> 200
+PASS  engine proposal list respects limit
+PASS  engine proposal list reports a total
+PASS  engine proposal list is flagged read-only
+PASS  listed proposal carries 'id'
+PASS  listed proposal carries 'status'
+PASS  listed proposal carries 'summary'
+PASS  listed proposal carries 'attribution'
+PASS  listed proposal carries 'created_at'
+PASS  listed proposal carries 'provenance_count'
+PASS  GET engine proposal detail -> 200
+PASS  engine proposal detail is flagged read-only
+PASS  engine proposal detail exposes provenance
+PASS  engine provenance resolves to a source_document path
+PASS  engine proposal detail exposes based_on
+PASS  POST /api/engine/proposals rejected (405)
+PASS  PUT /api/engine/... rejected (405)
+PASS  PATCH /api/engine/... rejected (405)
+PASS  DELETE /api/engine/... rejected (405)
+PASS  POST /api/engine/dry-run -> 200
+PASS  dry-run reports dry_run true
+PASS  dry-run reports CANONICAL NONE
+PASS  dry-run leaves the engine store byte-identical
+PASS  dry-run exit 0 and shows the rollback
+PASS  GET /api/solace/conversations -> 200
+PASS  conversation list is a list
+PASS  POST create conversation -> 201
+PASS  created conversation is WORKING
+PASS  POST jd message -> 201
+PASS  jd message role persisted
+PASS  stub reply is appended and labelled WORKING
+PASS  POST solace message -> 201
+PASS  invalid message role rejected (400)
+PASS  empty message body rejected (400)
+PASS  conversation detail returns messages
+PASS  messages are ordered by seq
+PASS  both jd and solace messages persisted
+PASS  conversation list grew by one
+PASS  source_document rows were not mutated by any request
+PASS  conversation row persisted to SQLite
+PASS  message rows persisted to SQLite
+PASS  engine store proposal rows were not mutated by any request
+PASS  unknown route -> 404
+PASS  server process stopped
+
+SMOKE UI PASSED — 96/96 checks
+[apply] DONE (exit 0)

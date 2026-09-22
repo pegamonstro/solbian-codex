@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codex Solbian — Phase I · Stage 4</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <h1>Codex Solbian</h1>
+    <span class="sub">Phase I · Stage 4 — two-surface prototype</span>
+  </div>
+  <div class="badges">
+    <span class="badge badge-warn" title="No canonical flag exists in the data model; nothing here can make content canonical.">CANONICAL: NONE</span>
+    <span class="badge" id="dbBadge" title="Active SQLite store">store …</span>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Surfaces">
+  <button class="tab active" id="tabBtn-solace" data-tab="solace" role="tab" aria-selected="true" aria-controls="tab-solace">Solace</button>
+  <button class="tab" id="tabBtn-codex" data-tab="codex" role="tab" aria-selected="false" aria-controls="tab-codex">
+    Codex Solbian <span class="pill">read-only</span>
+  </button>
+</nav>
+
+<main>
+  <!-- ================= SOLACE ================= -->
+  <section id="tab-solace" class="panel" role="tabpanel" aria-labelledby="tabBtn-solace">
+    <div class="split">
+      <aside class="col-left">
+        <div class="panel-head">
+          <h2>Conversations</h2>
+          <button class="btn small ghost" id="newConvToggle">New conversation</button>
+        </div>
+
+        <form id="newConvForm" class="card hidden" autocomplete="off">
+          <label for="convTitle">Title</label>
+          <input type="text" id="convTitle" placeholder="e.g. Stage 4 notes" required>
+          <label for="convParticipants">Participants (comma separated)</label>
+          <input type="text" id="convParticipants" value="jd, solace">
+          <label for="convNotes">Notes</label>
+          <textarea id="convNotes" placeholder="optional context"></textarea>
+          <div class="btn-row">
+            <button class="btn small" type="submit">Create conversation</button>
+            <button class="btn small ghost" type="button" id="newConvCancel">Cancel</button>
+          </div>
+          <div class="error hidden" id="newConvError"></div>
+        </form>
+
+        <ul class="conv-list" id="convList"></ul>
+        <div class="note" id="convEmpty">Loading conversations…</div>
+      </aside>
+
+      <div class="col-right">
+        <div id="convView" class="card empty">Select a conversation, or create one.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CODEX ================= -->
+  <section id="tab-codex" class="panel hidden" role="tabpanel" aria-labelledby="tabBtn-codex">
+    <div class="readonly-banner">
+      Read-only surface. These are pointers into the historical corpus — no edit,
+      rename, delete or “make canonical” control exists. Previews open source files
+      read-only, capped at 200&nbsp;KB.
+    </div>
+
+    <form class="filterbar" id="codexFilters" autocomplete="off">
+      <div class="field grow">
+        <label for="fq">Path / notes search</label>
+        <input type="search" id="fq" placeholder="e.g. scrolls, source_original, .sref">
+      </div>
+      <div class="field">
+        <label for="fstatus">Status</label>
+        <select id="fstatus"><option value="">all</option></select>
+      </div>
+      <div class="field">
+        <label for="frole">Role</label>
+        <select id="frole"><option value="">all</option></select>
+      </div>
+      <div class="field">
+        <label for="fmedia">Media</label>
+        <select id="fmedia"><option value="">all</option></select>
+      </div>
+      <div class="field">
+        <label for="froot">Corpus root</label>
+        <select id="froot"><option value="">all</option></select>
+      </div>
+      <div class="actions">
+        <button class="btn small" type="submit">Apply</button>
+        <button class="btn small ghost" type="button" id="codexReset">Reset</button>
+      </div>
+    </form>
+
+    <div class="split">
+      <aside class="col-left">
+        <div class="panel-head">
+          <h2>source_document</h2>
+          <span class="meta" id="docCount">—</span>
+        </div>
+        <ul class="doc-list" id="docList"></ul>
+        <div class="pager">
+          <button class="btn small ghost" id="prevPage" type="button">‹ Prev</button>
+          <span id="pageLabel">—</span>
+          <button class="btn small ghost" id="nextPage" type="button">Next ›</button>
+        </div>
+      </aside>
+
+      <div class="col-right">
+        <div id="docView" class="card empty">Select a document to see metadata and, where available, a read-only text preview.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Codex Solbian Phase I · Stage 4 · Solace writes <code>conversation</code>/<code>message</code> only ·
+  Codex reads <code>source_document</code> read-only · <strong>CANONICAL: NONE</strong>
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
